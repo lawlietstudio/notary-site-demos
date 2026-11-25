@@ -98,6 +98,7 @@ Things that aren't editable in Sanity because they're part of the site's structu
 | `/custom/` | Custom design (this project) |
 | `/screwfast/` | ScrewFast template, adapted (`variants/screwfast`) |
 | `/astrowind/` | AstroWind template, adapted (`variants/astrowind`) |
+| `/audit/` | Design based on the free IT Audit Pro theme (`overlays/audit-pro`, see below) |
 
 Every push to `main` redeploys. To rehearse the exact Pages build locally:
 
@@ -110,3 +111,7 @@ npm run pages:check      # crawls every page and reports broken links or assets
 Preview builds set `PUBLIC_DEMO=1`, which adds `noindex` so search engines ignore them. To use a custom domain later, add a `CNAME` file to `deploy/`, set the domain under Settings, Pages, and build with `PAGES_BASE=""`.
 
 The logo was designed with Codex CLI and refined by hand. Source files are in `logo/` (`mark.svg` is the main mark; `seal.svg` is an alternate).
+
+### The IT Audit Pro design (`/audit/`)
+
+The [IT Audit Pro theme](https://github.com/ctrimm/astro-audit-pro-theme) by Cory Trimm has no licence file, so its source is **not stored in this repository**. `scripts/prepare-audit.mjs` fetches it from the author's repository at a pinned commit, strips the audit-platform pages, and lays our own pages, components and dependency list (`overlays/audit-pro/`) on top. What it keeps from the theme is the stylesheet and design tokens. The prepared copy lives in `variants/audit-pro/` and is git-ignored. If the author adds a licence you can vendor the source instead. Run it locally with `npm run variant:audit`.

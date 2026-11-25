@@ -1,0 +1,43 @@
+---
+import { Check } from 'lucide-react';
+import { en, site, withBase } from '../../lib/site';
+
+const bullets = [
+  ['In-person at your location', 'Same-day appointments available', 'Signature and seal included'],
+  ['Same visit, same appointment', 'Up to the 10th signature', 'No hidden costs'],
+  ['11th signature and up', 'Same visit, same appointment', 'No hidden costs'],
+];
+const periods = ['first signature', 'each', 'each'];
+---
+<div class="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
+  {site.pricing.plans.map((p: any, i: number) => (
+    <div
+      class:list={[
+        'flex flex-col rounded-xl bg-white p-8',
+        p.featured ? 'border border-orange-500 shadow-lg ring-1 ring-orange-500' : 'border border-gray-200',
+      ]}
+    >
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-500">{en(p.name)}</h3>
+      <p class="mt-4 flex items-baseline gap-2">
+        <span class="text-5xl font-bold text-gray-800">{p.price}</span>
+        <span class="text-gray-500">{periods[i]}</span>
+      </p>
+      <p class="mt-3 text-gray-600">{en(p.desc)}</p>
+      <ul class="mt-6 mb-8 space-y-3 text-gray-700">
+        {bullets[i].map((b) => (
+          <li class="flex items-start gap-3">
+            <Check className="mt-0.5 h-5 w-5 shrink-0 text-orange-500" />
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
+      <a
+        href={withBase('/contact/')}
+        class:list={[
+          'mt-auto inline-flex justify-center rounded-md px-6 py-3 font-medium',
+          p.featured ? 'bg-orange-500 text-white hover:bg-orange-600' : 'border border-orange-500 text-orange-600 hover:bg-orange-50',
+        ]}
+      >{en(site.cta.book)}</a>
+    </div>
+  ))}
+</div>

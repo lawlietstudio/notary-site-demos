@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+import Header from '../components/notary/Header.astro';
+import Footer from '../components/notary/Footer.astro';
+import { en, site, withBase } from '../lib/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+}
+
+const { title, description = site.metaDescription, path = '/' } = Astro.props;
+const fullTitle = title ? `${title} – ${site.name}` : `${site.name} – ${site.homeTitle}`;
+// Preview deployments (PUBLIC_DEMO=1) must not be indexed.
+const robots = import.meta.env.PUBLIC_DEMO === '1' ? 'noindex, nofollow' : 'index, follow';
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+  </head>
+  <body class="min-h-screen bg-white text-gray-800 antialiased">
+    <Header path={path} />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

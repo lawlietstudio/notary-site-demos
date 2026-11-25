@@ -35,7 +35,14 @@ jobs:
         run: npm ci --ignore-scripts
         working-directory: variants/astrowind
 
-      - name: Build all three sites
+      - name: Prepare IT Audit Pro variant (fetches the theme from the author's repository)
+        run: node scripts/prepare-audit.mjs
+
+      - name: Install IT Audit Pro dependencies
+        run: npm ci --ignore-scripts
+        working-directory: variants/audit-pro
+
+      - name: Build all four sites
         run: node scripts/build-pages.mjs
         env:
           SITE_ORIGIN: https://${{ github.repository_owner }}.github.io

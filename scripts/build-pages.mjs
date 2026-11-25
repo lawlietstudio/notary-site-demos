@@ -4,8 +4,10 @@
 //   _site/custom/           the custom design (project root)
 //   _site/screwfast/        variants/screwfast
 //   _site/astrowind/        variants/astrowind
+//   _site/audit/            variants/audit-pro (created by scripts/prepare-audit.mjs)
 //
-// Dependencies must already be installed in the root and in each variant folder.
+// Run `node scripts/prepare-audit.mjs` first, and install dependencies in the root and in each
+// variant folder.
 //
 // Environment:
 //   SITE_ORIGIN  e.g. https://lawlietstudio.github.io   (default shown)
@@ -65,7 +67,10 @@ build('screwfast', join(root, 'variants', 'screwfast'));
   }
 }
 
-// 4. landing page, 404 page, and the marker that tells GitHub Pages not to run Jekyll
+// 4. IT Audit Pro design (prepared from the author's repository by scripts/prepare-audit.mjs)
+build('audit', join(root, 'variants', 'audit-pro'));
+
+// 5. landing page, 404 page, and the marker that tells GitHub Pages not to run Jekyll
 cpSync(join(root, 'deploy'), out, { recursive: true });
 writeFileSync(join(out, '.nojekyll'), '');
 

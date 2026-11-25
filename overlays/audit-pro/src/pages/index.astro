@@ -1,0 +1,144 @@
+---
+import Layout from '../layouts/main.astro';
+import Photo from '../components/notary/Photo.astro';
+import PriceCards from '../components/notary/PriceCards.astro';
+import Cta from '../components/notary/Cta.astro';
+import { Clock, FileText, Lock, MapPin, Receipt } from 'lucide-react';
+import { en, faqs, site, withBase } from '../lib/site';
+import heroImg from '../assets/photos/hero-signing.jpg';
+import envelopeImg from '../assets/photos/wax-envelope.jpg';
+
+const icons = [MapPin, Clock, Lock, Receipt];
+const words = en(site.hero.title).split(' ');
+const lead = words.slice(0, -3).join(' ');
+const accent = words.slice(-3).join(' ');
+---
+<Layout path="/">
+  <section class="relative bg-gradient-to-r from-indigo-50 to-blue-50 py-16 px-4 md:px-8">
+    <div class="container mx-auto max-w-7xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
+            {lead} <span class="marker-underline">{accent}</span>
+          </h1>
+          <p class="text-lg text-gray-700 mb-8">{en(site.hero.lead)}</p>
+          <div class="flex flex-wrap gap-3">
+            <a href={withBase('/contact/')} class="inline-flex bg-orange-500 hover:bg-orange-600 text-white py-4 px-8 rounded-md font-medium">{en(site.cta.book)}</a>
+            <a href={withBase('/pricing/')} class="inline-flex border border-orange-500 text-orange-600 hover:bg-orange-50 py-4 px-8 rounded-md font-medium">{en(site.cta.pricing)}</a>
+          </div>
+          <p class="text-sm text-gray-500 mt-4">{en(site.hours.label)}</p>
+        </div>
+
+        <div class="relative bg-white p-6 rounded-xl shadow-lg">
+          <Photo
+            class="w-full h-64 md:h-80 object-cover object-[50%_30%] rounded-lg"
+            src={heroImg}
+            alt="A hand signing a document with a pen on a wooden table"
+            sizes="(min-width: 768px) 560px, 100vw"
+            widths={[480, 800, 1100]}
+            eager
+          />
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <p class="text-xs text-gray-500">Open</p>
+              <p class="text-sm font-medium">{en(site.hours.label)}</p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <p class="text-xs text-gray-500">Booking</p>
+              <p class="text-sm font-medium">By appointment, same day if urgent</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-7xl">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">{en(site.why.title)}</h2>
+      <p class="text-center text-gray-600 max-w-3xl mx-auto mb-12">{en(site.about.intro[0])}</p>
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {site.why.items.map((w: any, i: number) => {
+          const Icon = icons[i % icons.length];
+          return (
+            <div class="text-center">
+              <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-orange-100 text-orange-600">
+                <Icon className="h-6 w-6" />
+              </div>
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">{en(w.title)}</h3>
+              <p class="text-gray-600">{en(w.text)}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gray-50 py-16 px-4">
+    <div class="container mx-auto max-w-7xl">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-12">{en(site.services.title)}</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {site.services.items.map((s: any) => (
+          <div class="rounded-xl border border-gray-200 bg-white p-6 transition hover:shadow-md">
+            <FileText className="mb-4 h-7 w-7 text-orange-500" />
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">{en(s.name)}</h3>
+            <p class="text-gray-600">{en(s.example)}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-7xl grid items-center gap-12 md:grid-cols-2">
+      <Photo
+        class="w-full h-80 md:h-[26rem] object-cover rounded-xl"
+        src={envelopeImg}
+        alt="A wax-sealed envelope with a brass seal stamp on a wooden table"
+        sizes="(min-width: 768px) 560px, 100vw"
+        widths={[480, 800, 1100]}
+      />
+      <div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">{en(site.contact.stepsTitle)}</h2>
+        <ol class="space-y-6">
+          {site.contact.steps.map((st: any, i: number) => (
+            <li class="flex gap-4">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white">{i + 1}</span>
+              <div>
+                <h3 class="font-semibold text-gray-800">{en(st.title)}</h3>
+                <p class="text-gray-600">{en(st.text)}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gray-50 py-16 px-4">
+    <div class="container mx-auto max-w-7xl">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-4">{en(site.pricing.title)}</h2>
+      <p class="text-center text-gray-600 mb-12">{en(site.pricing.payment)}</p>
+      <PriceCards />
+    </div>
+  </section>
+
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-3xl">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">Frequently asked questions</h2>
+      <div class="divide-y divide-gray-200 border-y border-gray-200">
+        {faqs.map((f) => (
+          <details class="group py-5">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-gray-800">
+              {f.q}
+              <span class="text-orange-500 transition group-open:rotate-45 text-2xl leading-none" aria-hidden="true">+</span>
+            </summary>
+            <p class="mt-3 text-gray-600">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</Layout>

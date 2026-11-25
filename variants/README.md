@@ -1,12 +1,13 @@
 # Design variants
 
-Two third-party Astro templates adapted to the same notary content and photos, so they can be compared with the main site (variant C, the custom design in the project root).
+Three designs built on Astro templates, adapted to the same notary content and photos, so they can be compared with the main site (option A, the custom design in the project root). Letters match the landing page.
 
 | | Folder | Source | Licence | Run (from project root) |
 | --- | --- | --- | --- | --- |
-| A | `screwfast/` | [mearashadowfax/ScrewFast](https://github.com/mearashadowfax/ScrewFast) | MIT | `npm run variant:screwfast` (port 4323) |
-| B | `astrowind/` | [arthelokyo/astrowind](https://github.com/arthelokyo/astrowind) | MIT | `npm run variant:astrowind` (port 4324) |
-| C | project root | custom | n/a | `npm run dev` (port 4321) |
+| B | `screwfast/` | [mearashadowfax/ScrewFast](https://github.com/mearashadowfax/ScrewFast) | MIT | `npm run variant:screwfast` (port 4323) |
+| C | `astrowind/` | [arthelokyo/astrowind](https://github.com/arthelokyo/astrowind) | MIT | `npm run variant:astrowind` (port 4324) |
+| A | project root | custom | n/a | `npm run dev` (port 4321) |
+| D | `audit-pro/` (generated) | [ctrimm/astro-audit-pro-theme](https://github.com/ctrimm/astro-audit-pro-theme) | none declared | `npm run variant:audit` (port 4325) |
 
 First time only: `npm install --ignore-scripts` inside each variant folder (dependencies were installed without lifecycle scripts as a precaution).
 

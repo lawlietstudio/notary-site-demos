@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/main.astro';
+import Photo from '../components/notary/Photo.astro';
+import Cta from '../components/notary/Cta.astro';
+import { en, site } from '../lib/site';
+import sideImg from '../assets/photos/desk-notebook.jpg';
+
+const about = site.about;
+---
+<Layout path="/about/" title="About" description={`About ${site.name}: ${en(about.intro[0])}`.slice(0, 200)}>
+  <section class="bg-gradient-to-r from-indigo-50 to-blue-50 py-16 px-4 text-center">
+    <div class="container mx-auto max-w-3xl">
+      <h1 class="text-3xl md:text-5xl font-bold text-gray-800"><span class="marker-underline">{en(about.title)}</span></h1>
+    </div>
+  </section>
+
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-6xl grid gap-12 md:grid-cols-5">
+      <div class="md:col-span-3 space-y-5 text-lg text-gray-700">
+        {about.intro.map((p: any) => <p>{en(p)}</p>)}
+        <h2 class="pt-4 text-2xl font-bold text-gray-800">{en(about.area.title)}</h2>
+        <p>{en(about.area.text)}</p>
+        <h2 class="pt-4 text-2xl font-bold text-gray-800">{en(about.person.title)}</h2>
+        {about.person.paragraphs.map((p: any) => <p>{en(p)}</p>)}
+        <h2 class="pt-4 text-2xl font-bold text-gray-800">{en(about.credentials.title)}</h2>
+        <ul class="list-disc space-y-1 pl-6">
+          {about.credentials.items.map((c: string) => <li>{c}</li>)}
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <Photo
+          class="w-full h-96 md:h-[34rem] object-cover rounded-xl md:sticky md:top-8"
+          src={sideImg}
+          alt="A notebook and pen on a desk beside a sunlit window"
+          sizes="(min-width: 768px) 400px, 100vw"
+          widths={[480, 800]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <Cta />
+</Layout>

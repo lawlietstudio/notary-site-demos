@@ -12,3 +12,4 @@ studio/seed.ndjson
 _site/
 .claude/
 variants/*/_unused/
+variants/audit-pro/

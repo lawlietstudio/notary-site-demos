@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/main.astro';
+import { Clock, Mail, MapPin, Phone } from 'lucide-react';
+import { en, site, telHref } from '../lib/site';
+
+const f = site.contact.form;
+const info = [
+  { Icon: Clock, title: en(site.contact.hoursTitle), text: `${en(site.contact.days)}, ${en(site.hours.label)}` },
+  { Icon: MapPin, title: en(site.about.area.title), text: en(site.about.area.text) },
+  { Icon: Phone, title: 'Phone', text: site.phone, href: telHref(site.phone) },
+  { Icon: Mail, title: 'Email', text: site.email, href: `mailto:${site.email}` },
+];
+const field = 'w-full rounded-md border border-gray-300 px-4 py-3 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500';
+---
+<Layout
+  path="/contact/"
+  title="Contact"
+  description={`Book a mobile notary appointment with ${site.name}. ${en(site.hours.label)}.`}
+>
+  <section class="bg-gradient-to-r from-indigo-50 to-blue-50 py-16 px-4 text-center">
+    <div class="container mx-auto max-w-3xl">
+      <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4"><span class="marker-underline">{en(site.contact.title)}</span></h1>
+      <p class="text-lg text-gray-700">{en(site.contact.steps[0].text)}</p>
+    </div>
+  </section>
+
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-6xl grid gap-12 lg:grid-cols-2">
+      <div class="space-y-6">
+        {info.map(({ Icon, title, text, href }) => (
+          <div class="flex gap-4 rounded-xl border border-gray-200 p-5">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-orange-100 text-orange-600"><Icon className="h-5 w-5" /></div>
+            <div>
+              <h2 class="font-semibold text-gray-800">{title}</h2>
+              {href ? <a href={href} class="text-gray-600 hover:text-orange-600">{text}</a> : <p class="text-gray-600">{text}</p>}
+            </div>
+          </div>
+        ))}
+        <p class="text-sm text-gray-500">{en(site.contact.hoursNote)}</p>
+      </div>
+
+      <form id="contact-form" class="rounded-xl bg-white p-8 shadow-lg border border-gray-100" data-mailto={site.email} action={`mailto:${site.email}`} method="post" enctype="text/plain">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">{en(f.title)}</h2>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="block text-sm font-medium text-gray-700">{f.first}<input class={field} name="first-name" required /></label>
+          <label class="block text-sm font-medium text-gray-700">{f.last}<input class={field} name="last-name" /></label>
+        </div>
+        <label class="mt-4 block text-sm font-medium text-gray-700">{f.email}<input class={field} type="email" name="email" required /></label>
+        <label class="mt-4 block text-sm font-medium text-gray-700">{f.phone}<input class={field} type="tel" name="phone" /></label>
+        <label class="mt-4 block text-sm font-medium text-gray-700">{f.message}<textarea class={field} name="message" rows="5" required></textarea></label>
+        <label class="mt-4 flex items-start gap-3 text-sm text-gray-600"><input type="checkbox" name="consent" required class="mt-1" /><span>{f.consent}</span></label>
+        <button type="submit" class="mt-6 w-full rounded-md bg-orange-500 px-6 py-3 font-medium text-white hover:bg-orange-600">{f.submit}</button>
+        <p class="form-status mt-4 font-medium text-green-700" role="status" data-success={f.success}></p>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // With no form service configured, compose a tidy email in the visitor's mail app.
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  const mailto = form?.dataset.mailto;
+  if (form && mailto) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v = (n: string) => ((form.elements.namedItem(n) as HTMLInputElement | null)?.value ?? '').trim();
+      const lines = [v('message'), '', `Name: ${v('first-name')} ${v('last-name')}`.trim(), `Email: ${v('email')}`];
+      if (v('phone')) lines.push(`Phone: ${v('phone')}`);
+      window.location.href = `mailto:${mailto}?subject=${encodeURIComponent('Appointment enquiry')}&body=${encodeURIComponent(lines.join('\n'))}`;
+      const status = form.querySelector<HTMLElement>('.form-status');
+      if (status) status.textContent = status.dataset.success ?? '';
+    });
+  }
+</script>

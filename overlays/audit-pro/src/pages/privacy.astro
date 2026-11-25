@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/main.astro';
+import { site, telHref } from '../lib/site';
+
+const pv = site.privacy;
+---
+<Layout path="/privacy/" title="Privacy Policy" description={`How ${site.name} collects and uses personal information.`}>
+  <section class="bg-gradient-to-r from-indigo-50 to-blue-50 py-16 px-4 text-center">
+    <div class="container mx-auto max-w-3xl">
+      <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-3">{pv.title}</h1>
+      <p class="text-gray-600">Last updated {pv.lastUpdated}</p>
+    </div>
+  </section>
+  <section class="py-16 px-4">
+    <div class="container mx-auto max-w-3xl space-y-5 text-lg text-gray-700">
+      <p>{pv.intro}</p>
+      {pv.sections.map((s: any) => (<><h2 class="pt-4 text-2xl font-bold text-gray-800">{s.title}</h2><p>{s.text}</p></>))}
+      <h2 class="pt-4 text-2xl font-bold text-gray-800">Contact</h2>
+      <p>Questions about this policy? Email <a class="text-orange-600 underline" href={`mailto:${site.email}`}>{site.email}</a> or call <a class="text-orange-600 underline" href={telHref(site.phone)}>{site.phone}</a>.</p>
+    </div>
+  </section>
+</Layout>
