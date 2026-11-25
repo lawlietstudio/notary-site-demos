@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Band from '../components/Band.astro';
+import Bi from '../components/Bi.astro';
 import PriceCards from '../components/PriceCards.astro';
 import Photo from '../components/Photo.astro';
+import Icon from '../components/Icon.astro';
 import { en, site, withBase } from '../lib/site';
 import silk from '../assets/ai/navy-silk.webp';
 import dust from '../assets/ai/gold-dust.webp';
@@ -11,11 +13,11 @@ import seal from '../assets/ai/seal-3d.webp';
 <Layout
   path="/pricing/"
   title="Price Plans"
-  description={`Transparent mobile notary prices: ${site.pricing.plans.map((p: any) => `${en(p.name)} ${p.price}`).join(', ')}.`}
+  description={`${en(site.pricing.title)} (${en(site.pricing.payment).toLowerCase()}): ${site.pricing.plans.map((p: any) => `${en(p.name)} ${p.price}`).join(', ')}.`}
 >
-  <Band title={en(site.pricing.title)} lead={en(site.pricing.payment)} img={silk} />
+  <Band title={site.pricing.title} lead={site.pricing.payment} img={silk} />
 
-  <section class="block dark-block bg-cinema" style="padding-top:clamp(3rem,6vw,5rem)">
+  <section class="block dark-block bg-cinema" style="padding-top:clamp(3.5rem,7vw,6rem)">
     <div class="container">
       <PriceCards />
     </div>
@@ -24,16 +26,15 @@ import seal from '../assets/ai/seal-3d.webp';
   <section class="block">
     <div class="container">
       <div class="block-head">
-        <p class="eyebrow">Services</p>
-        <h2>{en(site.pricing.examplesTitle)}</h2>
+        <h2><Bi t={site.pricing.examplesTitle} /></h2>
       </div>
       <div class="grid grid-cols-1 grid-md-cols-3 gap-4">
         {site.services.items.map((s: any, i: number) => (
           <div class="card">
             <div class="card-body">
-              <span class="tile-num">{String(i + 1).padStart(2, '0')}</span>
-              <h3 style="margin:0.2rem 0 0.4rem;font-size:1.3rem">{en(s.name)}</h3>
-              <p class="text-muted m-0">{en(s.example)}</p>
+              <span class="tile-num" style="color:var(--gold-deep)">{String(i + 1).padStart(2, '0')}</span>
+              <h3 style="margin:0.6rem 0 0.5rem;font-size:1.7rem"><Bi t={s.name} inline /></h3>
+              <p class="text-muted m-0"><Bi t={s.example} /></p>
             </div>
           </div>
         ))}
@@ -45,9 +46,9 @@ import seal from '../assets/ai/seal-3d.webp';
     <Photo class="section-bg" src={dust} alt="" widths={[800, 1200, 1600]} />
     <div class="container">
       <Photo class="seal-float" src={seal} alt="A polished brass notary seal" widths={[320, 480, 640]} sizes="240px" />
-      <h2>{en(site.ctaBand.title)}</h2>
-      <p>{en(site.ctaBand.text)}</p>
-      <a href={withBase('/contact/')} class="cta cta-lg">{en(site.cta.book)}</a>
+      <h2><Bi t={site.ctaBand.title} /></h2>
+      <p><Bi t={site.ctaBand.text} /></p>
+      <a href={withBase('/contact/')} class="cta cta-lg"><Bi t={site.cta.book} inline /> <Icon name="arrow" size={16} /></a>
     </div>
   </section>
 </Layout>

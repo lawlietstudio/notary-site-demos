@@ -1,25 +1,16 @@
 ---
-import { en, site, withBase } from '../lib/site';
-
-const bullets = [
-  ['In-person at your location', 'Same-day appointments available', 'Signature and seal included'],
-  ['Same visit, same appointment', 'Up to the 10th signature', 'No hidden costs'],
-  ['11th signature and up', 'Same visit, same appointment', 'No hidden costs'],
-];
-const periods = ['first signature', 'each', 'each'];
+import Bi from './Bi.astro';
+import { site, withBase } from '../lib/site';
 ---
 <div class="price-grid">
-  {site.pricing.plans.map((p: any, i: number) => (
+  {site.pricing.plans.map((p: any) => (
     <div class:list={['pricing-table', { 'is-featured': p.featured }]}>
       <div class="pricing-header">
-        <div class="pricing-title">{en(p.name)}</div>
-        <div class="pricing-price">{p.price}<span> {periods[i]}</span></div>
-        <p class="plan-desc">{en(p.desc)}</p>
+        <div class="pricing-title"><Bi t={p.name} inline /></div>
+        <div class="pricing-price">{p.price}{p.unit && <span><Bi t={p.unit} inline /></span>}</div>
+        <p class="plan-desc"><Bi t={p.desc} /></p>
       </div>
-      <ul class="pricing-features">
-        {bullets[i].map((b) => <li>{b}</li>)}
-      </ul>
-      <a href={withBase('/contact/')} class:list={['cta', 'cta-full', { 'cta-ghost': !p.featured }]}>{en(site.cta.book)}</a>
+      <a href={withBase('/contact/')} class:list={['cta', 'cta-full', { 'cta-ghost': !p.featured }]}><Bi t={site.cta.book} inline /></a>
     </div>
   ))}
 </div>

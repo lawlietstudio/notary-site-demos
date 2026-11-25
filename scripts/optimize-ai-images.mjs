@@ -25,7 +25,8 @@ for (const file of readdirSync(src).filter((f) => f.toLowerCase().endsWith('.png
   const landscape = (meta.width ?? 0) >= (meta.height ?? 0);
   const dest = join(out, `${name}.webp`);
   await sharp(join(src, file))
-    .resize({ width: landscape ? 1920 : 1280, withoutEnlargement: true })
+    // button textures only need to be small; photos get 1920 (landscape) or 1280 (portrait/square)
+    .resize({ width: name.startsWith('gold-') ? 1000 : landscape ? 1920 : 1280, withoutEnlargement: true })
     .webp({ quality: 82, effort: 5 })
     .toFile(dest);
   const kb = Math.round(statSync(dest).size / 1024);

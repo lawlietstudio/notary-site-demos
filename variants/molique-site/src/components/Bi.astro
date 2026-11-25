@@ -1,0 +1,7 @@
+---
+// Bilingual text: English, then the Chinese line (block under it, or inline after a divider).
+const { t, inline = false } = Astro.props;
+const en = typeof t === 'string' ? t : (t?.en ?? '');
+const zh = typeof t === 'string' ? '' : (t?.zh ?? '');
+---
+{en}{zh && <span class:list={['zh', { 'zh-inline': inline }]} lang="zh-Hant">{zh}</span>}

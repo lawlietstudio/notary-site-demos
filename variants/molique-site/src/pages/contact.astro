@@ -1,53 +1,63 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Band from '../components/Band.astro';
+import Bi from '../components/Bi.astro';
 import Icon from '../components/Icon.astro';
-import { en, site, telHref } from '../lib/site';
+import { en, site, telHref, zh } from '../lib/site';
 import skyline from '../assets/ai/skyline.webp';
 
-const f = site.contact.form;
-const info = [
-  { icon: 'clock', title: en(site.contact.hoursTitle), text: `${en(site.contact.days)}, ${en(site.hours.label)}` },
-  { icon: 'map-pin', title: en(site.about.area.title), text: en(site.about.area.text) },
-  { icon: 'phone', title: 'Phone', text: site.phone, href: telHref(site.phone) },
-  { icon: 'mail', title: 'Email', text: site.email, href: `mailto:${site.email}` },
-];
+const c = site.contact;
+const f = c.form;
+// Floating-label text: English, then the Chinese label after a divider.
+const label = (t: any) => (zh(t) ? `${en(t)}  ·  ${zh(t)}` : en(t));
 ---
 <Layout path="/contact/" title="Contact" description={`Book a mobile notary appointment with ${site.name}. ${en(site.hours.label)}.`}>
-  <Band title={en(site.contact.title)} lead={en(site.contact.steps[0].text)} img={skyline} />
+  <Band title={c.title} lead={site.ctaBand.title} img={skyline} />
 
   <section class="block">
     <div class="container split" style="align-items:start">
       <div>
-        {info.map((i) => (
-          <div class="info-card">
-            <span class="feature-icon"><Icon name={i.icon} size={22} /></span>
-            <div>
-              <h2>{i.title}</h2>
-              {i.href ? <a href={i.href}>{i.text}</a> : <p>{i.text}</p>}
-            </div>
+        <div class="info-card">
+          <span class="feature-icon"><Icon name="clock" size={22} /></span>
+          <div>
+            <h2><Bi t={c.hoursTitle} inline /></h2>
+            <p><strong><Bi t={c.days} inline /></strong></p>
+            <p><Bi t={c.appointmentsOnly} inline /></p>
+            <p class="text-muted" style="margin-top:0.4rem"><Bi t={c.hoursNote} /></p>
           </div>
-        ))}
-        <p class="text-muted" style="margin-top:1.25rem">{en(site.contact.hoursNote)}</p>
+        </div>
+        <div class="info-card">
+          <span class="feature-icon"><Icon name="phone" size={22} /></span>
+          <div><h2>Phone<span class="zh zh-inline" lang="zh-Hant">電話</span></h2><a href={telHref(site.phone)}>{site.phone}</a></div>
+        </div>
+        <div class="info-card">
+          <span class="feature-icon"><Icon name="mail" size={22} /></span>
+          <div><h2>Email<span class="zh zh-inline" lang="zh-Hant">電郵</span></h2><a href={`mailto:${site.email}`}>{site.email}</a></div>
+        </div>
+        <div class="info-card">
+          <span class="feature-icon"><Icon name="map-pin" size={22} /></span>
+          <div><h2><Bi t={site.about.area.title} inline /></h2><p><Bi t={site.about.area.text} /></p></div>
+        </div>
       </div>
 
       <form id="contact-form" class="card" data-mailto={site.email} action={`mailto:${site.email}`} method="post" enctype="text/plain">
         <div class="card-body">
-          <h2 style="margin:0 0 1.25rem;font-size:1.7rem">{en(f.title)}</h2>
+          <h2 style="margin:0 0 1.5rem;font-size:2.2rem"><Bi t={f.title} /></h2>
           <div class="form-grid two">
-            <div class="form-floating"><input class="input" id="first-name" name="first-name" placeholder=" " required /><label for="first-name">{f.first}</label></div>
-            <div class="form-floating"><input class="input" id="last-name" name="last-name" placeholder=" " /><label for="last-name">{f.last}</label></div>
+            <div class="form-floating"><input class="input" id="first-name" name="first-name" placeholder=" " required /><label for="first-name">{label(f.first)}</label></div>
+            <div class="form-floating"><input class="input" id="last-name" name="last-name" placeholder=" " /><label for="last-name">{label(f.last)}</label></div>
           </div>
           <div class="form-grid" style="margin-top:1rem">
-            <div class="form-floating"><input class="input" type="email" id="email" name="email" placeholder=" " required /><label for="email">{f.email}</label></div>
-            <div class="form-floating"><input class="input" type="tel" id="phone" name="phone" placeholder=" " /><label for="phone">{f.phone}</label></div>
-            <div class="form-floating"><textarea class="input" id="message" name="message" rows="5" placeholder=" " required style="min-height:8rem"></textarea><label for="message">{f.message}</label></div>
+            <div class="form-floating"><input class="input" type="email" id="email" name="email" placeholder=" " required /><label for="email">{label(f.email)}</label></div>
+            <div class="form-floating"><input class="input" id="subject" name="subject" placeholder=" " /><label for="subject">{label(f.subject)}</label></div>
+            <div class="form-floating"><input class="input" type="tel" id="phone" name="phone" placeholder=" " /><label for="phone">{label(f.phone)}</label></div>
+            <div class="form-floating"><textarea class="input" id="message" name="message" rows="5" placeholder=" " required style="min-height:8rem"></textarea><label for="message">{label(f.message)}</label></div>
           </div>
-          <label style="display:flex;gap:0.7rem;align-items:flex-start;margin:1.25rem 0" class="text-muted">
-            <input type="checkbox" name="consent" required style="margin-top:0.35rem" /><span>{f.consent}</span>
+          <label class="consent text-muted">
+            <input type="checkbox" name="consent" required /><span><Bi t={f.consent} /></span>
           </label>
-          <button type="submit" class="cta cta-full cta-lg">{f.submit}</button>
-          <p class="form-status" role="status" data-success={f.success}></p>
+          <button type="submit" class="cta cta-full cta-lg"><Bi t={f.submit} inline /></button>
+          <p class="form-status" role="status" data-success={`${en(f.success)} ${zh(f.success)}`}></p>
         </div>
       </form>
     </div>
@@ -64,7 +74,8 @@ const info = [
       const v = (n: string) => ((form.elements.namedItem(n) as HTMLInputElement | null)?.value ?? '').trim();
       const lines = [v('message'), '', `Name: ${v('first-name')} ${v('last-name')}`.trim(), `Email: ${v('email')}`];
       if (v('phone')) lines.push(`Phone: ${v('phone')}`);
-      window.location.href = `mailto:${mailto}?subject=${encodeURIComponent('Appointment enquiry')}&body=${encodeURIComponent(lines.join('\n'))}`;
+      const subject = v('subject') || 'Appointment enquiry';
+      window.location.href = `mailto:${mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
       const status = form.querySelector<HTMLElement>('.form-status');
       if (status) status.textContent = status.dataset.success ?? '';
     });

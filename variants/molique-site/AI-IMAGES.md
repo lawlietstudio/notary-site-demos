@@ -22,6 +22,7 @@ faces.*
 | `trust-envelope.webp` | Two hands exchanging a sealed envelope with a red wax seal |
 | `gold-dust.webp` | Abstract drifting gold dust and bokeh on deep navy |
 | `navy-silk.webp` | Abstract dark navy silk folds with thin gold edge highlights |
+| `gold-foil.webp` | Brushed antique-gold foil texture with soft highlights; used as the background of the primary buttons (`navy-silk.webp` does the same for the dark buttons) |
 | `about-desk.webp` | Overhead flat-lay of a notary journal, fountain pen, brass seal and reading glasses |
 
 Check the output licence and AI-disclosure rules that apply to your client's use before reusing these images

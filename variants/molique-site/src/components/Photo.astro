@@ -9,6 +9,7 @@ const { src, alt = '', class: className, sizes = '100vw', widths = [480, 800, 12
   alt={alt}
   class={className}
   formats={['avif', 'webp']}
+  fallbackFormat="webp"
   widths={widths}
   sizes={sizes}
   loading={eager ? 'eager' : 'lazy'}

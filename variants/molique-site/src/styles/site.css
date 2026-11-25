@@ -218,3 +218,127 @@ button, input, textarea, select { font-family: inherit; }
 .pricing-table .plan-desc { min-height: 3.4em; }
 .serif-title em, .block-head h2 em { font-style: italic; color: var(--gold-deep); }
 .dark-block .block-head h2 em { color: var(--champagne); }
+
+/* =====================================================================
+   Bilingual (English + 中文) and image-textured buttons
+   ===================================================================== */
+:root {
+  --zh-serif: 'Noto Serif TC', 'Songti TC', 'PMingLiU', serif;
+  --zh-sans: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+}
+
+/* the Chinese line: under the English by default, or inline after a thin divider */
+.zh {
+  display: block; margin-top: 0.3em;
+  font-family: var(--zh-sans); font-style: normal; font-weight: 400; font-size: 0.86em;
+  letter-spacing: 0.08em; line-height: 1.7; text-transform: none; opacity: 0.8;
+}
+h1 .zh, h2 .zh, h3 .zh, .pricing-title .zh, .tile-num + h3 .zh { font-family: var(--zh-serif); letter-spacing: 0.12em; opacity: 0.88; }
+h2 .zh { font-size: 0.34em; margin-top: 0.9em; }
+h3 .zh { font-size: 0.55em; margin-top: 0.4em; }
+.band h1 .zh { font-size: 0.3em; margin-top: 0.8em; }
+.zh-inline { display: inline; margin: 0 0 0 0.85em; padding-left: 0.85em; border-left: 1px solid color-mix(in srgb, currentColor 40%, transparent); letter-spacing: 0.1em; }
+h3 .zh-inline { font-size: 0.6em; }
+.zh-inline-soft { font-family: var(--zh-sans); font-size: 0.85em; opacity: 0.6; margin-left: 0.4rem; }
+.site-footer h3 .zh { display: block; margin-top: 0.4rem; letter-spacing: 0.14em; }
+
+/* navigation: English over a small Chinese line */
+.nav-bi { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; line-height: 1.1; }
+.nav-zh { font-family: var(--zh-sans); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: none; opacity: 0.7; font-weight: 400; }
+
+/* hero heading: small italic "Welcome to 歡迎光臨", then the brand name large */
+.hero-cinema h1 { font-size: clamp(3rem, 6.6vw, 5.8rem); max-width: 16ch; text-wrap: balance; }
+.h1-lead { display: block; margin-bottom: 0.6rem; font-size: 0.32em; font-style: italic; letter-spacing: 0; color: var(--champagne); }
+.h1-lead .zh-inline { font-family: var(--zh-serif); font-size: 0.92em; opacity: 1; border-left-color: rgb(230 207 150 / 0.5); }
+
+/* content blocks */
+.lead-p { font-size: 1.25rem; line-height: 1.7; color: var(--text-main); }
+.callout { margin: 2.5rem 0; padding: 2rem; border: 1px solid rgb(var(--primary-rgb) / 0.55); border-radius: 0.5rem; background: rgb(var(--primary-rgb) / 0.09); }
+.credentials { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.7rem; }
+.credentials li { display: flex; gap: 0.75rem; align-items: flex-start; color: var(--text-main); }
+.credentials svg { flex: none; margin-top: 0.3rem; color: var(--gold-deep); }
+.consent { display: flex; gap: 0.8rem; align-items: flex-start; margin: 1.5rem 0; font-size: 0.9rem; }
+.consent input { margin-top: 0.4rem; flex: none; }
+
+/* ---------- image buttons: real material textures behind live text ---------- */
+.cta {
+  border: 0; color: #1c1405; text-shadow: 0 1px 0 rgb(255 255 255 / 0.4);
+  background-color: var(--gold);
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.22), rgb(0 0 0 / 0.12)), url('../assets/ai/gold-foil.webp');
+  background-size: 100% 100%, 240% 100%;
+  background-position: center, 0% 50%;
+  box-shadow: inset 0 0 0 1px rgb(255 238 190 / 0.55), inset 0 1px 0 rgb(255 255 255 / 0.65), inset 0 -2px 3px rgb(110 75 0 / 0.35), 0 12px 30px -12px rgb(200 162 74 / 0.6);
+  transition: background-position 1s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.3s, box-shadow 0.3s;
+}
+.cta:hover {
+  color: #1c1405; transform: translateY(-1px);
+  background-color: var(--gold);
+  background-image: linear-gradient(180deg, rgb(255 255 255 / 0.3), rgb(0 0 0 / 0.08)), url('../assets/ai/gold-foil.webp');
+  background-size: 100% 100%, 240% 100%;
+  background-position: center, 100% 50%;
+  box-shadow: inset 0 0 0 1px rgb(255 244 210 / 0.7), inset 0 1px 0 rgb(255 255 255 / 0.75), inset 0 -2px 3px rgb(110 75 0 / 0.3), 0 16px 34px -12px rgb(200 162 74 / 0.75);
+}
+.cta-ghost, .cta-ghost:hover {
+  color: var(--ivory); text-shadow: none; background-image: none; background-color: rgb(10 18 38 / 0.28); backdrop-filter: blur(8px);
+  box-shadow: inset 0 0 0 1px rgb(244 239 228 / 0.42);
+}
+.cta-ghost:hover { background-color: rgb(244 239 228 / 0.12); box-shadow: inset 0 0 0 1px var(--ivory); color: #fff; }
+.cta-dark, .cta-dark:hover {
+  color: var(--ivory); text-shadow: none; background-color: var(--ink);
+  background-image: linear-gradient(rgb(6 10 20 / 0.3), rgb(6 10 20 / 0.3)), url('../assets/ai/navy-silk.webp');
+  background-size: cover; background-position: center;
+  box-shadow: inset 0 0 0 1px rgb(200 162 74 / 0.6), 0 12px 26px -14px rgb(0 0 0 / 0.7);
+}
+.cta-dark:hover { box-shadow: inset 0 0 0 1px var(--champagne), 0 16px 30px -14px rgb(0 0 0 / 0.8); color: #fff; }
+.cta .zh-inline { opacity: 0.85; border-left-color: color-mix(in srgb, currentColor 35%, transparent); font-size: 0.95em; letter-spacing: 0.12em; }
+.cta-sm .zh-inline { display: none; }
+
+@media (min-width: 700px) { .eyebrow { white-space: nowrap; } }
+
+/* price cards: keep the Chinese unit on the same line, and pin the button to the card bottom */
+.pricing-table .pricing-price span .zh {
+  display: inline; margin: 0 0 0 0.85em; padding-left: 0.85em;
+  font: 400 1em/1 var(--zh-sans); letter-spacing: 0.1em; text-transform: none; opacity: 0.85;
+  border-left: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+}
+.pricing-table .pricing-header { flex: 1; }
+.pricing-table .cta { margin-top: auto; }
+
+/* Chinese text must never become unreadably small inside small headings */
+h2 .zh { font-size: max(0.34em, 1rem); }
+h3 .zh { font-size: max(0.55em, 0.9rem); }
+.band h1 .zh { font-size: max(0.3em, 1.1rem); }
+.info-card h2 .zh, .info-card h2 .zh-inline { font-size: 1.15em; letter-spacing: 0.12em; }
+.pricing-title .zh-inline { font-size: 1.1em; }
+.eyebrow .zh-inline { font-size: 1.05em; letter-spacing: 0.14em; }
+
+/* ---------- small screens: keep hero inside the viewport ---------- */
+.hero-cinema { grid-template-columns: minmax(0, 1fr); }
+.hero-cinema > .container { min-width: 0; width: 100%; }
+.hero-cinema .eyebrow { flex-wrap: wrap; row-gap: 0.4rem; }
+@media (max-width: 640px) {
+  .hero-stats { gap: 1.25rem 1.5rem; margin-top: 3rem; }
+  .hero-stats > * { flex: 1 1 6.5rem; min-width: 0; }
+  .hero-stats .counter-value { font-size: 2.8rem; }
+  .hero-stats .counter-title { letter-spacing: 0.1em; }
+  .hero-actions .cta { width: 100%; justify-content: center; }
+  .cta-lg { padding-inline: 1.4rem; }
+}
+
+/* pricing cards: never wider than the screen */
+.price-grid { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 820px) { .price-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .pricing-table { padding: 2.6rem 1.35rem 1.75rem; }
+  .pricing-table .pricing-price { font-size: 3.6rem; }
+  .pricing-table .cta { padding-inline: 1rem; letter-spacing: 0.14em; flex-wrap: wrap; }
+}
+
+/* backdrop-filter on the pill would trap the fixed off-canvas menu inside it (mobile) */
+@media (max-width: 767px) {
+  .navbar-pill .navbar-container { backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .navbar-menu-offcanvas .navbar-item { font-size: 0.85rem; padding-block: 0.9rem; }
+}
+@media (max-width: 767px) {
+  .navbar-menu-offcanvas .nav-bi { align-items: flex-start; text-align: left; }
+}

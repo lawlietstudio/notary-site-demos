@@ -1,9 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Bi from '../components/Bi.astro';
 import Photo from '../components/Photo.astro';
 import Icon from '../components/Icon.astro';
-import PriceCards from '../components/PriceCards.astro';
-import { en, faqs, site, withBase } from '../lib/site';
+import { en, site, withBase, zh } from '../lib/site';
 
 import heroBg from '../assets/ai/hero-bg.webp';
 import affidavits from '../assets/ai/svc-affidavits.webp';
@@ -26,25 +26,30 @@ const tiles = [
   { img: skyline, cls: 't6', alt: 'A city skyline at blue hour reflected in a river' },
 ];
 const icons = ['map-pin', 'clock', 'lock', 'coin'];
-const words = en(site.hero.title).split(' ');
-const lead = words.slice(0, -3).join(' ');
-const accent = words.slice(-3).join(' ');
+const stats = [
+  { n: '7', t: { en: 'days a week', zh: '每週營業日' } },
+  { n: String(site.services.items.length), t: { en: 'document types', zh: '公證文件類型' } },
+  { n: '24', t: { en: 'hours’ cancellation notice', zh: '小時取消通知' } },
+];
 ---
 <Layout path="/">
   <section class="hero-cinema">
     <Photo class="hero-bg" src={heroBg} alt="A notary's hands signing and stamping a document at a walnut desk" widths={[800, 1200, 1600, 1920]} eager />
     <div class="container">
-      <p class="eyebrow animate fade-in-up">{en(site.hero.eyebrow)}</p>
-      <h1 class="animate fade-in-up">{lead} <em>{accent}</em></h1>
-      <p class="hero-lead animate fade-in-up">{en(site.hero.lead)}</p>
+      <p class="eyebrow animate fade-in-up"><Bi t={site.hero.eyebrow} inline /></p>
+      <h1 class="animate fade-in-up">
+        <span class="h1-lead">{en(site.hero.titleLead)}<span class="zh zh-inline" lang="zh-Hant">{zh(site.hero.titleLead)}</span></span>
+        {site.hero.titleAccent}
+      </h1>
+      <p class="hero-lead animate fade-in-up"><Bi t={site.hero.lead} /></p>
       <div class="hero-actions animate fade-in-up">
-        <a href={withBase('/contact/')} class="cta cta-lg">{en(site.cta.book)} <Icon name="arrow" size={16} /></a>
-        <a href={withBase('/pricing/')} class="cta cta-ghost cta-lg">{en(site.cta.pricing)}</a>
+        <a href={withBase('/contact/')} class="cta cta-lg"><Bi t={site.cta.book} inline /> <Icon name="arrow" size={16} /></a>
+        <a href={withBase('/pricing/')} class="cta cta-ghost cta-lg"><Bi t={site.cta.pricing} inline /></a>
       </div>
       <div class="hero-stats">
-        <div class="counter"><div class="counter-value">7</div><div class="counter-title">days a week</div></div>
-        <div class="counter"><div class="counter-value">{site.services.items.length}</div><div class="counter-title">document types</div></div>
-        <div class="counter"><div class="counter-value">24</div><div class="counter-title">hours' cancellation notice</div></div>
+        {stats.map((s) => (
+          <div class="counter"><div class="counter-value">{s.n}</div><div class="counter-title"><Bi t={s.t} /></div></div>
+        ))}
       </div>
     </div>
   </section>
@@ -52,9 +57,8 @@ const accent = words.slice(-3).join(' ');
   <section class="block">
     <div class="container">
       <div class="block-head">
-        <p class="eyebrow">Services</p>
-        <h2>{en(site.services.title)}</h2>
-        <p>{en(site.hero.lead)}</p>
+        <p class="eyebrow"><Bi t={site.services.eyebrow} inline /></p>
+        <h2><Bi t={site.services.title} /></h2>
       </div>
       <div class="bento">
         {site.services.items.map((s: any, i: number) => (
@@ -62,8 +66,8 @@ const accent = words.slice(-3).join(' ');
             <Photo src={tiles[i].img} alt={tiles[i].alt} sizes="(min-width: 860px) 60vw, 100vw" widths={[480, 800, 1200]} />
             <div class="tile-body">
               <span class="tile-num">{String(i + 1).padStart(2, '0')}</span>
-              <h3>{en(s.name)}</h3>
-              <p>{en(s.example)}</p>
+              <h3><Bi t={s.name} inline /></h3>
+              <p><Bi t={s.example} /></p>
             </div>
           </article>
         ))}
@@ -77,14 +81,13 @@ const accent = words.slice(-3).join(' ');
         <Photo src={street} alt="A professional in a dark overcoat carrying a briefcase walks to a front door at blue hour" sizes="(min-width: 900px) 560px, 100vw" widths={[480, 800, 1100]} />
       </div>
       <div>
-        <p class="eyebrow">{en(site.why.title)}</p>
-        <h2 class="serif-title">We come to <em>you.</em></h2>
+        <h2 class="serif-title"><Bi t={site.why.title} /></h2>
         {site.why.items.map((w: any, i: number) => (
           <div class="feature">
             <span class="feature-icon"><Icon name={icons[i % icons.length]} size={22} /></span>
             <div>
-              <h3>{en(w.title)}</h3>
-              <p>{en(w.text)}</p>
+              <h3><Bi t={w.title} inline /></h3>
+              <p><Bi t={w.text} /></p>
             </div>
           </div>
         ))}
@@ -96,42 +99,15 @@ const accent = words.slice(-3).join(' ');
     <Photo class="section-bg" src={dust} alt="" widths={[800, 1200, 1600]} />
     <div class="container">
       <div class="block-head">
-        <p class="eyebrow">{en(site.contact.stepsTitle)}</p>
-        <h2>Three steps, one visit</h2>
+        <p class="eyebrow"><Bi t={site.contact.hoursNote} inline /></p>
+        <h2><Bi t={site.contact.stepsTitle} /></h2>
       </div>
       <div class="steps">
         {site.contact.steps.map((st: any) => (
           <div class="step-card">
-            <h3>{en(st.title)}</h3>
-            <p>{en(st.text)}</p>
+            <h3><Bi t={st.title} /></h3>
+            <p><Bi t={st.text} /></p>
           </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="block dark-block bg-cinema">
-    <div class="container">
-      <div class="block-head">
-        <p class="eyebrow">{en(site.pricing.payment)}</p>
-        <h2>{en(site.pricing.title)}</h2>
-      </div>
-      <PriceCards />
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="container">
-      <div class="block-head">
-        <p class="eyebrow">FAQ</p>
-        <h2>Questions, answered</h2>
-      </div>
-      <div class="faq">
-        {faqs.map((f) => (
-          <details class="accordion-item" name="faq">
-            <summary class="accordion-header"><span>{f.q}</span></summary>
-            <div class="accordion-body"><p class="text-muted m-0">{f.a}</p></div>
-          </details>
         ))}
       </div>
     </div>
@@ -141,9 +117,9 @@ const accent = words.slice(-3).join(' ');
     <Photo class="section-bg" src={silk} alt="" widths={[800, 1200, 1600]} />
     <div class="container">
       <Photo class="seal-float" src={seal} alt="A polished brass notary seal" widths={[320, 480, 640]} sizes="240px" />
-      <h2>{en(site.ctaBand.title)}</h2>
-      <p>{en(site.ctaBand.text)}</p>
-      <a href={withBase('/contact/')} class="cta cta-lg">{en(site.cta.book)} <Icon name="arrow" size={16} /></a>
+      <h2><Bi t={site.ctaBand.title} /></h2>
+      <p><Bi t={site.ctaBand.text} /></p>
+      <a href={withBase('/contact/')} class="cta cta-lg"><Bi t={site.cta.book} inline /> <Icon name="arrow" size={16} /></a>
     </div>
   </section>
 </Layout>

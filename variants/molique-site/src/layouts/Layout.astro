@@ -2,9 +2,12 @@
 import '@fontsource/instrument-serif/400.css';
 import '@fontsource/instrument-serif/400-italic.css';
 import '@fontsource-variable/instrument-sans';
+import '@fontsource/noto-serif-tc/400.css';
+import '@fontsource/noto-sans-tc/400.css';
 import '../styles/site.css';
+import Bi from '../components/Bi.astro';
 import LogoMark from '../components/LogoMark.astro';
-import { en, nav, site, telHref, withBase } from '../lib/site';
+import { en, nav, site, telHref, withBase, zh } from '../lib/site';
 
 interface Props {
   title?: string;
@@ -30,7 +33,6 @@ const year = new Date().getFullYear();
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <link rel="stylesheet" href={`${vendor}/css/molique-style.min.css`} />
     <script is:inline>
-      // Apply the saved light/dark choice before first paint (molique stores it under "molique-theme").
       // This design is light-only: lock the theme so molique does not switch to its dark palette.
       try { localStorage.setItem('molique-theme', 'light'); } catch (e) {}
       document.documentElement.setAttribute('data-theme', 'light');
@@ -51,9 +53,11 @@ const year = new Date().getFullYear();
 
         <div class="navbar-menu navbar-menu-offcanvas">
           {nav.map((n) => (
-            <a href={withBase(n.href)} class:list={['navbar-item', { 'is-active': n.href === path }]} aria-current={n.href === path ? 'page' : undefined}>{n.label}</a>
+            <a href={withBase(n.href)} class:list={['navbar-item', 'nav-bi', { 'is-active': n.href === path }]} aria-current={n.href === path ? 'page' : undefined}>
+              <span class="nav-en">{n.label.en}</span><span class="nav-zh" lang="zh-Hant">{n.label.zh}</span>
+            </a>
           ))}
-          <a href={withBase('/contact/')} class="cta cta-sm">{en(site.cta.book)}</a>
+          <a href={withBase('/contact/')} class="cta cta-sm"><Bi t={site.cta.book} inline /></a>
         </div>
       </div>
     </nav>
@@ -66,28 +70,28 @@ const year = new Date().getFullYear();
       <div class="container">
         <div class="footer-grid">
           <div>
-            <div class="brand-lockup" style="margin-bottom:0.9rem"><LogoMark size={34} /><span>{site.name}</span></div>
-            <p class="muted-on-dark" style="max-width:34ch;margin:0">{site.metaDescription}</p>
+            <div class="brand-lockup" style="margin-bottom:1rem"><LogoMark size={34} /><span>{site.name}</span></div>
+            <p class="muted-on-dark" style="max-width:36ch;margin:0"><Bi t={site.hero.lead} /></p>
           </div>
           <div>
-            <h3>Explore</h3>
+            <h3>Explore<span class="zh" lang="zh-Hant">探索</span></h3>
             <ul>
-              {nav.map((n) => <li><a href={withBase(n.href)}>{n.label}</a></li>)}
-              <li><a href={withBase('/privacy/')}>Privacy Policy</a></li>
+              {nav.map((n) => <li><a href={withBase(n.href)}>{n.label.en} <span class="zh-inline-soft" lang="zh-Hant">{n.label.zh}</span></a></li>)}
             </ul>
           </div>
           <div>
-            <h3>Contact us</h3>
+            <h3>Contact us<span class="zh" lang="zh-Hant">聯絡我們</span></h3>
             <ul>
               <li><a href={telHref(site.phone)}>{site.phone}</a></li>
               <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-              <li class="muted-on-dark">{en(site.hours.label)}</li>
+              <li class="muted-on-dark">{en(site.hours.label)}<span class="zh" lang="zh-Hant">{zh(site.hours.label)}</span></li>
             </ul>
           </div>
         </div>
         <div class="footer-base">
           <span>© {year} {site.name}</span>
-          <span>Imagery on this page was generated with AI.</span>
+          <span>{en(site.concept)} <span lang="zh-Hant">{zh(site.concept)}</span></span>
+          <span>Imagery generated with AI. 圖片由 AI 生成。</span>
         </div>
       </div>
     </footer>

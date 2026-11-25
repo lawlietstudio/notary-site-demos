@@ -94,12 +94,12 @@ Things that aren't editable in Sanity because they're part of the site's structu
 
 | Path | Design |
 | --- | --- |
-| `/` | Landing page that links to the three designs |
+| `/` | Landing page that links to the five designs |
 | `/custom/` | Custom design (this project) |
 | `/screwfast/` | ScrewFast template, adapted (`variants/screwfast`) |
 | `/astrowind/` | AstroWind template, adapted (`variants/astrowind`) |
 | `/audit/` | Design based on the free IT Audit Pro theme (`overlays/audit-pro`, see below) |
-| `/molique/` | Cinematic design with AI-generated images, built on the new molique CSS framework (`variants/molique-site`) |
+| `/molique/` | Cinematic bilingual (English and 中文) design with AI-generated images and image-textured buttons, built on the new molique CSS framework (`variants/molique-site`) |
 
 Every push to `main` redeploys. To rehearse the exact Pages build locally:
 
@@ -119,4 +119,8 @@ The [IT Audit Pro theme](https://github.com/ctrimm/astro-audit-pro-theme) by Cor
 
 ### The molique design (`/molique/`)
 
-Built on [molique](https://github.com/rafalrozacki-debug/molique), a CSS framework first published in 2026 (Apache-2.0, installed from npm). It uses native cascade layers, popover and anchor positioning, so it needs a recent browser (Chrome/Edge 125+, Firefox 147+, Safari 26+). All thirteen images were generated with Codex CLI; see `variants/molique-site/AI-IMAGES.md` for the list and how to regenerate them. `scripts/prepare-molique.mjs` copies molique's CSS and JS (unmodified, with its LICENSE and NOTICE) to `public/vendor/`, and `scripts/optimize-ai-images.mjs` converts new PNGs into the site's WebP files. Run it locally with `npm run variant:molique`.
+Built on [molique](https://github.com/rafalrozacki-debug/molique), a CSS framework first published in 2026 (Apache-2.0, installed from npm). It uses native cascade layers, popover and anchor positioning, so it needs a recent browser (Chrome/Edge 125+, Firefox 147+, Safari 26+). All fourteen images were generated with Codex CLI; see `variants/molique-site/AI-IMAGES.md` for the list and how to regenerate them.
+
+Every page shows English and 中文 together (the `Bi` component renders the English text with the Chinese in a `lang="zh-Hant"` span). The wording, prices, hours and contact details come from `content/notarymall.json`, which mirrors the existing Notary Public Mall website; `scripts/prepare-molique.mjs` copies it into the site. The footer and the landing page say it is an unofficial design concept, and the contact form only composes an email in the visitor's own mail app. Buttons use real text over a brushed-gold or navy-silk texture (`gold-foil.webp`, `navy-silk.webp`) instead of flat button images, so they stay sharp, translatable and accessible.
+
+Fonts are self-hosted: Instrument Serif and Instrument Sans for Latin text, Noto Serif TC and Noto Sans TC for Chinese (split by unicode-range, so a page only downloads the glyph slices it uses). `scripts/prepare-molique.mjs` copies molique's CSS and JS (unmodified, with its LICENSE and NOTICE) to `public/vendor/`, and `scripts/optimize-ai-images.mjs` converts new PNGs into the site's WebP files. Run it locally with `npm run variant:molique`.

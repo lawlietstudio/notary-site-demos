@@ -1,6 +1,6 @@
-// Builds all three sites for GitHub Pages into _site/:
+// Builds all five sites for GitHub Pages into _site/:
 //
-//   _site/index.html        landing page that links to the three sites
+//   _site/index.html        landing page that links to the five sites
 //   _site/custom/           the custom design (project root)
 //   _site/screwfast/        variants/screwfast
 //   _site/astrowind/        variants/astrowind
@@ -15,7 +15,7 @@
 //   PAGES_BASE   path of the Pages site: "notary-site-demos" for a project site,
 //                or "" when served from the root of a custom domain.
 import { spawnSync } from 'node:child_process';
-import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -74,6 +74,20 @@ build('audit', join(root, 'variants', 'audit-pro'));
 // 5. molique design: sync the shared content and copy the framework files first
 run('node', ['scripts/prepare-molique.mjs'], root);
 build('molique', join(root, 'variants', 'molique-site'));
+
+// The Chinese font packages ship every slice twice (.woff2 and .woff). Every browser that can run
+// molique loads the .woff2, so drop the unused .woff copies from the published output only.
+{
+  const assets = join(out, 'molique', '_astro');
+  let dropped = 0;
+  for (const f of readdirSync(assets)) {
+    if (f.endsWith('.woff')) {
+      rmSync(join(assets, f));
+      dropped++;
+    }
+  }
+  console.log(`molique: removed ${dropped} unused .woff files`);
+}
 
 // 6. landing page, 404 page, and the marker that tells GitHub Pages not to run Jekyll
 cpSync(join(root, 'deploy'), out, { recursive: true });
