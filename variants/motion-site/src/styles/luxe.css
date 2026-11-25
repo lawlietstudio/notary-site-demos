@@ -223,7 +223,7 @@ body:has(.menu-toggle:checked) { overflow: hidden; }
 .frame img { position: relative; width: 100%; height: auto; object-fit: cover; }
 .why-fig img { aspect-ratio: 4 / 5; }
 .feat-list { list-style: none; margin: 2.6rem 0 0; }
-.feat-list li { display: grid; grid-template-columns: auto 1fr; gap: 1.8rem; align-items: center; padding: 1.7rem 0; border-top: 1px solid var(--line); }
+.feat-list li { display: grid; grid-template-columns: 4.4rem 1fr; gap: 1.5rem; align-items: center; padding: 1.7rem 0; border-top: 1px solid var(--line); }
 .feat-list li:last-child { border-bottom: 1px solid var(--line); }
 .feat-list h3 { margin-bottom: 0.4rem; font-size: 1.75rem; }
 .feat-list p { margin: 0; color: var(--muted); }
@@ -231,6 +231,9 @@ body:has(.menu-toggle:checked) { overflow: hidden; }
 /* custom icons: transparent AI-generated masks, coloured here */
 .ico { display: inline-block; flex: none; width: var(--s, 64px); height: var(--s, 64px); background-color: var(--ico-color, var(--gold)); -webkit-mask: var(--ico) center / contain no-repeat; mask: var(--ico) center / contain no-repeat; }
 .dark .ico { --ico-color: var(--gold-lt); }
+/* In the row lists (why choose us, contact details) the visible artwork sits on the same left edge as the heading and the
+   rules: the images have different empty margins, so each icon is shifted left by its own margin (--l, see Icon.astro). */
+.feat-list .ico, .info-list .ico { translate: calc(var(--s, 64px) * var(--l, 0) * -1) 0; }
 
 /* how it works */
 .steps { overflow: hidden; isolation: isolate; }
@@ -302,7 +305,7 @@ body:has(.menu-toggle:checked) { overflow: hidden; }
 /* ---------- contact ---------- */
 .contact-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(3rem, 7vw, 7rem); align-items: start; }
 .info-list { list-style: none; }
-.info-list li { display: grid; grid-template-columns: auto 1fr; gap: 1.7rem; align-items: center; padding: 1.7rem 0; border-top: 1px solid var(--line); }
+.info-list li { display: grid; grid-template-columns: 4.4rem 1fr; gap: 1.5rem; align-items: center; padding: 1.7rem 0; border-top: 1px solid var(--line); }
 .info-list li:last-child { border-bottom: 1px solid var(--line); }
 .info-list h3 { margin-bottom: 0.7rem; font: 600 0.68rem/1 var(--sans); letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
 .info-list p { margin: 0; }
