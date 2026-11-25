@@ -1,5 +1,7 @@
 ---
-import '@fontsource-variable/fraunces';
+import '@fontsource/instrument-serif/400.css';
+import '@fontsource/instrument-serif/400-italic.css';
+import '@fontsource-variable/instrument-sans';
 import '../styles/site.css';
 import LogoMark from '../components/LogoMark.astro';
 import { en, nav, site, telHref, withBase } from '../lib/site';
@@ -29,7 +31,9 @@ const year = new Date().getFullYear();
     <link rel="stylesheet" href={`${vendor}/css/molique-style.min.css`} />
     <script is:inline>
       // Apply the saved light/dark choice before first paint (molique stores it under "molique-theme").
-      try { var t = localStorage.getItem('molique-theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+      // This design is light-only: lock the theme so molique does not switch to its dark palette.
+      try { localStorage.setItem('molique-theme', 'light'); } catch (e) {}
+      document.documentElement.setAttribute('data-theme', 'light');
     </script>
   </head>
   <body>
@@ -49,11 +53,7 @@ const year = new Date().getFullYear();
           {nav.map((n) => (
             <a href={withBase(n.href)} class:list={['navbar-item', { 'is-active': n.href === path }]} aria-current={n.href === path ? 'page' : undefined}>{n.label}</a>
           ))}
-          <label class="theme-switch" aria-label="Toggle light and dark mode">
-            <input type="checkbox" id="theme-toggle" class="theme-switch-input" />
-            <span class="theme-switch-track"><span class="theme-switch-thumb"></span></span>
-          </label>
-          <a href={withBase('/contact/')} class="btn-primary btn-sm">{en(site.cta.book)}</a>
+          <a href={withBase('/contact/')} class="cta cta-sm">{en(site.cta.book)}</a>
         </div>
       </div>
     </nav>

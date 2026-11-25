@@ -38,8 +38,8 @@ const accent = words.slice(-3).join(' ');
       <h1 class="animate fade-in-up">{lead} <em>{accent}</em></h1>
       <p class="hero-lead animate fade-in-up">{en(site.hero.lead)}</p>
       <div class="hero-actions animate fade-in-up">
-        <a href={withBase('/contact/')} class="btn-primary btn-lg btn-3d">{en(site.cta.book)}</a>
-        <a href={withBase('/pricing/')} class="btn-glass btn-lg">{en(site.cta.pricing)}</a>
+        <a href={withBase('/contact/')} class="cta cta-lg">{en(site.cta.book)} <Icon name="arrow" size={16} /></a>
+        <a href={withBase('/pricing/')} class="cta cta-ghost cta-lg">{en(site.cta.pricing)}</a>
       </div>
       <div class="hero-stats">
         <div class="counter"><div class="counter-value">7</div><div class="counter-title">days a week</div></div>
@@ -78,7 +78,7 @@ const accent = words.slice(-3).join(' ');
       </div>
       <div>
         <p class="eyebrow">{en(site.why.title)}</p>
-        <h2 class="serif" style="font-size:clamp(1.9rem,4vw,3rem);margin:0.5rem 0 1.5rem">We come to you.</h2>
+        <h2 class="serif-title">We come to <em>you.</em></h2>
         {site.why.items.map((w: any, i: number) => (
           <div class="feature">
             <span class="feature-icon"><Icon name={icons[i % icons.length]} size={22} /></span>
@@ -143,7 +143,7 @@ const accent = words.slice(-3).join(' ');
       <Photo class="seal-float" src={seal} alt="A polished brass notary seal" widths={[320, 480, 640]} sizes="240px" />
       <h2>{en(site.ctaBand.title)}</h2>
       <p>{en(site.ctaBand.text)}</p>
-      <a href={withBase('/contact/')} class="btn-primary btn-xl btn-3d">{en(site.cta.book)}</a>
+      <a href={withBase('/contact/')} class="cta cta-lg">{en(site.cta.book)} <Icon name="arrow" size={16} /></a>
     </div>
   </section>
 </Layout>

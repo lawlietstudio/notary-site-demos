@@ -23,7 +23,7 @@ const about = site.about;
         <ul class="list-icons list-icons-check">
           {about.credentials.items.map((c: string) => <li>{c}</li>)}
         </ul>
-        <p style="margin-top:2rem"><a href={withBase('/contact/')} class="btn-primary btn-lg">{en(site.cta.book)}</a></p>
+        <p style="margin-top:2rem"><a href={withBase('/contact/')} class="cta cta-dark cta-lg">{en(site.cta.book)}</a></p>
       </div>
       <div class="frame" style="min-height:36rem">
         <Photo src={desk} alt="A notary journal, fountain pen, brass seal and reading glasses on dark wood" sizes="(min-width: 900px) 520px, 100vw" widths={[480, 800, 1100]} />

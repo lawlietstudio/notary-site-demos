@@ -19,7 +19,7 @@ const periods = ['first signature', 'each', 'each'];
       <ul class="pricing-features">
         {bullets[i].map((b) => <li>{b}</li>)}
       </ul>
-      <a href={withBase('/contact/')} class:list={[p.featured ? 'btn-primary' : 'btn-outline-primary', 'w-100']}>{en(site.cta.book)}</a>
+      <a href={withBase('/contact/')} class:list={['cta', 'cta-full', { 'cta-ghost': !p.featured }]}>{en(site.cta.book)}</a>
     </div>
   ))}
 </div>
