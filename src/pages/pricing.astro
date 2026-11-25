@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Bi from '../components/Bi.astro';
+import Btn from '../components/Btn.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import PageHead from '../components/PageHead.astro';
+import headImg from '../assets/photos/desk-documents.jpg';
+import { getSite } from '../lib/content';
+import { bookHref, en } from '../lib/helpers';
+
+const site = await getSite();
+const { pricing } = site;
+const book = bookHref(site);
+---
+<Layout
+  path="/pricing/"
+  title="Price Plans"
+  description={`Transparent mobile notary prices: ${pricing.plans.map((p) => `${en(p.name)} ${p.price}`).join(', ')}.`}
+>
+  <PageHead title={pricing.title} lead={pricing.payment} photo={headImg} />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="plans">
+        {pricing.plans.map((p) => (
+          <article class:list={['plan', { featured: p.featured }]}>
+            <h2><Bi t={p.name} /></h2>
+            <p class="price">{p.price}{p.unit && <small><Bi t={p.unit} /></small>}</p>
+            <p class="plan-desc"><Bi t={p.desc} /></p>
+            <Btn href={book} label={pricing.planCta} kind={p.featured ? 'primary' : 'ghost'} />
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <h2 class="section-title"><Bi t={pricing.examplesTitle} /></h2>
+      <ServiceCards items={site.services.items} />
+    </div>
+  </section>
+</Layout>

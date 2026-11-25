@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Bi from '../components/Bi.astro';
+import Btn from '../components/Btn.astro';
+import { notFound } from '../lib/config';
+---
+<Layout path="/404/" title={notFound.title.en} description={notFound.text.en} noindex>
+  <section class="page-head">
+    <div class="wrap">
+      <h1><Bi t={notFound.title} /></h1>
+      <p class="lead"><Bi t={notFound.text} /></p>
+      <p class="actions"><Btn href="/" label={notFound.back} /></p>
+    </div>
+  </section>
+</Layout>

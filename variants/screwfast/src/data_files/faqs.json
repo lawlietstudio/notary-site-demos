@@ -1,0 +1,25 @@
+{
+  "subTitle": "Straight answers about how a mobile notary appointment works.",
+  "faqs": [
+    {
+      "question": "What should I bring to my appointment?",
+      "answer": "Bring valid government-issued photo ID and your document. Do not sign it beforehand: you will sign in front of the notary."
+    },
+    {
+      "question": "Do you come to me?",
+      "answer": "We come to your home, office or a location of your choice."
+    },
+    {
+      "question": "How much does it cost?",
+      "answer": "First notary signature and seal is $40. Each additional signature and seal is $25 up to the 10th, then $12 each. Cash or e-transfer only."
+    },
+    {
+      "question": "Can you give legal advice?",
+      "answer": "Please note: a notary public cannot give legal or immigration advice."
+    },
+    {
+      "question": "What if I need to cancel?",
+      "answer": "By appointment only. Please cancel at least 24 hours in advance."
+    }
+  ]
+}

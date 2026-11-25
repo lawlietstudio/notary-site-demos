@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Bi from '../components/Bi.astro';
+import Btn from '../components/Btn.astro';
+import PageHead from '../components/PageHead.astro';
+import headImg from '../assets/photos/wax-envelope.jpg';
+import { getSite } from '../lib/content';
+import { en, telHref } from '../lib/helpers';
+
+const site = await getSite();
+const { contact } = site;
+const f = contact.form;
+const tel = telHref(site.phone);
+
+// With a form endpoint the form posts there. Without one it falls back to the visitor's email app.
+const formAttrs = site.formEndpoint
+  ? { action: site.formEndpoint, method: 'post' }
+  : { action: `mailto:${site.email}`, method: 'post', enctype: 'text/plain', 'data-mailto': site.email };
+---
+<Layout
+  path="/contact/"
+  title="Contact"
+  description={`Book a mobile notary appointment with ${site.name}. ${en(site.hours.label)}.`}
+>
+  <PageHead title={contact.title} photo={headImg} />
+
+  <section class="section">
+    <div class="wrap contact-grid">
+      <div>
+        <div class="card">
+          <h2><Bi t={contact.hoursTitle} /></h2>
+          <p><strong><Bi t={contact.days} /></strong><br /><Bi t={site.hours.label} /></p>
+          <p><Bi t={contact.hoursNote} /></p>
+        </div>
+
+        <h2 class="mt"><Bi t={contact.stepsTitle} /></h2>
+        <ol class="steps">
+          {contact.steps.map((s) => (
+            <li><strong><Bi t={s.title} /></strong><span><Bi t={s.text} /></span></li>
+          ))}
+        </ol>
+
+        <h2 class="mt"><Bi t={contact.directTitle} /></h2>
+        <p><a href={tel}>{site.phone}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+        {site.bookingUrl && <p><Btn href={site.bookingUrl} label={site.cta.book} /></p>}
+      </div>
+
+      <form id="contact-form" class="card form" {...formAttrs}>
+        <h2><Bi t={f.title} /></h2>
+        <div class="row">
+          <div class="field">
+            <label for="first-name">{f.first} <span class="req" aria-hidden="true">*</span></label>
+            <input id="first-name" name="first-name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="last-name">{f.last}</label>
+            <input id="last-name" name="last-name" type="text" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">{f.email} <span class="req" aria-hidden="true">*</span></label>
+          <input id="email" name="email" type="email" required />
+        </div>
+        <div class="field">
+          <label for="phone">{f.phone}</label>
+          <input id="phone" name="phone" type="tel" />
+        </div>
+        <div class="field">
+          <label for="subject">{f.subject}</label>
+          <input id="subject" name="subject" type="text" />
+        </div>
+        <div class="field">
+          <label for="message">{f.message} <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <label class="consent"><input type="checkbox" name="consent" required /> <span>{f.consent}</span></label>
+        <button class="btn btn-primary" type="submit">{f.submit}</button>
+        <p class="form-status" role="status" data-success={f.success}></p>
+      </form>
+    </div>
+  </section>
+</Layout>

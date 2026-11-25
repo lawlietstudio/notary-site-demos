@@ -1,0 +1,20 @@
+---
+import Bi from './Bi.astro';
+import { isExternal, withBase } from '../lib/helpers';
+import type { L } from '../lib/types';
+
+interface Props {
+  href: string;
+  label: L;
+  kind?: 'primary' | 'ghost';
+}
+
+const { href, label, kind = 'primary' } = Astro.props;
+const external = isExternal(href);
+---
+<a
+  class={`btn btn-${kind}`}
+  href={withBase(href)}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener' : undefined}
+><Bi t={label} /></a>

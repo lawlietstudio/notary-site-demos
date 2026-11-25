@@ -1,0 +1,121 @@
+---
+import { getPermalink } from '~/utils/permalinks';
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import Prices from '~/components/widgets/Pricing.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: 'Price Plans',
+  description: "Transparent mobile notary prices: Starter $40, Additional $25, Bulk $12.",
+};
+---
+
+<Layout metadata={metadata}>
+  <HeroText tagline="Pricing" title="In-person mobile notary prices" subtitle="Cash or e-transfer only" />
+
+  <Prices
+    prices={[
+  {
+    "title": "Starter",
+    "subtitle": "First notary signature and seal",
+    "price": 40,
+    "period": "first signature",
+    "items": [
+      {
+        "description": "In-person at your location"
+      },
+      {
+        "description": "Same-day appointments available"
+      },
+      {
+        "description": "Signature and seal included"
+      }
+    ],
+    "callToAction": {
+      "text": "Book an Appointment",
+      "href": getPermalink('/contact')
+    }
+  },
+  {
+    "title": "Additional",
+    "subtitle": "Additional notary signature and seal, up to the 10th",
+    "price": 25,
+    "period": "each",
+    "items": [
+      {
+        "description": "Same visit, same appointment"
+      },
+      {
+        "description": "Up to the 10th signature"
+      },
+      {
+        "description": "No hidden costs"
+      }
+    ],
+    "callToAction": {
+      "text": "Book an Appointment",
+      "href": getPermalink('/contact')
+    }
+  },
+  {
+    "title": "Bulk",
+    "subtitle": "11th signature and up",
+    "price": 12,
+    "period": "each",
+    "items": [
+      {
+        "description": "11th signature and up"
+      },
+      {
+        "description": "Same visit, same appointment"
+      },
+      {
+        "description": "No hidden costs"
+      }
+    ],
+    "callToAction": {
+      "text": "Book an Appointment",
+      "href": getPermalink('/contact')
+    }
+  }
+]}
+  />
+
+  <Features2
+    title="Common documents"
+    defaultIcon="tabler:file-text"
+    items={[
+  {
+    "title": "Affidavits",
+    "description": "Such as affidavits of service, divorce or student-aid applications."
+  },
+  {
+    "title": "Attestations",
+    "description": "Such as proof-of-life or residency attestations."
+  },
+  {
+    "title": "Invitation Letters",
+    "description": "Such as letters supporting a visitor's travel application."
+  },
+  {
+    "title": "Statutory Declarations",
+    "description": "Such as declarations of identity, marital status or progress payment."
+  },
+  {
+    "title": "Insurance Claims",
+    "description": "Such as proof-of-loss forms."
+  },
+  {
+    "title": "Travel Letters",
+    "description": "Such as consent letters for children travelling without both parents."
+  }
+]}
+  />
+
+  <CallToAction actions={[{ variant: 'primary', text: "Book an Appointment", href: getPermalink('/contact') }]}>
+    <Fragment slot="title">Need a document notarized?</Fragment>
+    <Fragment slot="subtitle">Appointments are by booking only. Tell us what you need and we will confirm a time.</Fragment>
+  </CallToAction>
+</Layout>

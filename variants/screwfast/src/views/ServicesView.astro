@@ -1,0 +1,77 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import MainSection from '@components/ui/blocks/MainSection.astro';
+import AlternatingSections, {
+  type Article,
+} from '@components/ui/blocks/AlternatingSections.astro';
+import FeaturesStats from '@components/sections/features/FeaturesStats.astro';
+import deskDocuments from '@images/desk-documents.jpg';
+import signingMono from '@images/signing-mono.jpg';
+import waxSeal from '@images/wax-seal-paper.jpg';
+import passport from '@images/passport-dark.jpg';
+import waxEnvelope from '@images/wax-envelope.jpg';
+import deskNotebook from '@images/desk-notebook.jpg';
+import { getCopy } from '@/copy';
+import { localePath, type MarketingLocale } from '@utils/locale';
+
+/** The services page in one locale. */
+interface Props {
+  locale: MarketingLocale;
+}
+
+const { locale } = Astro.props;
+const copy = getCopy(locale).services;
+const a = copy.articles;
+const contact = localePath(locale, '/contact');
+
+const articles: Article[] = [
+  {
+    title: a.affidavits.title,
+    subTitle: a.affidavits.subTitle,
+    images: [
+      { src: deskDocuments, alt: a.affidavits.imageAlts[0] },
+      { src: signingMono, alt: a.affidavits.imageAlts[1] },
+    ],
+  },
+  {
+    title: a.claims.title,
+    subTitle: a.claims.subTitle,
+    images: [{ src: waxSeal, alt: a.claims.imageAlts[0] }],
+    cta: { title: a.claims.cta, url: contact },
+  },
+  {
+    title: a.travel.title,
+    subTitle: a.travel.subTitle,
+    images: [{ src: passport, alt: a.travel.imageAlts[0] }],
+  },
+  {
+    title: a.mobile.title,
+    subTitle: a.mobile.subTitle,
+    images: [
+      { src: waxEnvelope, alt: a.mobile.imageAlts[0] },
+      { src: deskNotebook, alt: a.mobile.imageAlts[1] },
+    ],
+    cta: { title: a.mobile.cta, url: contact },
+  },
+];
+---
+
+<MainLayout
+  title={copy.title}
+  description={copy.metaDescription}
+  ogTitle={copy.ogTitle}
+>
+  <MainSection
+    title={copy.intro.title}
+    subTitle={copy.intro.subTitle}
+    cta={{ title: copy.intro.cta, url: contact }}
+  />
+  <AlternatingSections articles={articles} />
+  <FeaturesStats
+    title={copy.stats.title}
+    subTitle={copy.stats.subTitle}
+    mainStatTitle={copy.stats.mainStatTitle}
+    mainStatSubTitle={copy.stats.mainStatSubTitle}
+    stats={copy.stats.stats}
+  />
+</MainLayout>

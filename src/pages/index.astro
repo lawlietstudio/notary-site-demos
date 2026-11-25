@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Bi from '../components/Bi.astro';
+import Btn from '../components/Btn.astro';
+import Photo from '../components/Photo.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import { getSite } from '../lib/content';
+import { bookHref, en } from '../lib/helpers';
+import heroImg from '../assets/photos/hero-signing.jpg';
+import envelopeImg from '../assets/photos/wax-envelope.jpg';
+import monoImg from '../assets/photos/signing-mono.jpg';
+import sealImg from '../assets/photos/wax-seal-paper.jpg';
+import passportImg from '../assets/photos/passport-dark.jpg';
+
+const site = await getSite();
+const book = bookHref(site);
+
+// Structured data so search engines understand this is a local service business.
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': new URL('/#business', site.siteUrl).href,
+  name: site.name,
+  url: new URL('/', site.siteUrl).href,
+  description: site.metaDescription,
+  telephone: site.phone,
+  email: site.email,
+  areaServed: en(site.about.area.text),
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: site.hours.opens,
+      closes: site.hours.closes,
+    },
+  ],
+  makesOffer: site.services.items.map((s) => ({
+    '@type': 'Offer',
+    itemOffered: { '@type': 'Service', name: en(s.name) },
+  })),
+};
+---
+<Layout path="/" title={site.homeTitle} description={site.metaDescription} jsonld={jsonld}>
+  <section class="hero hero-photo">
+    <Photo class="hero-bg" src={heroImg} alt="" widths={[800, 1200, 1600, 2000]} eager />
+    <div class="wrap hero-inner">
+      <p class="eyebrow"><Bi t={site.hero.eyebrow} /></p>
+      <h1><Bi t={site.hero.title} /></h1>
+      <p class="lead"><Bi t={site.hero.lead} /></p>
+      <p class="hours-pill"><span class="dot" aria-hidden="true"></span><Bi t={site.hours.label} /></p>
+      <div class="actions">
+        <Btn href={book} label={site.cta.book} />
+        <Btn href="/pricing/" label={site.cta.pricing} kind="ghost" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title"><Bi t={site.services.title} /></h2>
+      <ServiceCards items={site.services.items} />
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap split">
+      <Photo
+        class="split-photo"
+        src={envelopeImg}
+        alt="A wax-sealed envelope with a brass seal stamp on a wooden table"
+        sizes="(min-width: 900px) 520px, 100vw"
+        widths={[480, 800, 1100]}
+      />
+      <div>
+        <h2><Bi t={site.why.title} /></h2>
+        <div class="why-list">
+          {site.why.items.map((w) => (
+            <div class="why">
+              <span class="check" aria-hidden="true"></span>
+              <div>
+                <h3><Bi t={w.title} /></h3>
+                <p><Bi t={w.text} /></p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip-section" aria-label="Photographs">
+    <div class="wrap strip">
+      <Photo src={monoImg} alt="Hands signing a document in black and white" sizes="(min-width: 760px) 36vw, 100vw" widths={[480, 800, 1100]} />
+      <Photo src={sealImg} alt="A red wax seal on aged paper" sizes="(min-width: 760px) 40vw, 100vw" widths={[480, 800, 1100]} />
+      <Photo src={passportImg} alt="A dark passport on a table" sizes="(min-width: 760px) 28vw, 100vw" widths={[480, 800, 1100]} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="cta-band">
+        <div>
+          <h2><Bi t={site.ctaBand.title} /></h2>
+          <p><Bi t={site.ctaBand.text} /></p>
+        </div>
+        <Btn href={book} label={site.cta.book} />
+      </div>
+    </div>
+  </section>
+</Layout>

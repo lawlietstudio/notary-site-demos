@@ -1,0 +1,20 @@
+---
+import Bi from './Bi.astro';
+import Photo from './Photo.astro';
+import type { L } from '../lib/types';
+
+interface Props {
+  title: L;
+  lead?: L;
+  photo: ImageMetadata;
+}
+
+const { title, lead, photo } = Astro.props;
+---
+<section class="page-head page-head-photo">
+  <Photo class="page-head-bg" src={photo} alt="" widths={[800, 1200, 1600, 2000]} eager />
+  <div class="wrap">
+    <h1><Bi t={title} /></h1>
+    {lead && <p class="lead"><Bi t={lead} /></p>}
+  </div>
+</section>

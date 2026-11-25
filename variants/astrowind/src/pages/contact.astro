@@ -1,0 +1,55 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import ContactUs from '~/components/widgets/Contact.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+
+const metadata = {
+  title: 'Contact',
+  description: "Book a mobile notary appointment with Sample Mobile Notary. 7 am – 7 pm, 7 days a week.",
+};
+---
+
+<Layout metadata={metadata}>
+  <HeroText tagline="Contact" title="Contact and booking" subtitle="Book online or contact us to arrange a convenient time." />
+
+  <ContactUs
+    id="form"
+    title="Send us a message"
+    subtitle="By appointment only. Please cancel at least 24 hours in advance."
+    inputs={[
+      { type: 'text', name: 'name', label: "First name" },
+      { type: 'email', name: 'email', label: "Your email" },
+    ]}
+    textarea={{ label: "Your message" }}
+    disclaimer={{ label: "I agree to be contacted about my enquiry. You can unsubscribe at any time." }}
+    description="7 am – 7 pm, 7 days a week"
+  />
+
+  <Features2
+    title="Prefer to talk?"
+    columns={2}
+    items={[
+  {
+    "title": "Business hours",
+    "description": "Monday – Sunday, 7 am – 7 pm, 7 days a week",
+    "icon": "tabler:clock"
+  },
+  {
+    "title": "Service area",
+    "description": "We proudly serve Sample City, Sample Town and the surrounding areas. Not sure if you are covered? Get in touch.",
+    "icon": "tabler:map-pin"
+  },
+  {
+    "title": "Phone",
+    "description": "<a href=\"tel:0000000000\">000-000-0000</a>",
+    "icon": "tabler:phone"
+  },
+  {
+    "title": "Email",
+    "description": "<a href=\"mailto:hello@example.com\">hello@example.com</a>",
+    "icon": "tabler:mail"
+  }
+]}
+  />
+</Layout>

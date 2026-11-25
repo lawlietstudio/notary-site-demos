@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Bi from '../components/Bi.astro';
+import Btn from '../components/Btn.astro';
+import PageHead from '../components/PageHead.astro';
+import Photo from '../components/Photo.astro';
+import { getSite } from '../lib/content';
+import { bookHref, en } from '../lib/helpers';
+import headImg from '../assets/photos/wax-seal-paper.jpg';
+import sideImg from '../assets/photos/desk-notebook.jpg';
+
+const site = await getSite();
+const { about } = site;
+---
+<Layout
+  path="/about/"
+  title="About"
+  description={`About ${site.name}: ${en(about.intro[0])}`.slice(0, 200)}
+>
+  <PageHead title={about.title} photo={headImg} />
+  <section class="section">
+    <div class="wrap split split-text">
+      <div class="prose">
+        {about.intro.map((p) => <p><Bi t={p} /></p>)}
+
+        <h2><Bi t={about.area.title} /></h2>
+        <p><Bi t={about.area.text} /></p>
+
+        <h2><Bi t={about.person.title} /></h2>
+        {about.person.paragraphs.map((p) => <p><Bi t={p} /></p>)}
+
+        <h2><Bi t={about.credentials.title} /></h2>
+        <ul>{about.credentials.items.map((c) => <li>{c}</li>)}</ul>
+
+        <p class="actions"><Btn href={bookHref(site)} label={site.cta.book} /></p>
+      </div>
+      <Photo
+        class="split-photo split-photo-tall"
+        src={sideImg}
+        alt="A notebook and pen on a desk beside a sunlit window"
+        sizes="(min-width: 900px) 380px, 100vw"
+        widths={[480, 760, 1000]}
+      />
+    </div>
+  </section>
+</Layout>

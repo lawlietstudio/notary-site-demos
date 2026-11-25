@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSite } from '../lib/content';
+import { telHref } from '../lib/helpers';
+
+const site = await getSite();
+const { privacy } = site;
+---
+<Layout
+  path="/privacy/"
+  title="Privacy Policy"
+  description={`How ${site.name} collects and uses personal information.`}
+>
+  <section class="page-head">
+    <div class="wrap">
+      <h1>{privacy.title}</h1>
+      <p class="lead">Last updated {privacy.lastUpdated}</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap prose">
+      <p>{privacy.intro}</p>
+      {privacy.sections.map((s) => (
+        <>
+          <h2>{s.title}</h2>
+          <p>{s.text}</p>
+        </>
+      ))}
+      <h2>Contact</h2>
+      <p>
+        Questions about this policy? Email <a href={`mailto:${site.email}`}>{site.email}</a> or call
+        <a href={telHref(site.phone)}> {site.phone}</a>.
+      </p>
+    </div>
+  </section>
+</Layout>

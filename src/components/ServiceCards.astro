@@ -1,0 +1,19 @@
+---
+import Bi from './Bi.astro';
+import type { ServiceItem } from '../lib/types';
+
+interface Props {
+  items: ServiceItem[];
+}
+
+const { items } = Astro.props;
+---
+<div class="grid grid-3">
+  {items.map((s, i) => (
+    <article class="card service">
+      <span class="num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+      <h3><Bi t={s.name} /></h3>
+      <p><Bi t={s.example} /></p>
+    </article>
+  ))}
+</div>

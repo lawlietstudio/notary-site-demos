@@ -1,0 +1,5 @@
+<svg role="img" aria-label="Sample Mobile Notary seal" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <path fill="#13233f" fill-rule="evenodd" d="M32 5Q40.8 -0.8 45.5 8.6Q56 8 55.4 18.5Q64.8 23.2 59 32Q64.8 40.8 55.4 45.5Q56 56 45.5 55.4Q40.8 64.8 32 59Q23.2 64.8 18.5 55.4Q8 56 8.6 45.5Q-0.8 40.8 5 32Q-0.8 23.2 8.6 18.5Q8 8 18.5 8.6Q23.2 -0.8 32 5ZM55 32a23 23 0 1 0-46 0 23 23 0 1 0 46 0Z"/>
+  <path fill="#13233f" transform="rotate(32 32 32)" d="M22 16q10-3 20 0l3 10-11 20V35a4 4 0 1 0-4 0v11L19 26Z"/>
+  <circle cx="20" cy="47" r="2.25" fill="#c8a24a"/>
+</svg>

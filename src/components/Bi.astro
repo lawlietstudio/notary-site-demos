@@ -1,0 +1,14 @@
+---
+// Renders a string, or English with the second language underneath.
+import { secondaryLang } from '../lib/config';
+import type { L } from '../lib/types';
+
+interface Props {
+  t: L | undefined;
+}
+
+const { t } = Astro.props;
+const text = typeof t === 'string' ? t : (t?.en ?? '');
+const second = typeof t === 'string' ? undefined : t?.zh;
+---
+{text}{second && <span class="zh" lang={secondaryLang}>{second}</span>}

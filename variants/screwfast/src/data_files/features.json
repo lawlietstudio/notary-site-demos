@@ -1,0 +1,22 @@
+[
+  {
+    "heading": "Convenient mobile service",
+    "content": "We come to your home, office or a location of your choice.",
+    "svg": "house"
+  },
+  {
+    "heading": "Fast and reliable",
+    "content": "Same-day appointments are available for urgent requests.",
+    "svg": "rocket"
+  },
+  {
+    "heading": "Confidential and secure",
+    "content": "Your documents are handled with the utmost privacy.",
+    "svg": "verified"
+  },
+  {
+    "heading": "Clear pricing",
+    "content": "Transparent fees with no hidden costs.",
+    "svg": "checkCircle"
+  }
+]

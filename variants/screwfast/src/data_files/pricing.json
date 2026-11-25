@@ -1,0 +1,35 @@
+{
+  "title": "In-person mobile notary prices",
+  "subTitle": "Cash or e-transfer only",
+  "badge": "Multiple documents",
+  "thirdOption": "11th signature and up: $12 each",
+  "btnText": "Book an Appointment",
+  "starterKit": {
+    "name": "Starter",
+    "description": "First notary signature and seal",
+    "price": "40",
+    "cents": ".00",
+    "billingFrequency": "first signature",
+    "features": [
+      "In-person at your location",
+      "Same-day appointments available",
+      "Seal and signature included"
+    ],
+    "purchaseBtnTitle": "Book an Appointment",
+    "purchaseLink": "/contact"
+  },
+  "professionalToolbox": {
+    "name": "Additional",
+    "description": "Additional notary signature and seal, up to the 10th",
+    "price": "25",
+    "cents": ".00",
+    "billingFrequency": "each, up to the 10th",
+    "features": [
+      "Same visit, same appointment",
+      "11th signature and up: $12 each",
+      "No hidden costs"
+    ],
+    "purchaseBtnTitle": "Book an Appointment",
+    "purchaseLink": "/contact"
+  }
+}

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mobile notary website: three design directions</title>
+<meta name="description" content="Three design directions for a mobile notary website, built with the same content.">
+<style>
+  :root { --navy:#13233f; --gold:#c8a24a; --ink:#1d2433; --muted:#5a6475; --line:#ded9cc; --bg:#fbfaf7; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; color:var(--ink); background:var(--bg); }
+  .wrap { width:min(1040px, 100% - 2.5rem); margin:0 auto; }
+  header { padding:3.5rem 0 2rem; }
+  .mark { display:block; width:56px; height:56px; margin-bottom:1.25rem; }
+  h1 { font:600 clamp(1.8rem,4vw,2.6rem)/1.2 Georgia, "Iowan Old Style", serif; margin:0 0 .75rem; color:var(--navy); }
+  header p { max-width:60ch; color:var(--muted); margin:0; }
+  .grid { display:grid; gap:1rem; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); padding:1rem 0 3rem; }
+  .card { display:flex; flex-direction:column; background:#fff; border:1px solid var(--line); border-radius:8px; padding:1.5rem; text-decoration:none; color:inherit; transition:border-color .15s, transform .15s; }
+  .card:hover { border-color:var(--navy); transform:translateY(-2px); }
+  .card:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
+  .tag { font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:#8a6d22; font-weight:600; }
+  .card h2 { font:600 1.35rem/1.25 Georgia, "Iowan Old Style", serif; margin:.35rem 0 .6rem; color:var(--navy); }
+  .card p { margin:0 0 1rem; color:var(--muted); font-size:.96rem; }
+  .card ul { margin:0 0 1.25rem; padding-left:1.1rem; color:var(--muted); font-size:.92rem; }
+  .go { margin-top:auto; font-weight:600; color:var(--navy); }
+  footer { border-top:1px solid var(--line); padding:1.5rem 0 3rem; color:var(--muted); font-size:.9rem; }
+  footer p { margin:0 0 .4rem; }
+  a { color:var(--navy); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg class="mark" viewBox="0 0 64 64" role="img" aria-label="Sample Mobile Notary">
+  <path fill="none" stroke="#13233f" stroke-width="5" d="M32 5C55 5 59 9 59 32S55 59 32 59 5 55 5 32 9 5 32 5Z"/>
+  <path fill="#13233f" d="M19 17q13 4 26 0-3 7-2 13L34 42V32a4 4 0 1 0-4 0v10l-9-12q1-6-2-13Z"/>
+  <path fill="none" stroke="#c8a24a" stroke-width="4" stroke-linecap="round" d="M24 49q7-2 16-1"/>
+</svg>
+    <h1>Mobile notary website: three design directions</h1>
+    <p>The same business, the same content and the same photographs, designed three different ways. Open each one, click through every page, and tell me which feels right.</p>
+  </header>
+
+  <main class="grid">
+    <a class="card" href="custom/">
+      <span class="tag">Option A</span>
+      <h2>Custom design</h2>
+      <p>Navy and gold, serif headings, photograph-led. English with 中文 beneath every line.</p>
+      <ul><li>Home, About, Price Plans, Contact, Privacy</li><li>Connects to a Sanity editing back office</li></ul>
+      <span class="go">Open site &rarr;</span>
+    </a>
+    <a class="card" href="screwfast/">
+      <span class="tag">Option B</span>
+      <h2>ScrewFast template</h2>
+      <p>Warm grey with an orange accent, a floating pill navigation and a dark-mode switch. A corporate feel.</p>
+      <ul><li>Home, Services, Contact</li><li>English only so far</li></ul>
+      <span class="go">Open site &rarr;</span>
+    </a>
+    <a class="card" href="astrowind/">
+      <span class="tag">Option C</span>
+      <h2>AstroWind template</h2>
+      <p>Clean white marketing layout with a blue accent and a familiar start-up look.</p>
+      <ul><li>Home, Price Plans, Contact, Privacy</li><li>English only so far</li></ul>
+      <span class="go">Open site &rarr;</span>
+    </a>
+  </main>
+
+  <footer>
+    <p>This is a preview. The business, prices, phone number and email are sample content, not a real company, and the contact forms on options B and C are not connected yet.</p>
+    <p>Photographs from <a href="https://unsplash.com">Unsplash</a> (free to use). Options B and C are adapted from the open-source ScrewFast and AstroWind templates (MIT licence). Search engines are asked not to index this preview.</p>
+  </footer>
+</div>
+</body>
+</html>

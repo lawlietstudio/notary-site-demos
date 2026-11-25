@@ -1,0 +1,166 @@
+---
+import { getPermalink } from '~/utils/permalinks';
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Features from '~/components/widgets/Features.astro';
+import Content from '~/components/widgets/Content.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+const metadata = {
+  title: "Mobile Notary Public Services",
+  description: "Affordable mobile notary services that come to your home, office or a location of your choice. Same-day appointments available, 7 days a week.",
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero
+    tagline="Welcome to Sample Mobile Notary"
+    actions={[
+      { variant: 'primary', text: "Book an Appointment", href: getPermalink('/contact') },
+      { text: "See Prices", href: getPermalink('/pricing') },
+    ]}
+    image={{ src: '~/assets/images/hero-signing.jpg', alt: 'A hand signing a document with a pen on a wooden table' }}
+  >
+    <Fragment slot="title">
+      Notary services that <span class="text-accent dark:text-white">come to you</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Fast, efficient mobile service for all your legal documents. <span class="font-semibold">7 am – 7 pm, 7 days a week.</span>
+    </Fragment>
+  </Hero>
+
+  <Features
+    id="features"
+    tagline="Why choose us"
+    title="Why choose us?"
+    subtitle="We provide reliable, professional mobile notary services. Our mission is to offer convenient and affordable notarization for individuals and businesses, handled with care and attention to detail."
+    items={[
+  {
+    "title": "Convenient mobile service",
+    "description": "We come to your home, office or a location of your choice.",
+    "icon": "tabler:map-pin"
+  },
+  {
+    "title": "Fast and reliable",
+    "description": "Same-day appointments are available for urgent requests.",
+    "icon": "tabler:clock"
+  },
+  {
+    "title": "Confidential and secure",
+    "description": "Your documents are handled with the utmost privacy.",
+    "icon": "tabler:lock"
+  },
+  {
+    "title": "Clear pricing",
+    "description": "Transparent fees with no hidden costs.",
+    "icon": "tabler:receipt"
+  }
+]}
+  />
+
+  <Content
+    isReversed
+    tagline="Services"
+    title="What we notarize"
+    items={[
+  {
+    "title": "Affidavits",
+    "description": "Such as affidavits of service, divorce or student-aid applications."
+  },
+  {
+    "title": "Attestations",
+    "description": "Such as proof-of-life or residency attestations."
+  },
+  {
+    "title": "Invitation Letters",
+    "description": "Such as letters supporting a visitor's travel application."
+  }
+]}
+    image={{ src: '~/assets/images/desk-documents.jpg', alt: 'Forms and a pen on a wooden desk' }}
+  />
+
+  <Content
+    tagline="More documents"
+    title="Declarations, claims and travel"
+    items={[
+  {
+    "title": "Statutory Declarations",
+    "description": "Such as declarations of identity, marital status or progress payment."
+  },
+  {
+    "title": "Insurance Claims",
+    "description": "Such as proof-of-loss forms."
+  },
+  {
+    "title": "Travel Letters",
+    "description": "Such as consent letters for children travelling without both parents."
+  }
+]}
+    image={{ src: '~/assets/images/passport-dark.jpg', alt: 'A dark passport' }}
+  />
+
+  <Steps
+    title="How it works"
+    items={[
+  {
+    "title": "Step 1: <span class=\"font-medium\">Schedule an appointment</span>",
+    "description": "Book online or contact us to arrange a convenient time.",
+    "icon": "tabler:calendar"
+  },
+  {
+    "title": "Step 2: <span class=\"font-medium\">Meet your notary</span>",
+    "description": "We meet you in person, check your ID and review the documents.",
+    "icon": "tabler:user-check"
+  },
+  {
+    "title": "Step 3: <span class=\"font-medium\">Document notarized</span>",
+    "description": "Your documents are notarized promptly, securely and professionally.",
+    "icon": "tabler:certificate"
+  },
+  {
+    "title": "Done",
+    "icon": "tabler:check"
+  }
+]}
+    image={{ src: '~/assets/images/wax-envelope.jpg', alt: 'A wax-sealed envelope and a seal stamp' }}
+  />
+
+  <FAQs
+    id="faqs"
+    tagline="FAQs"
+    title="Frequently Asked Questions"
+    subtitle="Straight answers about how a mobile notary appointment works."
+    schema
+    items={[
+  {
+    "title": "What should I bring to my appointment?",
+    "description": "Bring valid government-issued photo ID and your document. Do not sign it beforehand: you will sign in front of the notary."
+  },
+  {
+    "title": "Do you come to me?",
+    "description": "We come to your home, office or a location of your choice."
+  },
+  {
+    "title": "How much does it cost?",
+    "description": "First notary signature and seal is $40. Each additional signature and seal is $25 up to the 10th, then $12 each. Cash or e-transfer only."
+  },
+  {
+    "title": "Can you give legal advice?",
+    "description": "Please note: a notary public cannot give legal or immigration advice."
+  },
+  {
+    "title": "What if I need to cancel?",
+    "description": "By appointment only. Please cancel at least 24 hours in advance."
+  }
+]}
+  />
+
+  <CallToAction actions={[{ variant: 'primary', text: "Book an Appointment", href: getPermalink('/contact') }]}>
+    <Fragment slot="title">Need a document notarized?</Fragment>
+    <Fragment slot="subtitle">Appointments are by booking only. Tell us what you need and we will confirm a time.</Fragment>
+  </CallToAction>
+</Layout>
