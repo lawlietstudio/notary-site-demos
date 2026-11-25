@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Band from '../components/Band.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { href, site, t, ui, type Lang } from '../lib/site';
+import silk from '../assets/ai/navy-silk.webp';
+
+const { lang } = Astro.props as { lang: Lang };
+const L = (v: any) => t(v, lang);
+const p = site.pricing;
+// "$25" -> { prefix: "$", n: "25" } so the number can count up on screen.
+const priceParts = (price: string) => {
+  const m = price.match(/^(\D*)(\d+(?:\.\d+)?)/);
+  return { prefix: m?.[1] ?? '', n: m?.[2] ?? price };
+};
+---
+<Layout
+  lang={lang}
+  path="/pricing/"
+  title={L(site.nav[2].label)}
+  description={`${L(p.title)} (${L(p.payment)}): ${p.plans.map((x: any) => `${L(x.name)} ${x.price}`).join(', ')}.`}
+>
+  <Band title={L(p.title)} lead={L(p.payment)} img={silk} />
+
+  <section class="section">
+    <div class="container">
+      <div class="price-grid">
+        {p.plans.map((plan: any) => (
+          <article class:list={['plan', { 'is-featured': plan.featured }]}>
+            {plan.featured && <span class="plan-tag">{ui('popular', lang)}</span>}
+            <h2 class="plan-name">{L(plan.name)}</h2>
+            <p class="plan-price"><span data-count={priceParts(plan.price).n} data-prefix={priceParts(plan.price).prefix}>{plan.price}</span>{plan.unit && <small>{L(plan.unit)}</small>}</p>
+            <p class="plan-desc">{L(plan.desc)}</p>
+            <a href={href('/contact/', lang)} class:list={['btn', plan.featured ? 'btn-gold' : 'btn-ink-line']}>{L(site.cta.book)}</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section tint">
+    <div class="container">
+      <header class="sec-head center reveal">
+        <h2>{L(p.examplesTitle)}</h2>
+      </header>
+      <ol class="doc-grid">
+        {site.services.items.map((s: any, i: number) => (
+          <li class="reveal">
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{L(s.name)}</h3>
+              <p>{L(s.example)}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} />
+</Layout>

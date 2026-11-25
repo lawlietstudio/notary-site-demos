@@ -1,0 +1,24 @@
+---
+// Closing call-to-action: one full-bleed photograph, a hairline frame that draws itself, centred copy.
+import Photo from './Photo.astro';
+import LogoMark from './LogoMark.astro';
+import { href, site, t, telHref, type Lang } from '../lib/site';
+import skyline from '../assets/ai/skyline.webp';
+
+const { lang } = Astro.props as { lang: Lang };
+---
+<section class="cta-band">
+  <Photo class="cta-img" src={skyline} alt="" widths={[800, 1200, 1600, 1920]} />
+  <div class="cta-frame reveal">
+    <i class="ln ln-t"></i><i class="ln ln-r"></i><i class="ln ln-b"></i><i class="ln ln-l"></i>
+    <div class="container cta-copy">
+      <LogoMark size={44} class="cta-mark" />
+      <h2 data-split>{t(site.ctaBand.title, lang)}</h2>
+      <p>{t(site.ctaBand.text, lang)}</p>
+      <div class="actions center">
+        <a href={href('/contact/', lang)} class="btn btn-gold">{t(site.cta.book, lang)}<span class="arr" aria-hidden="true"></span></a>
+        <a href={telHref(site.phone)} class="btn btn-line">{site.phone}</a>
+      </div>
+    </div>
+  </div>
+</section>

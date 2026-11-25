@@ -1,0 +1,138 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Photo from '../components/Photo.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { href, site, t, type Lang } from '../lib/site';
+
+import heroBg from '../assets/ai/hero-bg.webp';
+import affidavits from '../assets/ai/svc-affidavits.webp';
+import envelope from '../assets/ai/trust-envelope.webp';
+import travel from '../assets/ai/svc-travel.webp';
+import declarations from '../assets/ai/svc-declarations.webp';
+import claims from '../assets/ai/svc-claims.webp';
+import desk from '../assets/ai/about-desk.webp';
+import street from '../assets/ai/mobile-street.webp';
+import dust from '../assets/ai/gold-dust.webp';
+
+const { lang } = Astro.props as { lang: Lang };
+const L = (v: any) => t(v, lang);
+
+// One photograph per service, in the same order as the services in the content file.
+const cards = [
+  { img: affidavits, alt: { en: 'An affidavit on a leather desk pad beside a fountain pen and a red wax seal', zh: '皮質桌墊上的宣誓書，旁邊有鋼筆和紅色火漆印' } },
+  { img: desk, alt: { en: 'A notary journal, fountain pen and brass seal on dark wood', zh: '深色木桌上的公證日誌、鋼筆和黃銅印章' } },
+  { img: envelope, alt: { en: 'Two hands exchanging a sealed envelope', zh: '兩隻手交接一封蓋有火漆印的信' } },
+  { img: declarations, alt: { en: 'A hand resting on a leather legal binder beside a brass stamp', zh: '手放在皮質文件夾上，旁邊有黃銅印章' } },
+  { img: claims, alt: { en: 'A signed claim form with a gold foil seal', zh: '已簽署的索賠表格和金箔印章' } },
+  { img: travel, alt: { en: 'A navy passport and a boarding pass on a walnut desk', zh: '胡桃木桌上的深藍護照和登機證' } },
+];
+const whyIcons = ['house', 'hourglass', 'shield', 'scales'];
+const stepIcons = ['calendar', 'pen', 'certificate'];
+const heroAlt = lang === 'zh' ? '公證人在深色胡桃木桌上簽署並蓋章' : 'A notary at a walnut desk signing and stamping a document';
+const streetAlt = lang === 'zh' ? '穿深色大衣、提着公事包的專業人士在黃昏走向大門' : 'A professional in a dark overcoat carrying a briefcase walks to a front door at blue hour';
+const nameWords: string[] = String(site.hero.titleAccent).split(' ');
+---
+<Layout lang={lang} path="/">
+  <section class="hero">
+    <Photo class="hero-img" src={heroBg} alt={heroAlt} widths={[800, 1200, 1600, 1920]} eager />
+    <div class="container hero-copy">
+      <p class="eyebrow rise rise-1">{L(site.hero.eyebrow)}</p>
+      <h1 class="hero-title">
+        <span class="h1-lead line"><span>{L(site.hero.titleLead)}</span></span>
+        <span class="h1-name">{nameWords.map((w, i) => (<><span class="word" style={`--i:${i}`}><span>{w}</span></span>{' '}</>))}</span>
+      </h1>
+      <p class="hero-lead rise rise-3">{L(site.hero.lead)}</p>
+      <div class="actions rise rise-4">
+        <a href={href('/contact/', lang)} class="btn btn-gold">{L(site.cta.book)}<span class="arr" aria-hidden="true"></span></a>
+        <a href={href('/pricing/', lang)} class="btn btn-line">{L(site.cta.pricing)}</a>
+      </div>
+    </div>
+    <span class="cue" aria-hidden="true"></span>
+    <div class="container">
+      <dl class="stats rise rise-5">
+        {site.ui.stats.map((s: any) => (
+          <div><dt data-count={s.n}>{s.n}</dt><dd>{L(s.t)}</dd></div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section svc-section" id="services">
+    <div class="svc-pin">
+      <div class="svc-sticky">
+        <div class="container">
+          <header class="sec-head center">
+            <p class="eyebrow center">{L(site.services.eyebrow)}</p>
+            <h2 data-split>{L(site.services.title)}</h2>
+          </header>
+        </div>
+        <div class="container svc-grid svc-track">
+          {site.services.items.map((s: any, i: number) => (
+            <article class="svc reveal">
+              <div class="svc-img"><Photo src={cards[i].img} alt={L(cards[i].alt)} sizes="(min-width: 900px) 30vw, 100vw" widths={[480, 800, 1100]} /></div>
+              <div class="svc-body">
+                <span class="num">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{L(s.name)}</h3>
+                <p>{L(s.example)}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div class="svc-progress" aria-hidden="true"><i></i></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      {[0, 1].map(() => (
+        <ul>{site.services.items.map((s: any) => <li>{L(s.name)}</li>)}</ul>
+      ))}
+    </div>
+  </div>
+
+  <section class="section tint">
+    <div class="container why-grid">
+      <figure class="frame why-fig reveal">
+        <Photo src={street} alt={streetAlt} sizes="(min-width: 900px) 520px, 100vw" widths={[480, 800, 1100]} />
+      </figure>
+      <div class="why-copy">
+        <h2 data-split>{L(site.why.title)}</h2>
+        <ul class="feat-list">
+          {site.why.items.map((w: any, i: number) => (
+            <li class="reveal">
+              <Icon name={whyIcons[i]} size={76} />
+              <div>
+                <h3>{L(w.title)}</h3>
+                <p>{L(w.text)}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark steps">
+    <Photo class="steps-bg" src={dust} alt="" widths={[800, 1200, 1600]} />
+    <div class="container">
+      <header class="sec-head center">
+        <p class="eyebrow center">{L(site.hours.label)}</p>
+        <h2 data-split>{L(site.contact.stepsTitle)}</h2>
+      </header>
+      <ol class="step-grid">
+        {site.contact.steps.map((st: any, i: number) => (
+          <li class="step reveal">
+            <Icon name={stepIcons[i]} size={104} />
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{L(st.title)}</h3>
+            <p>{L(st.text)}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} />
+</Layout>

@@ -1,0 +1,14 @@
+---
+// Dark photographic header at the top of inner pages.
+import Photo from './Photo.astro';
+
+const { title, lead, img, alt = '', eyebrow } = Astro.props;
+---
+<header class="band">
+  <Photo class="band-img" src={img} alt={alt} widths={[800, 1200, 1600, 1920]} eager />
+  <div class="container band-copy">
+    {eyebrow && <p class="eyebrow center">{eyebrow}</p>}
+    <h1 data-split>{title}</h1>
+    {lead && <p class="band-lead">{lead}</p>}
+  </div>
+</header>

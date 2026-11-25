@@ -9,6 +9,7 @@ Three designs built on Astro templates, adapted to the same notary content and p
 | A | project root | custom | n/a | `npm run dev` (port 4321) |
 | D | `audit-pro/` (generated) | [ctrimm/astro-audit-pro-theme](https://github.com/ctrimm/astro-audit-pro-theme) | none declared | `npm run variant:audit` (port 4325) |
 | E | `molique-site/` | [molique](https://github.com/rafalrozacki-debug/molique) (npm) | Apache-2.0 | `npm run variant:molique` (port 4326) |
+| F | `motion-site/` | a copy of E with an animation layer | Apache-2.0 (molique) | `npm run variant:motion` (port 4327) |
 
 First time only: `npm install --ignore-scripts` inside each variant folder (dependencies were installed without lifecycle scripts as a precaution).
 

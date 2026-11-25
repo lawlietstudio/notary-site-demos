@@ -1,0 +1,22 @@
+{
+  "name": "notary-motion-variant",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/instrument-sans": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "@fontsource/noto-sans-tc": "^5.3.1",
+    "@fontsource/noto-serif-tc": "^5.3.1",
+    "@fontsource/poppins": "^5.3.0",
+    "astro": "^7.4.13",
+    "molique": "1.7.49"
+  },
+  "engines": {
+    "node": ">=22.23.4"
+  }
+}

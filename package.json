@@ -18,7 +18,8 @@
     "variant:screwfast": "node variants/run.mjs screwfast",
     "variant:astrowind": "node variants/run.mjs astrowind",
     "variant:audit": "node scripts/prepare-audit.mjs && node variants/run.mjs audit-pro",
-    "variant:molique": "node scripts/prepare-molique.mjs && node variants/run.mjs molique-site"
+    "variant:molique": "node scripts/prepare-molique.mjs molique-site && node variants/run.mjs molique-site",
+    "variant:motion": "node scripts/prepare-molique.mjs motion-site && node variants/run.mjs motion-site"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.3.0",

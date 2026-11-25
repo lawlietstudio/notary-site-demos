@@ -1,0 +1,9 @@
+---
+// Custom engraved-gold icons (AI-generated, see AI-IMAGES.md). The WebP files are transparent masks,
+// so the colour comes from CSS (`--ico-color`, gold by default) and works on light and dark sections.
+const files = import.meta.glob('../assets/icons/*.webp', { eager: true, import: 'default' }) as Record<string, ImageMetadata>;
+const { name, size = 64, class: className } = Astro.props;
+const meta = files[`../assets/icons/${name}.webp`];
+if (!meta) throw new Error(`Unknown icon "${name}"`);
+---
+<span class:list={['ico', className]} style={`--ico:url(${meta.src});--s:${size}px`} aria-hidden="true"></span>

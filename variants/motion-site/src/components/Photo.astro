@@ -1,0 +1,17 @@
+---
+// Responsive photo: AVIF + WebP at several widths, generated at build time.
+import { Picture } from 'astro:assets';
+
+const { src, alt = '', class: className, sizes = '100vw', widths = [480, 800, 1200, 1600], eager = false } = Astro.props;
+---
+<Picture
+  src={src}
+  alt={alt}
+  class={className}
+  formats={['avif', 'webp']}
+  fallbackFormat="webp"
+  widths={widths}
+  sizes={sizes}
+  loading={eager ? 'eager' : 'lazy'}
+  fetchpriority={eager ? 'high' : 'auto'}
+/>

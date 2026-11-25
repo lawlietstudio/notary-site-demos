@@ -46,7 +46,11 @@ jobs:
         run: npm ci --ignore-scripts
         working-directory: variants/molique-site
 
-      - name: Build all five sites
+      - name: Install motion design dependencies
+        run: npm ci --ignore-scripts
+        working-directory: variants/motion-site
+
+      - name: Build all six sites
         run: node scripts/build-pages.mjs
         env:
           SITE_ORIGIN: https://${{ github.repository_owner }}.github.io

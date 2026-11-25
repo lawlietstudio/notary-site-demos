@@ -1,0 +1,26 @@
+---
+// Language dropdown: links to the same page in the other language.
+import { LANGS, href, type Lang, ui } from '../lib/site';
+
+interface Props { lang: Lang; path: string }
+const { lang, path } = Astro.props;
+const names: Record<Lang, { short: string; full: string; tag: string }> = {
+  en: { short: 'EN', full: 'English', tag: 'en' },
+  zh: { short: '中文', full: '繁體中文', tag: 'zh-Hant' },
+};
+---
+<details class="lang" data-lang-switch>
+  <summary aria-label={ui('language', lang)}>
+    <span class="lang-cur">{names[lang].short}</span>
+    <span class="chev" aria-hidden="true"></span>
+  </summary>
+  <ul class="lang-menu">
+    {LANGS.map((l) => (
+      <li>
+        <a href={href(path, l)} hreflang={names[l].tag} lang={names[l].tag} data-lang-link={l} aria-current={l === lang ? 'true' : undefined} class:list={{ 'is-current': l === lang }}>
+          {names[l].full}
+        </a>
+      </li>
+    ))}
+  </ul>
+</details>

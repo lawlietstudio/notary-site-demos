@@ -15,3 +15,5 @@ variants/*/_unused/
 variants/audit-pro/
 variants/molique-site/public/
 variants/molique-site/src/data/site.json
+variants/motion-site/public/
+variants/motion-site/src/data/site.json

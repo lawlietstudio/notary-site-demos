@@ -1,0 +1,212 @@
+---
+import '@fontsource/instrument-serif/400.css';
+import '@fontsource/instrument-serif/400-italic.css';
+import '@fontsource-variable/instrument-sans';
+import '@fontsource/noto-serif-tc/400.css';
+import '@fontsource/noto-sans-tc/400.css';
+import '../styles/luxe.css';
+import '../styles/motion.css';
+import LogoMark from '../components/LogoMark.astro';
+import LangSwitch from '../components/LangSwitch.astro';
+import { LANGS, href, nav, site, t, telHref, ui, withBase, type Lang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  /** Language-neutral path of this page, e.g. "/about/". */
+  path: string;
+  title?: string;
+  description?: string;
+}
+
+const { lang, path, title, description = t(site.metaDescription, lang) } = Astro.props;
+const fullTitle = title ? `${title} – ${site.name}` : `${site.name} – ${t(site.homeTitle, lang)}`;
+// Preview deployments (PUBLIC_DEMO=1) must not be indexed.
+const robots = import.meta.env.PUBLIC_DEMO === '1' ? 'noindex, nofollow' : 'index, follow';
+const vendor = withBase('/vendor/molique');
+const year = new Date().getFullYear();
+const origin = Astro.site ?? Astro.url;
+const alt = (l: Lang) => new URL(href(path, l), origin).href;
+const left = nav.slice(0, 3);
+const right = nav.slice(3);
+const isCurrent = (p: string) => p === path;
+---
+<html lang={lang === 'zh' ? 'zh-Hant' : 'en'} data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content="#0d0f13" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="alternate" hreflang="en" href={alt('en')} />
+    <link rel="alternate" hreflang="zh-Hant" href={alt('zh')} />
+    <link rel="alternate" hreflang="x-default" href={alt('en')} />
+    <link rel="stylesheet" href={`${vendor}/css/molique-style.min.css`} />
+    <script is:inline>
+      // This design is light-only: lock the theme so molique does not switch to its dark palette.
+      try { localStorage.setItem('molique-theme', 'light'); } catch (e) {}
+      document.documentElement.setAttribute('data-theme', 'light');
+      // Motion flags, set before first paint: "js" turns the animated start states on (only when the
+      // visitor has not asked for reduced motion); "no-intro" skips the opening curtain after the first page.
+      (function () {
+        var d = document.documentElement;
+        // "os-calm": the system asks for reduced motion. "motion-on": the visitor chose to play the
+        // animations anyway (this is a demo of them). "calm": animations stay off.
+        var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var forced = false;
+        try { forced = localStorage.getItem('motion') === 'on'; } catch (e) {}
+        if (reduce) d.classList.add('os-calm');
+        if (reduce && forced) d.classList.add('motion-on');
+        if (reduce && !forced) d.classList.add('calm');
+        else if ('IntersectionObserver' in window) d.classList.add('js');
+        try { if (sessionStorage.getItem('intro-seen')) d.classList.add('no-intro'); } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="intro" aria-hidden="true">
+      <div class="intro-inner">
+        <span class="intro-name">{site.name}</span>
+        <span class="intro-line"></span>
+      </div>
+    </div>
+    <div class="cursor" aria-hidden="true"></div>
+    <a href="#main" class="skip">{ui('skip', lang)}</a>
+
+    <header class="site-header" data-header>
+      <span class="progress" aria-hidden="true"></span>
+      <div class="hd-inner">
+        <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-label={ui('menu', lang)} />
+        <label for="menu-toggle" class="burger" aria-hidden="true"><span></span><span></span></label>
+
+        <nav class="hd-nav hd-left" aria-label="Main">
+          {left.map((n) => (
+            <a href={href(n.href, lang)} class:list={{ 'is-active': isCurrent(n.href) }} aria-current={isCurrent(n.href) ? 'page' : undefined}>{t(n.label, lang)}</a>
+          ))}
+        </nav>
+
+        <a href={href('/', lang)} class="brand" aria-label={`${site.name} – ${t(nav[0].label, lang)}`}>
+          <LogoMark size={30} />
+          <span>{site.name}</span>
+        </a>
+
+        <div class="hd-right">
+          <nav class="hd-nav" aria-label="Secondary">
+            {right.map((n) => (
+              <a href={href(n.href, lang)} class:list={{ 'is-active': isCurrent(n.href) }} aria-current={isCurrent(n.href) ? 'page' : undefined}>{t(n.label, lang)}</a>
+            ))}
+          </nav>
+          <LangSwitch lang={lang} path={path} />
+          <button type="button" class="motion-toggle hd-motion" data-motion-toggle data-on={lang === 'zh' ? '動態' : 'Animate'} data-off={lang === 'zh' ? '靜態' : 'Calm'} title={lang === 'zh' ? '系統要求減少動態；可在此播放或關閉動畫' : 'Your system asks for reduced motion; play or stop the animations here'} hidden></button>
+        </div>
+
+        <div class="drawer">
+          <nav aria-label="Menu">
+            {nav.map((n) => (
+              <a href={href(n.href, lang)} class:list={{ 'is-active': isCurrent(n.href) }}>{t(n.label, lang)}</a>
+            ))}
+          </nav>
+          <a href={href('/contact/', lang)} class="btn btn-gold">{t(site.cta.book, lang)}</a>
+          <button type="button" class="motion-toggle drawer-motion" data-motion-toggle data-on={lang === 'zh' ? '動態' : 'Animate'} data-off={lang === 'zh' ? '靜態' : 'Calm'} title={lang === 'zh' ? '系統要求減少動態；可在此播放或關閉動畫' : 'Your system asks for reduced motion; play or stop the animations here'} hidden></button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="foot-top">
+          <LogoMark size={52} class="foot-mark" />
+          <p class="foot-name">{site.name}</p>
+          <p class="foot-tag">{t(site.hero.lead, lang)}</p>
+        </div>
+        <div class="foot-grid">
+          <div>
+            <h3>{ui('explore', lang)}</h3>
+            <ul>
+              {nav.map((n) => <li><a href={href(n.href, lang)}>{t(n.label, lang)}</a></li>)}
+            </ul>
+          </div>
+          <div>
+            <h3>{ui('contactUs', lang)}</h3>
+            <ul>
+              <li><a href={telHref(site.phone)}>{site.phone}</a></li>
+              <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+              <li>{t(site.hours.label, lang)}</li>
+            </ul>
+          </div>
+          <div>
+            <h3>{ui('language', lang)}</h3>
+            <ul>
+              {LANGS.map((l) => (
+                <li><a href={href(path, l)} hreflang={l === 'zh' ? 'zh-Hant' : 'en'} data-lang-link={l} class:list={{ 'is-current': l === lang }}>{l === 'zh' ? '繁體中文' : 'English'}</a></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div class="foot-base">
+          <span>© {year} {site.name}</span>
+          <span>{t(site.concept, lang)} {ui('imageNote', lang)}</span>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline defer src={`${vendor}/js/molique-script.js`}></script>
+    <script>
+      import '../scripts/motion.ts';
+    </script>
+    <script is:inline define:vars={{ lang }}>
+      (function () {
+        var root = document.documentElement;
+        // Remember the visitor's language and send returning visitors to it.
+        try {
+          var saved = localStorage.getItem('molique-lang');
+          var here = lang;
+          if (saved && saved !== here && !sessionStorage.getItem('molique-lang-seen')) {
+            var link = document.querySelector('[data-lang-switch] a[data-lang-link="' + saved + '"]');
+            if (link) { sessionStorage.setItem('molique-lang-seen', '1'); location.replace(link.href); return; }
+          }
+          sessionStorage.setItem('molique-lang-seen', '1');
+        } catch (e) {}
+        document.querySelectorAll('[data-lang-link]').forEach(function (a) {
+          a.addEventListener('click', function () {
+            try { localStorage.setItem('molique-lang', a.getAttribute('data-lang-link')); } catch (e) {}
+          });
+        });
+
+        // Header turns solid after the first scroll.
+        var header = document.querySelector('[data-header]');
+        var onScroll = function () { header.classList.toggle('is-solid', window.scrollY > 24); };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // Dropdown and drawer housekeeping.
+        var toggle = document.getElementById('menu-toggle');
+        var closeAll = function () {
+          document.querySelectorAll('details[data-lang-switch][open]').forEach(function (d) { d.removeAttribute('open'); });
+        };
+        document.addEventListener('click', function (e) {
+          document.querySelectorAll('details[data-lang-switch][open]').forEach(function (d) { if (!d.contains(e.target)) d.removeAttribute('open'); });
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { closeAll(); toggle.checked = false; }
+        });
+        document.querySelectorAll('.drawer a').forEach(function (a) { a.addEventListener('click', function () { toggle.checked = false; }); });
+
+        // Gentle reveal on scroll.
+        var items = document.querySelectorAll('.reveal');
+        if ('IntersectionObserver' in window && !root.classList.contains('calm')) {
+          root.classList.add('js');
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
+          }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+          items.forEach(function (el) { io.observe(el); });
+        }
+      })();
+    </script>
+  </body>
+</html>

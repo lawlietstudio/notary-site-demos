@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Band from '../components/Band.astro';
+import Photo from '../components/Photo.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { href, site, t, type Lang } from '../lib/site';
+import dust from '../assets/ai/gold-dust.webp';
+import desk from '../assets/ai/about-desk.webp';
+import home from '../assets/ai/home-visit.webp';
+
+const { lang } = Astro.props as { lang: Lang };
+const L = (v: any) => t(v, lang);
+const about = site.about;
+const deskAlt = lang === 'zh' ? '深色木桌上的公證日誌、鋼筆、黃銅印章和老花眼鏡' : 'A notary journal, fountain pen, brass seal and reading glasses on dark wood';
+const homeAlt = lang === 'zh' ? '廚房桌上打開的皮質公事包和文件' : 'An open leather briefcase with documents on a kitchen table';
+---
+<Layout lang={lang} path="/about/" title={L(site.nav[1].label)} description={`${L(about.intro[0])} ${L(about.area.text)}`.slice(0, 200)}>
+  <Band title={L(about.title)} lead={L(about.intro[0])} img={dust} />
+
+  <section class="section">
+    <div class="container about-grid">
+      <div class="about-copy">
+        <p class="lead-p reveal">{L(about.intro[1])}</p>
+
+        <div class="about-block reveal">
+          <Icon name="pin" size={72} />
+          <div>
+            <h2>{L(about.area.title)}</h2>
+            <p>{L(about.area.text)}</p>
+          </div>
+        </div>
+
+        <div class="about-block callout reveal">
+          <Icon name="heart" size={72} />
+          <div>
+            <h2>{L(about.proBono.title)}</h2>
+            {about.proBono.paragraphs.map((p: any) => <p>{L(p)}</p>)}
+          </div>
+        </div>
+
+        <div class="about-block reveal">
+          <Icon name="pen" size={72} />
+          <div>
+            <h2>{L(about.person.title)}</h2>
+            {about.person.paragraphs.map((p: any) => <p>{L(p)}</p>)}
+          </div>
+        </div>
+
+        <div class="reveal">
+          <h2 class="small-h">{L(about.credentials.title)}</h2>
+          <ul class="credentials">
+            {about.credentials.items.map((c: any) => <li>{L(c)}</li>)}
+          </ul>
+        </div>
+
+        <p class="reveal" style="margin-top:2.75rem"><a href={href('/contact/', lang)} class="btn btn-ink">{L(site.cta.book)}<span class="arr" aria-hidden="true"></span></a></p>
+      </div>
+
+      <figure class="frame about-fig reveal">
+        <Photo src={desk} alt={deskAlt} sizes="(min-width: 900px) 520px, 100vw" widths={[480, 800, 1100]} />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section tint-flush">
+    <div class="container">
+      <figure class="frame wide-fig reveal">
+        <Photo src={home} alt={homeAlt} sizes="100vw" widths={[800, 1200, 1600]} />
+      </figure>
+    </div>
+  </section>
+
+  <CtaBand lang={lang} />
+</Layout>

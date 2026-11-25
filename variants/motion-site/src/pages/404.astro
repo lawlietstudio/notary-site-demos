@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Band from '../components/Band.astro';
+import { href, ui } from '../lib/site';
+import silk from '../assets/ai/navy-silk.webp';
+---
+<Layout lang="en" path="/404/" title={ui('notFoundTitle', 'en')}>
+  <Band title={ui('notFoundTitle', 'en')} lead={ui('notFoundText', 'en')} img={silk} />
+  <section class="section center-text">
+    <div class="container">
+      <a href={href('/', 'en')} class="btn btn-ink">{ui('backHome', 'en')}<span class="arr" aria-hidden="true"></span></a>
+    </div>
+  </section>
+</Layout>

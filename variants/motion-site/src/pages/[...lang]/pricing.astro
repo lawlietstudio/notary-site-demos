@@ -1,0 +1,10 @@
+---
+import View from '../../views/Pricing.astro';
+import { langOf } from '../../lib/site';
+
+export function getStaticPaths() {
+  return [{ params: { lang: undefined } }, { params: { lang: 'zh' } }];
+}
+const lang = langOf(Astro.params.lang);
+---
+<View lang={lang} />

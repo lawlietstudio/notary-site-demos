@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Band from '../components/Band.astro';
+import { href, site, t, type Lang } from '../lib/site';
+import silk from '../assets/ai/navy-silk.webp';
+
+const { lang } = Astro.props as { lang: Lang };
+const L = (v: any) => t(v, lang);
+const pv = site.privacy;
+---
+<Layout lang={lang} path="/privacy/" title={L(pv.title)} description={`${site.name}: ${L(pv.intro)}`.slice(0, 200)}>
+  <Band title={L(pv.title)} img={silk} />
+  <section class="section">
+    <div class="container prose">
+      <p class="lead-p">{L(pv.intro)}</p>
+      {pv.sections.map((s: any, i: number) => (
+        <section class="policy">
+          <span class="num">{String(i + 1).padStart(2, '0')}</span>
+          <h2>{L(s.title)}</h2>
+          <p>{L(s.text)}</p>
+        </section>
+      ))}
+      <p class="policy-end">{L(pv.outro)} <a href={href('/contact/', lang)} class="link-line">{L(site.nav[4].label)}</a></p>
+    </div>
+  </section>
+</Layout>

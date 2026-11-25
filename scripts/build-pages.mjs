@@ -1,11 +1,12 @@
-// Builds all five sites for GitHub Pages into _site/:
+// Builds all six sites for GitHub Pages into _site/:
 //
-//   _site/index.html        landing page that links to the five sites
+//   _site/index.html        landing page that links to the six sites
 //   _site/custom/           the custom design (project root)
 //   _site/screwfast/        variants/screwfast
 //   _site/astrowind/        variants/astrowind
 //   _site/audit/            variants/audit-pro (created by scripts/prepare-audit.mjs)
 //   _site/molique/          variants/molique-site (built on the molique CSS framework)
+//   _site/motion/           variants/motion-site (option E with animation)
 //
 // Run `node scripts/prepare-audit.mjs` first, and install dependencies in the root and in each
 // variant folder.
@@ -71,14 +72,16 @@ build('screwfast', join(root, 'variants', 'screwfast'));
 // 4. IT Audit Pro design (prepared from the author's repository by scripts/prepare-audit.mjs)
 build('audit', join(root, 'variants', 'audit-pro'));
 
-// 5. molique design: sync the shared content and copy the framework files first
+// 5. molique design (E) and its animated sibling (F): sync the shared content and copy the
+//    framework files first
 run('node', ['scripts/prepare-molique.mjs'], root);
 build('molique', join(root, 'variants', 'molique-site'));
+build('motion', join(root, 'variants', 'motion-site'));
 
 // The Chinese font packages ship every slice twice (.woff2 and .woff). Every browser that can run
 // molique loads the .woff2, so drop the unused .woff copies from the published output only.
-{
-  const assets = join(out, 'molique', '_astro');
+for (const id of ['molique', 'motion']) {
+  const assets = join(out, id, '_astro');
   let dropped = 0;
   for (const f of readdirSync(assets)) {
     if (f.endsWith('.woff')) {
@@ -86,7 +89,7 @@ build('molique', join(root, 'variants', 'molique-site'));
       dropped++;
     }
   }
-  console.log(`molique: removed ${dropped} unused .woff files`);
+  console.log(`${id}: removed ${dropped} unused .woff files`);
 }
 
 // 6. landing page, 404 page, and the marker that tells GitHub Pages not to run Jekyll

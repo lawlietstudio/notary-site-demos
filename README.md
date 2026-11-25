@@ -99,6 +99,7 @@ Things that aren't editable in Sanity because they're part of the site's structu
 | `/screwfast/` | ScrewFast template, adapted (`variants/screwfast`) |
 | `/astrowind/` | AstroWind template, adapted (`variants/astrowind`) |
 | `/audit/` | Design based on the free IT Audit Pro theme (`overlays/audit-pro`, see below) |
+| `/motion/` | Option E with animation (opening curtain, word-by-word headlines, parallax, a sideways-scrolling services gallery, drawing timeline, page transitions) in `variants/motion-site` |
 | `/molique/` | Luxury-brand design in English, with a Chinese version at `/molique/zh/`; AI-generated images and icons, built on the new molique CSS framework (`variants/molique-site`) |
 
 Every push to `main` redeploys. To rehearse the exact Pages build locally:
@@ -116,6 +117,10 @@ The logo was designed with Codex CLI and refined by hand. Source files are in `l
 ### The IT Audit Pro design (`/audit/`)
 
 The [IT Audit Pro theme](https://github.com/ctrimm/astro-audit-pro-theme) by Cory Trimm has no licence file, so its source is **not stored in this repository**. `scripts/prepare-audit.mjs` fetches it from the author's repository at a pinned commit, strips the audit-platform pages, and lays our own pages, components and dependency list (`overlays/audit-pro/`) on top. What it keeps from the theme is the stylesheet and design tokens. The prepared copy lives in `variants/audit-pro/` and is git-ignored. If the author adds a licence you can vendor the source instead. Run it locally with `npm run variant:audit`.
+
+### The motion design (`/motion/`)
+
+A copy of the molique design (`variants/motion-site`) with an animation layer on top: `src/styles/motion.css` and `src/scripts/motion.ts`. It uses native CSS scroll-driven animations (pinned sideways gallery, parallax, scroll progress, drawing lines), cross-document view transitions for page changes, and a little JavaScript for the opening curtain, word-by-word headings, count-up numbers, the smart header, the cursor ring and magnetic buttons. Newer features sit behind `@supports`, so browsers without them fall back to option E's layout. The animations respect `prefers-reduced-motion`: those visitors get the static design, with a small header switch to play them anyway (it remembers the choice). `variant:motion` runs it locally; the content, fonts and images are the same as option E, so changes to those should be made in both folders.
 
 ### The molique design (`/molique/`)
 
