@@ -4,6 +4,8 @@ All pictures in `src/assets/ai/` were generated on 2026-11-24 with the **image g
 (OpenAI), then converted to WebP (`scripts/optimize-ai-images.mjs`). They are illustrative only and show no real
 people, places or products. The site footer says so.
 
+Documents in the pictures are completely filled with realistic content and use only invented names; no real organisations, emblems or brands appear.
+
 Shared art direction for every prompt: *cinematic, photorealistic, premium editorial look; deep navy-blue shadows with
 warm amber and antique-gold highlights; shallow depth of field; subtle film grain; no text, logos, watermarks or visible
 faces.*
@@ -11,18 +13,19 @@ faces.*
 | File | Subject (abridged prompt) |
 | --- | --- |
 | `hero-bg.webp` | A notary's hands signing and stamping a document at a dark walnut desk, brass seal and fountain pen beside it, empty space on the left for a headline |
-| `svc-affidavits.webp` | Overhead view of an affidavit form on a leather desk pad with a fountain pen, paperclip and red wax seal |
-| `svc-travel.webp` | A navy passport, a boarding pass and a brass compass on a walnut desk |
-| `svc-claims.webp` | A signed claim form with a gold foil seal, a brass pen and a vintage calculator |
-| `svc-declarations.webp` | A hand on a leather legal binder beside a brass stamp and documents tied with a red ribbon |
+| `svc-affidavits.webp` | A notary pressing a brass embossing seal onto a densely typed affidavit page, signature and raised seal impression visible |
+| `svc-attestations.webp` | A formal certificate of attestation with an engraved guilloche border, calligraphic heading, filled text, two signatures and a gold seal with ribbon |
+| `svc-invitation.webp` | A full-page handwritten letter of invitation beside a wax-sealed envelope and white flowers at dusk |
+| `svc-declarations.webp` | A completed statutory declaration form being signed, with ticked boxes, an ink-stamp impression, a brass stamp and a stack of forms |
+| `svc-claims.webp` | An adjuster's clipboard with a filled-in vehicle damage claim in front of a dented silver car door in a garage, with keys, tape measure and camera |
+| `svc-travel.webp` | A filled-in child travel consent letter beside a child's passport, a teddy bear, a boarding pass and a suitcase at an airport window |
+| `about-desk.webp` | Overhead view of an open notary journal with both pages filled with handwritten entries and stamps, beside a pen, seal and glasses |
 | `mobile-street.webp` | A professional with a briefcase walking to a front door on a residential street at blue hour, seen from behind |
 | `home-visit.webp` | An open leather briefcase with documents, pen and stamp on a kitchen table, warm home interior behind |
 | `skyline.webp` | A generic North American city skyline at blue hour reflected in a river (no recognisable landmarks) |
-| `trust-envelope.webp` | Two hands exchanging a sealed envelope with a red wax seal |
 | `gold-dust.webp` | Abstract drifting gold dust and bokeh on deep navy |
 | `navy-silk.webp` | Abstract dark navy silk folds with thin gold edge highlights |
 | `gold-foil.webp` | Brushed antique-gold foil texture with soft highlights; used as the background of the primary buttons and the "Most chosen" tag |
-| `about-desk.webp` | Overhead flat-lay of a notary journal, fountain pen, brass seal and reading glasses |
 
 ## Icons
 

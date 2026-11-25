@@ -7,11 +7,11 @@ import { href, site, t, type Lang } from '../lib/site';
 
 import heroBg from '../assets/ai/hero-bg.webp';
 import affidavits from '../assets/ai/svc-affidavits.webp';
-import envelope from '../assets/ai/trust-envelope.webp';
+import attestations from '../assets/ai/svc-attestations.webp';
+import invitation from '../assets/ai/svc-invitation.webp';
 import travel from '../assets/ai/svc-travel.webp';
 import declarations from '../assets/ai/svc-declarations.webp';
 import claims from '../assets/ai/svc-claims.webp';
-import desk from '../assets/ai/about-desk.webp';
 import street from '../assets/ai/mobile-street.webp';
 import dust from '../assets/ai/gold-dust.webp';
 
@@ -20,12 +20,12 @@ const L = (v: any) => t(v, lang);
 
 // One photograph per service, in the same order as the services in the content file.
 const cards = [
-  { img: affidavits, alt: { en: 'An affidavit on a leather desk pad beside a fountain pen and a red wax seal', zh: '皮質桌墊上的宣誓書，旁邊有鋼筆和紅色火漆印' } },
-  { img: desk, alt: { en: 'A notary journal, fountain pen and brass seal on dark wood', zh: '深色木桌上的公證日誌、鋼筆和黃銅印章' } },
-  { img: envelope, alt: { en: 'Two hands exchanging a sealed envelope', zh: '兩隻手交接一封蓋有火漆印的信' } },
-  { img: declarations, alt: { en: 'A hand resting on a leather legal binder beside a brass stamp', zh: '手放在皮質文件夾上，旁邊有黃銅印章' } },
-  { img: claims, alt: { en: 'A signed claim form with a gold foil seal', zh: '已簽署的索賠表格和金箔印章' } },
-  { img: travel, alt: { en: 'A navy passport and a boarding pass on a walnut desk', zh: '胡桃木桌上的深藍護照和登機證' } },
+  { img: affidavits, alt: { en: 'A notary pressing an embossing seal onto a typed affidavit', zh: '公證人把鋼印壓在打字宣誓書上' } },
+  { img: attestations, alt: { en: 'A formal certificate of attestation with an engraved border and a gold seal', zh: '附有雕花邊框及金印的正式證明書' } },
+  { img: invitation, alt: { en: 'A handwritten letter of invitation beside a wax-sealed envelope', zh: '手寫邀請信和蓋有火漆印的信封' } },
+  { img: declarations, alt: { en: 'A completed statutory declaration being signed beside a brass stamp', zh: '填寫完成的法定聲明正在簽署，旁邊有黃銅印章' } },
+  { img: claims, alt: { en: 'A vehicle damage claim form on a clipboard in front of a dented car door', zh: '車輛損毀索賠表格放在剪貼板上，背景是凹陷的車門' } },
+  { img: travel, alt: { en: 'A child travel consent letter beside a passport, boarding pass and teddy bear', zh: '兒童旅行同意書，旁邊有護照、登機證和小熊' } },
 ];
 const whyIcons = ['house', 'hourglass', 'shield', 'scales'];
 const stepIcons = ['calendar', 'pen', 'certificate'];
