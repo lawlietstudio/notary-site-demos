@@ -5,6 +5,7 @@
 //   _site/screwfast/        variants/screwfast
 //   _site/astrowind/        variants/astrowind
 //   _site/audit/            variants/audit-pro (created by scripts/prepare-audit.mjs)
+//   _site/molique/          variants/molique-site (built on the molique CSS framework)
 //
 // Run `node scripts/prepare-audit.mjs` first, and install dependencies in the root and in each
 // variant folder.
@@ -70,7 +71,11 @@ build('screwfast', join(root, 'variants', 'screwfast'));
 // 4. IT Audit Pro design (prepared from the author's repository by scripts/prepare-audit.mjs)
 build('audit', join(root, 'variants', 'audit-pro'));
 
-// 5. landing page, 404 page, and the marker that tells GitHub Pages not to run Jekyll
+// 5. molique design: sync the shared content and copy the framework files first
+run('node', ['scripts/prepare-molique.mjs'], root);
+build('molique', join(root, 'variants', 'molique-site'));
+
+// 6. landing page, 404 page, and the marker that tells GitHub Pages not to run Jekyll
 cpSync(join(root, 'deploy'), out, { recursive: true });
 writeFileSync(join(out, '.nojekyll'), '');
 

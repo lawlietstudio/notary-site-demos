@@ -13,3 +13,5 @@ _site/
 .claude/
 variants/*/_unused/
 variants/audit-pro/
+variants/molique-site/public/
+variants/molique-site/src/data/site.json

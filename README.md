@@ -99,6 +99,7 @@ Things that aren't editable in Sanity because they're part of the site's structu
 | `/screwfast/` | ScrewFast template, adapted (`variants/screwfast`) |
 | `/astrowind/` | AstroWind template, adapted (`variants/astrowind`) |
 | `/audit/` | Design based on the free IT Audit Pro theme (`overlays/audit-pro`, see below) |
+| `/molique/` | Cinematic design with AI-generated images, built on the new molique CSS framework (`variants/molique-site`) |
 
 Every push to `main` redeploys. To rehearse the exact Pages build locally:
 
@@ -115,3 +116,7 @@ The logo was designed with Codex CLI and refined by hand. Source files are in `l
 ### The IT Audit Pro design (`/audit/`)
 
 The [IT Audit Pro theme](https://github.com/ctrimm/astro-audit-pro-theme) by Cory Trimm has no licence file, so its source is **not stored in this repository**. `scripts/prepare-audit.mjs` fetches it from the author's repository at a pinned commit, strips the audit-platform pages, and lays our own pages, components and dependency list (`overlays/audit-pro/`) on top. What it keeps from the theme is the stylesheet and design tokens. The prepared copy lives in `variants/audit-pro/` and is git-ignored. If the author adds a licence you can vendor the source instead. Run it locally with `npm run variant:audit`.
+
+### The molique design (`/molique/`)
+
+Built on [molique](https://github.com/rafalrozacki-debug/molique), a CSS framework first published in 2026 (Apache-2.0, installed from npm). It uses native cascade layers, popover and anchor positioning, so it needs a recent browser (Chrome/Edge 125+, Firefox 147+, Safari 26+). All thirteen images were generated with Codex CLI; see `variants/molique-site/AI-IMAGES.md` for the list and how to regenerate them. `scripts/prepare-molique.mjs` copies molique's CSS and JS (unmodified, with its LICENSE and NOTICE) to `public/vendor/`, and `scripts/optimize-ai-images.mjs` converts new PNGs into the site's WebP files. Run it locally with `npm run variant:molique`.

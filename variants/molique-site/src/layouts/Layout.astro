@@ -1,0 +1,97 @@
+---
+import '@fontsource-variable/fraunces';
+import '../styles/site.css';
+import LogoMark from '../components/LogoMark.astro';
+import { en, nav, site, telHref, withBase } from '../lib/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+}
+
+const { title, description = site.metaDescription, path = '/' } = Astro.props;
+const fullTitle = title ? `${title} – ${site.name}` : `${site.name} – ${site.homeTitle}`;
+// Preview deployments (PUBLIC_DEMO=1) must not be indexed.
+const robots = import.meta.env.PUBLIC_DEMO === '1' ? 'noindex, nofollow' : 'index, follow';
+const vendor = withBase('/vendor/molique');
+const year = new Date().getFullYear();
+---
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <meta name="theme-color" content="#0a1226" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="stylesheet" href={`${vendor}/css/molique-style.min.css`} />
+    <script is:inline>
+      // Apply the saved light/dark choice before first paint (molique stores it under "molique-theme").
+      try { var t = localStorage.getItem('molique-theme'); if (t) document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-pill" aria-label="Main">
+      <div class="container navbar-container">
+        <input type="checkbox" id="site-nav-toggle" class="navbar-offcanvas-toggle" />
+        <label for="site-nav-toggle" class="navbar-offcanvas-backdrop"></label>
+
+        <a href={withBase('/')} class="navbar-brand brand-lockup">
+          <LogoMark size={32} />
+          <span>{site.name}</span>
+        </a>
+
+        <label for="site-nav-toggle" class="navbar-toggle m-0"><span></span><span></span><span></span></label>
+
+        <div class="navbar-menu navbar-menu-offcanvas">
+          {nav.map((n) => (
+            <a href={withBase(n.href)} class:list={['navbar-item', { 'is-active': n.href === path }]} aria-current={n.href === path ? 'page' : undefined}>{n.label}</a>
+          ))}
+          <label class="theme-switch" aria-label="Toggle light and dark mode">
+            <input type="checkbox" id="theme-toggle" class="theme-switch-input" />
+            <span class="theme-switch-track"><span class="theme-switch-thumb"></span></span>
+          </label>
+          <a href={withBase('/contact/')} class="btn-primary btn-sm">{en(site.cta.book)}</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="brand-lockup" style="margin-bottom:0.9rem"><LogoMark size={34} /><span>{site.name}</span></div>
+            <p class="muted-on-dark" style="max-width:34ch;margin:0">{site.metaDescription}</p>
+          </div>
+          <div>
+            <h3>Explore</h3>
+            <ul>
+              {nav.map((n) => <li><a href={withBase(n.href)}>{n.label}</a></li>)}
+              <li><a href={withBase('/privacy/')}>Privacy Policy</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Contact us</h3>
+            <ul>
+              <li><a href={telHref(site.phone)}>{site.phone}</a></li>
+              <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+              <li class="muted-on-dark">{en(site.hours.label)}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-base">
+          <span>© {year} {site.name}</span>
+          <span>Imagery on this page was generated with AI.</span>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline defer src={`${vendor}/js/molique-script.js`}></script>
+  </body>
+</html>

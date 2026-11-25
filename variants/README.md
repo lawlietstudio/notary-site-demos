@@ -8,6 +8,7 @@ Three designs built on Astro templates, adapted to the same notary content and p
 | C | `astrowind/` | [arthelokyo/astrowind](https://github.com/arthelokyo/astrowind) | MIT | `npm run variant:astrowind` (port 4324) |
 | A | project root | custom | n/a | `npm run dev` (port 4321) |
 | D | `audit-pro/` (generated) | [ctrimm/astro-audit-pro-theme](https://github.com/ctrimm/astro-audit-pro-theme) | none declared | `npm run variant:audit` (port 4325) |
+| E | `molique-site/` | [molique](https://github.com/rafalrozacki-debug/molique) (npm) | Apache-2.0 | `npm run variant:molique` (port 4326) |
 
 First time only: `npm install --ignore-scripts` inside each variant folder (dependencies were installed without lifecycle scripts as a precaution).
 

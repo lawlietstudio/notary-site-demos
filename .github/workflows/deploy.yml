@@ -42,7 +42,11 @@ jobs:
         run: npm ci --ignore-scripts
         working-directory: variants/audit-pro
 
-      - name: Build all four sites
+      - name: Install molique design dependencies
+        run: npm ci --ignore-scripts
+        working-directory: variants/molique-site
+
+      - name: Build all five sites
         run: node scripts/build-pages.mjs
         env:
           SITE_ORIGIN: https://${{ github.repository_owner }}.github.io

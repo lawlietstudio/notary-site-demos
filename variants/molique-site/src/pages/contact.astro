@@ -1,0 +1,72 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Band from '../components/Band.astro';
+import Icon from '../components/Icon.astro';
+import { en, site, telHref } from '../lib/site';
+import skyline from '../assets/ai/skyline.webp';
+
+const f = site.contact.form;
+const info = [
+  { icon: 'clock', title: en(site.contact.hoursTitle), text: `${en(site.contact.days)}, ${en(site.hours.label)}` },
+  { icon: 'map-pin', title: en(site.about.area.title), text: en(site.about.area.text) },
+  { icon: 'phone', title: 'Phone', text: site.phone, href: telHref(site.phone) },
+  { icon: 'mail', title: 'Email', text: site.email, href: `mailto:${site.email}` },
+];
+---
+<Layout path="/contact/" title="Contact" description={`Book a mobile notary appointment with ${site.name}. ${en(site.hours.label)}.`}>
+  <Band title={en(site.contact.title)} lead={en(site.contact.steps[0].text)} img={skyline} />
+
+  <section class="block">
+    <div class="container split" style="align-items:start">
+      <div>
+        {info.map((i) => (
+          <div class="info-card">
+            <span class="feature-icon"><Icon name={i.icon} size={22} /></span>
+            <div>
+              <h2>{i.title}</h2>
+              {i.href ? <a href={i.href}>{i.text}</a> : <p>{i.text}</p>}
+            </div>
+          </div>
+        ))}
+        <p class="text-muted" style="margin-top:1.25rem">{en(site.contact.hoursNote)}</p>
+      </div>
+
+      <form id="contact-form" class="card" data-mailto={site.email} action={`mailto:${site.email}`} method="post" enctype="text/plain">
+        <div class="card-body">
+          <h2 style="margin:0 0 1.25rem;font-size:1.7rem">{en(f.title)}</h2>
+          <div class="form-grid two">
+            <div class="form-floating"><input class="input" id="first-name" name="first-name" placeholder=" " required /><label for="first-name">{f.first}</label></div>
+            <div class="form-floating"><input class="input" id="last-name" name="last-name" placeholder=" " /><label for="last-name">{f.last}</label></div>
+          </div>
+          <div class="form-grid" style="margin-top:1rem">
+            <div class="form-floating"><input class="input" type="email" id="email" name="email" placeholder=" " required /><label for="email">{f.email}</label></div>
+            <div class="form-floating"><input class="input" type="tel" id="phone" name="phone" placeholder=" " /><label for="phone">{f.phone}</label></div>
+            <div class="form-floating"><textarea class="input" id="message" name="message" rows="5" placeholder=" " required style="min-height:8rem"></textarea><label for="message">{f.message}</label></div>
+          </div>
+          <label style="display:flex;gap:0.7rem;align-items:flex-start;margin:1.25rem 0" class="text-muted">
+            <input type="checkbox" name="consent" required style="margin-top:0.35rem" /><span>{f.consent}</span>
+          </label>
+          <button type="submit" class="btn-primary btn-lg w-100">{f.submit}</button>
+          <p class="form-status" role="status" data-success={f.success}></p>
+        </div>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // With no form service configured, compose a tidy email in the visitor's mail app.
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  const mailto = form?.dataset.mailto;
+  if (form && mailto) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v = (n: string) => ((form.elements.namedItem(n) as HTMLInputElement | null)?.value ?? '').trim();
+      const lines = [v('message'), '', `Name: ${v('first-name')} ${v('last-name')}`.trim(), `Email: ${v('email')}`];
+      if (v('phone')) lines.push(`Phone: ${v('phone')}`);
+      window.location.href = `mailto:${mailto}?subject=${encodeURIComponent('Appointment enquiry')}&body=${encodeURIComponent(lines.join('\n'))}`;
+      const status = form.querySelector<HTMLElement>('.form-status');
+      if (status) status.textContent = status.dataset.success ?? '';
+    });
+  }
+</script>

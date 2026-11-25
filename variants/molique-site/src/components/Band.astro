@@ -1,0 +1,13 @@
+---
+// Dark photographic header band used at the top of inner pages.
+import Photo from './Photo.astro';
+
+const { title, lead, img, alt = '' } = Astro.props;
+---
+<header class="band">
+  <Photo class="band-bg" src={img} alt={alt} widths={[800, 1200, 1600, 1920]} eager />
+  <div class="container">
+    <h1 class="animate fade-in-up">{title}</h1>
+    {lead && <p class="hero-lead animate fade-in-up" style="margin:0">{lead}</p>}
+  </div>
+</header>

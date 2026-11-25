@@ -1,0 +1,25 @@
+---
+import { en, site, withBase } from '../lib/site';
+
+const bullets = [
+  ['In-person at your location', 'Same-day appointments available', 'Signature and seal included'],
+  ['Same visit, same appointment', 'Up to the 10th signature', 'No hidden costs'],
+  ['11th signature and up', 'Same visit, same appointment', 'No hidden costs'],
+];
+const periods = ['first signature', 'each', 'each'];
+---
+<div class="price-grid">
+  {site.pricing.plans.map((p: any, i: number) => (
+    <div class:list={['pricing-table', { 'is-featured': p.featured }]}>
+      <div class="pricing-header">
+        <div class="pricing-title">{en(p.name)}</div>
+        <div class="pricing-price">{p.price}<span> {periods[i]}</span></div>
+        <p class="plan-desc">{en(p.desc)}</p>
+      </div>
+      <ul class="pricing-features">
+        {bullets[i].map((b) => <li>{b}</li>)}
+      </ul>
+      <a href={withBase('/contact/')} class:list={[p.featured ? 'btn-primary' : 'btn-outline-primary', 'w-100']}>{en(site.cta.book)}</a>
+    </div>
+  ))}
+</div>
