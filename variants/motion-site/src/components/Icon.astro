@@ -1,13 +1,15 @@
 ---
 // Custom engraved-gold icons (AI-generated, see AI-IMAGES.md). The WebP files are transparent masks,
 // so the colour comes from CSS (`--ico-color`, gold by default) and works on light and dark sections.
-// src/data/icon-metrics.json holds, per icon, the empty margin around its artwork (fractions of the image), so lists can
-// line the visible artwork up with their heading and rules instead of the invisible edge of the image.
+// src/data/icon-metrics.json holds, per icon, where the centre of its main artwork lies in the image (fractions; a small detached
+// sparkle in a corner is ignored). The images are not all centred, so `--dx` nudges each icon until its artwork sits on the centre
+// of the box and rows of icons share one centre line.
 import metrics from '../data/icon-metrics.json';
 const files = import.meta.glob('../assets/icons/*.webp', { eager: true, import: 'default' }) as Record<string, ImageMetadata>;
 const { name, size = 64, class: className } = Astro.props;
 const meta = files[`../assets/icons/${name}.webp`];
 if (!meta) throw new Error(`Unknown icon "${name}"`);
-const pad = (metrics as Record<string, { l: number; r: number; t: number; b: number }>)[name] ?? { l: 0.08, r: 0.08, t: 0.08, b: 0.08 };
+const centre = (metrics as Record<string, { cx: number; cy: number }>)[name] ?? { cx: 0.5, cy: 0.5 };
+const dx = (0.5 - centre.cx).toFixed(3);
 ---
-<span class:list={['ico', className]} style={`--ico:url(${meta.src});--s:${size}px;--l:${pad.l};--r:${pad.r}`} aria-hidden="true"></span>
+<span class:list={['ico', className]} style={`--ico:url(${meta.src});--s:${size}px;--dx:${dx}`} aria-hidden="true"></span>
