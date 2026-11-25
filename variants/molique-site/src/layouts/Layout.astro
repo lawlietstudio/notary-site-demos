@@ -4,33 +4,43 @@ import '@fontsource/instrument-serif/400-italic.css';
 import '@fontsource-variable/instrument-sans';
 import '@fontsource/noto-serif-tc/400.css';
 import '@fontsource/noto-sans-tc/400.css';
-import '../styles/site.css';
-import Bi from '../components/Bi.astro';
+import '../styles/luxe.css';
 import LogoMark from '../components/LogoMark.astro';
-import { en, nav, site, telHref, withBase, zh } from '../lib/site';
+import LangSwitch from '../components/LangSwitch.astro';
+import { LANGS, href, nav, site, t, telHref, ui, withBase, type Lang } from '../lib/site';
 
 interface Props {
+  lang: Lang;
+  /** Language-neutral path of this page, e.g. "/about/". */
+  path: string;
   title?: string;
   description?: string;
-  path?: string;
 }
 
-const { title, description = site.metaDescription, path = '/' } = Astro.props;
-const fullTitle = title ? `${title} – ${site.name}` : `${site.name} – ${site.homeTitle}`;
+const { lang, path, title, description = t(site.metaDescription, lang) } = Astro.props;
+const fullTitle = title ? `${title} – ${site.name}` : `${site.name} – ${t(site.homeTitle, lang)}`;
 // Preview deployments (PUBLIC_DEMO=1) must not be indexed.
 const robots = import.meta.env.PUBLIC_DEMO === '1' ? 'noindex, nofollow' : 'index, follow';
 const vendor = withBase('/vendor/molique');
 const year = new Date().getFullYear();
+const origin = Astro.site ?? Astro.url;
+const alt = (l: Lang) => new URL(href(path, l), origin).href;
+const left = nav.slice(0, 3);
+const right = nav.slice(3);
+const isCurrent = (p: string) => p === path;
 ---
-<html lang="en" data-theme="light">
+<html lang={lang === 'zh' ? 'zh-Hant' : 'en'} data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
-    <meta name="theme-color" content="#0a1226" />
+    <meta name="theme-color" content="#0d0f13" />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="alternate" hreflang="en" href={alt('en')} />
+    <link rel="alternate" hreflang="zh-Hant" href={alt('zh')} />
+    <link rel="alternate" hreflang="x-default" href={alt('en')} />
     <link rel="stylesheet" href={`${vendor}/css/molique-style.min.css`} />
     <script is:inline>
       // This design is light-only: lock the theme so molique does not switch to its dark palette.
@@ -39,63 +49,135 @@ const year = new Date().getFullYear();
     </script>
   </head>
   <body>
-    <nav class="navbar navbar-pill" aria-label="Main">
-      <div class="container navbar-container">
-        <input type="checkbox" id="site-nav-toggle" class="navbar-offcanvas-toggle" />
-        <label for="site-nav-toggle" class="navbar-offcanvas-backdrop"></label>
+    <a href="#main" class="skip">{ui('skip', lang)}</a>
 
-        <a href={withBase('/')} class="navbar-brand brand-lockup">
-          <LogoMark size={32} />
+    <header class="site-header" data-header>
+      <div class="hd-inner">
+        <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-label={ui('menu', lang)} />
+        <label for="menu-toggle" class="burger" aria-hidden="true"><span></span><span></span></label>
+
+        <nav class="hd-nav hd-left" aria-label="Main">
+          {left.map((n) => (
+            <a href={href(n.href, lang)} class:list={{ 'is-active': isCurrent(n.href) }} aria-current={isCurrent(n.href) ? 'page' : undefined}>{t(n.label, lang)}</a>
+          ))}
+        </nav>
+
+        <a href={href('/', lang)} class="brand" aria-label={`${site.name} – ${t(nav[0].label, lang)}`}>
+          <LogoMark size={30} />
           <span>{site.name}</span>
         </a>
 
-        <label for="site-nav-toggle" class="navbar-toggle m-0"><span></span><span></span><span></span></label>
+        <div class="hd-right">
+          <nav class="hd-nav" aria-label="Secondary">
+            {right.map((n) => (
+              <a href={href(n.href, lang)} class:list={{ 'is-active': isCurrent(n.href) }} aria-current={isCurrent(n.href) ? 'page' : undefined}>{t(n.label, lang)}</a>
+            ))}
+          </nav>
+          <LangSwitch lang={lang} path={path} />
+        </div>
 
-        <div class="navbar-menu navbar-menu-offcanvas">
-          {nav.map((n) => (
-            <a href={withBase(n.href)} class:list={['navbar-item', 'nav-bi', { 'is-active': n.href === path }]} aria-current={n.href === path ? 'page' : undefined}>
-              <span class="nav-en">{n.label.en}</span><span class="nav-zh" lang="zh-Hant">{n.label.zh}</span>
-            </a>
-          ))}
-          <a href={withBase('/contact/')} class="cta cta-sm"><Bi t={site.cta.book} inline /></a>
+        <div class="drawer">
+          <nav aria-label="Menu">
+            {nav.map((n) => (
+              <a href={href(n.href, lang)} class:list={{ 'is-active': isCurrent(n.href) }}>{t(n.label, lang)}</a>
+            ))}
+          </nav>
+          <a href={href('/contact/', lang)} class="btn btn-gold">{t(site.cta.book, lang)}</a>
         </div>
       </div>
-    </nav>
+    </header>
 
-    <main>
+    <main id="main">
       <slot />
     </main>
 
     <footer class="site-footer">
       <div class="container">
-        <div class="footer-grid">
+        <div class="foot-top">
+          <LogoMark size={52} class="foot-mark" />
+          <p class="foot-name">{site.name}</p>
+          <p class="foot-tag">{t(site.hero.lead, lang)}</p>
+        </div>
+        <div class="foot-grid">
           <div>
-            <div class="brand-lockup" style="margin-bottom:1rem"><LogoMark size={34} /><span>{site.name}</span></div>
-            <p class="muted-on-dark" style="max-width:36ch;margin:0"><Bi t={site.hero.lead} /></p>
-          </div>
-          <div>
-            <h3>Explore<span class="zh" lang="zh-Hant">探索</span></h3>
+            <h3>{ui('explore', lang)}</h3>
             <ul>
-              {nav.map((n) => <li><a href={withBase(n.href)}>{n.label.en} <span class="zh-inline-soft" lang="zh-Hant">{n.label.zh}</span></a></li>)}
+              {nav.map((n) => <li><a href={href(n.href, lang)}>{t(n.label, lang)}</a></li>)}
             </ul>
           </div>
           <div>
-            <h3>Contact us<span class="zh" lang="zh-Hant">聯絡我們</span></h3>
+            <h3>{ui('contactUs', lang)}</h3>
             <ul>
               <li><a href={telHref(site.phone)}>{site.phone}</a></li>
               <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-              <li class="muted-on-dark">{en(site.hours.label)}<span class="zh" lang="zh-Hant">{zh(site.hours.label)}</span></li>
+              <li>{t(site.hours.label, lang)}</li>
+            </ul>
+          </div>
+          <div>
+            <h3>{ui('language', lang)}</h3>
+            <ul>
+              {LANGS.map((l) => (
+                <li><a href={href(path, l)} hreflang={l === 'zh' ? 'zh-Hant' : 'en'} data-lang-link={l} class:list={{ 'is-current': l === lang }}>{l === 'zh' ? '繁體中文' : 'English'}</a></li>
+              ))}
             </ul>
           </div>
         </div>
-        <div class="footer-base">
+        <div class="foot-base">
           <span>© {year} {site.name}</span>
-          <span>{en(site.concept)} <span lang="zh-Hant">{zh(site.concept)}</span></span>
-          <span>Imagery generated with AI. 圖片由 AI 生成。</span>
+          <span>{t(site.concept, lang)} {ui('imageNote', lang)}</span>
         </div>
       </div>
     </footer>
 
     <script is:inline defer src={`${vendor}/js/molique-script.js`}></script>
+    <script is:inline define:vars={{ lang }}>
+      (function () {
+        var root = document.documentElement;
+        // Remember the visitor's language and send returning visitors to it.
+        try {
+          var saved = localStorage.getItem('molique-lang');
+          var here = lang;
+          if (saved && saved !== here && !sessionStorage.getItem('molique-lang-seen')) {
+            var link = document.querySelector('[data-lang-switch] a[data-lang-link="' + saved + '"]');
+            if (link) { sessionStorage.setItem('molique-lang-seen', '1'); location.replace(link.href); return; }
+          }
+          sessionStorage.setItem('molique-lang-seen', '1');
+        } catch (e) {}
+        document.querySelectorAll('[data-lang-link]').forEach(function (a) {
+          a.addEventListener('click', function () {
+            try { localStorage.setItem('molique-lang', a.getAttribute('data-lang-link')); } catch (e) {}
+          });
+        });
+
+        // Header turns solid after the first scroll.
+        var header = document.querySelector('[data-header]');
+        var onScroll = function () { header.classList.toggle('is-solid', window.scrollY > 24); };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // Dropdown and drawer housekeeping.
+        var toggle = document.getElementById('menu-toggle');
+        var closeAll = function () {
+          document.querySelectorAll('details[data-lang-switch][open]').forEach(function (d) { d.removeAttribute('open'); });
+        };
+        document.addEventListener('click', function (e) {
+          document.querySelectorAll('details[data-lang-switch][open]').forEach(function (d) { if (!d.contains(e.target)) d.removeAttribute('open'); });
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { closeAll(); toggle.checked = false; }
+        });
+        document.querySelectorAll('.drawer a').forEach(function (a) { a.addEventListener('click', function () { toggle.checked = false; }); });
+
+        // Gentle reveal on scroll.
+        var items = document.querySelectorAll('.reveal');
+        if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          root.classList.add('js');
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
+          }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+          items.forEach(function (el) { io.observe(el); });
+        }
+      })();
+    </script>
   </body>
 </html>

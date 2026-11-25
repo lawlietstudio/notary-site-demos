@@ -1,14 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Band from '../components/Band.astro';
-import { withBase } from '../lib/site';
+import { href, ui } from '../lib/site';
 import silk from '../assets/ai/navy-silk.webp';
 ---
-<Layout path="/404/" title="Page not found">
-  <Band title={{ en: 'Page not found', zh: '找不到頁面' }} lead={{ en: 'The page you were looking for does not exist.', zh: '您要找的頁面不存在。' }} img={silk} />
-  <section class="block" style="text-align:center">
+<Layout lang="en" path="/404/" title={ui('notFoundTitle', 'en')}>
+  <Band title={ui('notFoundTitle', 'en')} lead={ui('notFoundText', 'en')} img={silk} />
+  <section class="section center-text">
     <div class="container">
-      <a href={withBase('/')} class="cta cta-dark cta-lg">Back to home<span class="zh zh-inline" lang="zh-Hant">返回首頁</span></a>
+      <a href={href('/', 'en')} class="btn btn-ink">{ui('backHome', 'en')}<span class="arr" aria-hidden="true"></span></a>
     </div>
   </section>
 </Layout>

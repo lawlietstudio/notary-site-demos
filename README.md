@@ -99,7 +99,7 @@ Things that aren't editable in Sanity because they're part of the site's structu
 | `/screwfast/` | ScrewFast template, adapted (`variants/screwfast`) |
 | `/astrowind/` | AstroWind template, adapted (`variants/astrowind`) |
 | `/audit/` | Design based on the free IT Audit Pro theme (`overlays/audit-pro`, see below) |
-| `/molique/` | Cinematic bilingual (English and 中文) design with AI-generated images and image-textured buttons, built on the new molique CSS framework (`variants/molique-site`) |
+| `/molique/` | Luxury-brand design in English, with a Chinese version at `/molique/zh/`; AI-generated images and icons, built on the new molique CSS framework (`variants/molique-site`) |
 
 Every push to `main` redeploys. To rehearse the exact Pages build locally:
 
@@ -119,8 +119,12 @@ The [IT Audit Pro theme](https://github.com/ctrimm/astro-audit-pro-theme) by Cor
 
 ### The molique design (`/molique/`)
 
-Built on [molique](https://github.com/rafalrozacki-debug/molique), a CSS framework first published in 2026 (Apache-2.0, installed from npm). It uses native cascade layers, popover and anchor positioning, so it needs a recent browser (Chrome/Edge 125+, Firefox 147+, Safari 26+). All fourteen images were generated with Codex CLI; see `variants/molique-site/AI-IMAGES.md` for the list and how to regenerate them.
+Built on [molique](https://github.com/rafalrozacki-debug/molique), a CSS framework first published in 2026 (Apache-2.0, installed from npm). It uses native cascade layers, popover and anchor positioning, so it needs a recent browser (Chrome/Edge 125+, Firefox 147+, Safari 26+). All thirteen photographs and textures were generated with Codex CLI; see `variants/molique-site/AI-IMAGES.md` for the list and how to regenerate them.
 
-Every page shows English and 中文 together (the `Bi` component renders the English text with the Chinese in a `lang="zh-Hant"` span). The wording, prices, hours and contact details come from `content/notarymall.json`, which mirrors the existing Notary Public Mall website; `scripts/prepare-molique.mjs` copies it into the site. The footer and the landing page say it is an unofficial design concept, and the contact form only composes an email in the visitor's own mail app. Buttons use real text over a brushed-gold or navy-silk texture (`gold-foil.webp`, `navy-silk.webp`) instead of flat button images, so they stay sharp, translatable and accessible.
+**Languages.** English is served at `/molique/` and Chinese (Traditional) at `/molique/zh/`; every page exists in both. A dropdown in the header (and links in the footer) switches to the same page in the other language, and the choice is remembered in the browser. The pages are thin wrappers (`src/pages/[...lang]/`) around views in `src/views/` that take a `lang` prop, so adding a language means adding a key to the content file and one entry to `LANGS` in `src/lib/site.ts`.
+
+**Content.** All names, numbers, prices and addresses are made up (`content/molique-sample.json`, copied into the site by `scripts/prepare-molique.mjs`). It has the same amount of content as a typical single-notary site: 5 pages, 6 services, 4 reasons to choose us, 3 steps, 3 price plans, a biography with credentials and a 6-section privacy policy, in both languages. The contact form only composes an email in the visitor's own mail app.
+
+**Look.** Designed after luxury brands (Aman, Cartier, Rolex): square corners, hairline rules, warm stone and near-black, widely spaced capitals, a large serif, a centred wordmark and gold only as an accent (`src/styles/luxe.css`). Primary buttons are live text over a brushed-gold texture (`gold-foil.webp`) rather than flat button images, so they stay sharp, translatable and accessible. The twelve icons are custom: Codex generated two sheets of engraved gold line icons and `scripts/make-icons.mjs` cuts them into transparent masks (`src/assets/icons/`), which CSS colours.
 
 Fonts are self-hosted: Instrument Serif and Instrument Sans for Latin text, Noto Serif TC and Noto Sans TC for Chinese (split by unicode-range, so a page only downloads the glyph slices it uses). `scripts/prepare-molique.mjs` copies molique's CSS and JS (unmodified, with its LICENSE and NOTICE) to `public/vendor/`, and `scripts/optimize-ai-images.mjs` converts new PNGs into the site's WebP files. Run it locally with `npm run variant:molique`.

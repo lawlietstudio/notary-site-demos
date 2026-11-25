@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Band from '../components/Band.astro';
+import Icon from '../components/Icon.astro';
+import { site, t, telHref, ui, type Lang } from '../lib/site';
+import skyline from '../assets/ai/skyline.webp';
+
+const { lang } = Astro.props as { lang: Lang };
+const L = (v: any) => t(v, lang);
+const c = site.contact;
+const f = c.form;
+---
+<Layout lang={lang} path="/contact/" title={L(c.title)} description={`${L(site.cta.book)} – ${L(site.hours.label)}`}>
+  <Band title={L(c.title)} lead={L(site.ctaBand.text)} img={skyline} />
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="info reveal">
+        <h2 class="small-h">{L(c.directTitle)}</h2>
+        <ul class="info-list">
+          <li>
+            <Icon name="clock" size={68} />
+            <div>
+              <h3>{L(c.hoursTitle)}</h3>
+              <p class="strong">{L(c.days)} · {L(c.appointmentsOnly)}</p>
+              <p class="muted">{L(c.hoursNote)}</p>
+            </div>
+          </li>
+          <li>
+            <Icon name="phone" size={68} />
+            <div>
+              <h3>{ui('phone', lang)}</h3>
+              <p class="strong"><a href={telHref(site.phone)}>{site.phone}</a></p>
+            </div>
+          </li>
+          <li>
+            <Icon name="mail" size={68} />
+            <div>
+              <h3>{ui('email', lang)}</h3>
+              <p class="strong"><a href={`mailto:${site.email}`}>{site.email}</a></p>
+            </div>
+          </li>
+          <li>
+            <Icon name="pin" size={68} />
+            <div>
+              <h3>{L(site.about.area.title)}</h3>
+              <p class="muted">{L(site.about.area.text)}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <form id="contact-form" class="form reveal" data-mailto={site.email} action={`mailto:${site.email}`} method="post" enctype="text/plain">
+        <h2>{L(f.title)}</h2>
+        <p class="form-intro">{L(f.intro)}</p>
+
+        <div class="row two">
+          <div class="field"><label for="first-name">{L(f.first)}</label><input id="first-name" name="first-name" autocomplete="given-name" required /></div>
+          <div class="field"><label for="last-name">{L(f.last)}</label><input id="last-name" name="last-name" autocomplete="family-name" /></div>
+        </div>
+        <div class="row two">
+          <div class="field"><label for="email">{L(f.email)}</label><input type="email" id="email" name="email" autocomplete="email" required /></div>
+          <div class="field"><label for="phone">{L(f.phone)}</label><input type="tel" id="phone" name="phone" autocomplete="tel" /></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="subject">{L(f.subject)}</label><input id="subject" name="subject" /></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="message">{L(f.message)}</label><textarea id="message" name="message" rows="5" required></textarea></div>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" name="consent" required />
+          <span class="box" aria-hidden="true"></span>
+          <span>{L(f.consent)}</span>
+        </label>
+
+        <button type="submit" class="btn btn-ink btn-block">{L(f.submit)}<span class="arr" aria-hidden="true"></span></button>
+        <p class="form-status" role="status" data-success={L(f.success)}></p>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // With no form service configured, compose a tidy email in the visitor's mail app.
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  const mailto = form?.dataset.mailto;
+  if (form && mailto) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v = (n: string) => ((form.elements.namedItem(n) as HTMLInputElement | null)?.value ?? '').trim();
+      const lines = [v('message'), '', `Name: ${v('first-name')} ${v('last-name')}`.trim(), `Email: ${v('email')}`];
+      if (v('phone')) lines.push(`Phone: ${v('phone')}`);
+      const subject = v('subject') || 'Appointment enquiry';
+      window.location.href = `mailto:${mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+      const status = form.querySelector<HTMLElement>('.form-status');
+      if (status) status.textContent = status.dataset.success ?? '';
+    });
+  }
+</script>

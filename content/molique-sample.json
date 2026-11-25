@@ -1,0 +1,618 @@
+{
+  "_note": "Sample content for the molique design (/molique/). Every name, number, price and address is made up. It has the same amount of content as a typical single-notary website: 5 pages, 6 services, 4 reasons to choose us, 3 steps, 3 plans, a bio with credentials, a 6-section privacy policy and a contact form. English and Traditional Chinese are published on separate pages.",
+  "siteUrl": "https://example.com",
+  "name": "Sample Mobile Notary",
+  "phone": "000-000-0000",
+  "email": "hello@example.com",
+  "bookingUrl": "",
+  "formEndpoint": "",
+  "homeTitle": {
+    "en": "Mobile Notary Public Services",
+    "zh": "流動公證服務"
+  },
+  "metaDescription": {
+    "en": "Dependable mobile notary service from 7 am to 7 pm, seven days a week. Affidavits, attestations, invitation letters, statutory declarations, insurance claims and travel letters.",
+    "zh": "可靠的流動公證服務，每日上午7時至晚上7時。宣誓書、證明書、邀請信、法定聲明、保險索賠及旅行信件。"
+  },
+  "concept": {
+    "en": "Demonstration design with sample content. Not a real business.",
+    "zh": "示範設計，內容僅為樣本，並非真實商戶。"
+  },
+  "hours": {
+    "label": {
+      "en": "7 am – 7 pm, 7 days a week",
+      "zh": "每日上午7時至晚上7時"
+    },
+    "opens": "07:00",
+    "closes": "19:00"
+  },
+  "ui": {
+    "explore": {
+      "en": "Explore",
+      "zh": "探索"
+    },
+    "contactUs": {
+      "en": "Contact us",
+      "zh": "聯絡我們"
+    },
+    "phone": {
+      "en": "Phone",
+      "zh": "電話"
+    },
+    "email": {
+      "en": "Email",
+      "zh": "電郵"
+    },
+    "backHome": {
+      "en": "Back to home",
+      "zh": "返回首頁"
+    },
+    "popular": {
+      "en": "Most chosen",
+      "zh": "最多人選擇"
+    },
+    "menu": {
+      "en": "Menu",
+      "zh": "選單"
+    },
+    "skip": {
+      "en": "Skip to content",
+      "zh": "跳至內容"
+    },
+    "language": {
+      "en": "Language",
+      "zh": "語言"
+    },
+    "imageNote": {
+      "en": "Imagery generated with AI.",
+      "zh": "圖片由 AI 生成。"
+    },
+    "notFoundTitle": {
+      "en": "Page not found",
+      "zh": "找不到頁面"
+    },
+    "notFoundText": {
+      "en": "The page you were looking for does not exist.",
+      "zh": "您要找的頁面不存在。"
+    },
+    "stats": [
+      {
+        "n": "7",
+        "t": {
+          "en": "days a week",
+          "zh": "每週營業日"
+        }
+      },
+      {
+        "n": "6",
+        "t": {
+          "en": "document types",
+          "zh": "公證文件類型"
+        }
+      },
+      {
+        "n": "24",
+        "t": {
+          "en": "hours’ cancellation notice",
+          "zh": "小時取消通知"
+        }
+      }
+    ]
+  },
+  "nav": [
+    {
+      "href": "/",
+      "label": {
+        "en": "Home",
+        "zh": "首頁"
+      }
+    },
+    {
+      "href": "/about/",
+      "label": {
+        "en": "About",
+        "zh": "關於我們"
+      }
+    },
+    {
+      "href": "/pricing/",
+      "label": {
+        "en": "Price Plans",
+        "zh": "價格"
+      }
+    },
+    {
+      "href": "/privacy/",
+      "label": {
+        "en": "Privacy Policy",
+        "zh": "私隱政策"
+      }
+    },
+    {
+      "href": "/contact/",
+      "label": {
+        "en": "Contact",
+        "zh": "聯絡"
+      }
+    }
+  ],
+  "cta": {
+    "book": {
+      "en": "Book an Appointment",
+      "zh": "預約服務"
+    },
+    "pricing": {
+      "en": "Price Plans",
+      "zh": "價格"
+    }
+  },
+  "hero": {
+    "eyebrow": {
+      "en": "Mobile notary public across Sample Province",
+      "zh": "範例省流動公證服務"
+    },
+    "titleLead": {
+      "en": "Welcome to",
+      "zh": "歡迎光臨"
+    },
+    "titleAccent": "Sample Mobile Notary",
+    "lead": {
+      "en": "Fast, dependable mobile service, from 7 am to 7 pm, seven days a week",
+      "zh": "快捷可靠的流動服務，每日上午7時至晚上7時"
+    }
+  },
+  "services": {
+    "title": {
+      "en": "Dependable notary services for all of your legal documents",
+      "zh": "可靠的公證服務，涵蓋您所有的法律文件"
+    },
+    "eyebrow": {
+      "en": "Our notary services include",
+      "zh": "我們的公證服務包括"
+    },
+    "items": [
+      {
+        "name": {
+          "en": "Affidavits",
+          "zh": "宣誓書"
+        },
+        "example": {
+          "en": "Such as an affidavit of service, divorce or student-aid application.",
+          "zh": "例如服務宣誓書、離婚宣誓書或學生資助申請。"
+        }
+      },
+      {
+        "name": {
+          "en": "Attestations",
+          "zh": "證明書"
+        },
+        "example": {
+          "en": "Such as a proof of life or proof of residency attestation.",
+          "zh": "例如生命證明書或居住證明書。"
+        }
+      },
+      {
+        "name": {
+          "en": "Invitation Letters",
+          "zh": "邀請信"
+        },
+        "example": {
+          "en": "Such as a letter supporting a visitor’s travel application.",
+          "zh": "例如支持訪客旅行申請的邀請信。"
+        }
+      },
+      {
+        "name": {
+          "en": "Statutory Declarations",
+          "zh": "法定聲明"
+        },
+        "example": {
+          "en": "Such as declarations of identity, marital status or progress payment.",
+          "zh": "例如身份、婚姻狀況或進度付款的聲明。"
+        }
+      },
+      {
+        "name": {
+          "en": "Insurance Claims",
+          "zh": "保險索賠"
+        },
+        "example": {
+          "en": "Such as a proof of loss form for a vehicle claim.",
+          "zh": "例如汽車索賠的損失證明表格。"
+        }
+      },
+      {
+        "name": {
+          "en": "Travel Letters",
+          "zh": "旅行信件"
+        },
+        "example": {
+          "en": "Such as a consent letter for a child travelling with one parent, or a letter of invitation.",
+          "zh": "例如兒童與單方家長同行的旅行同意書，或邀請信。"
+        }
+      }
+    ]
+  },
+  "why": {
+    "title": {
+      "en": "Why Choose Us?",
+      "zh": "為什麼選擇我們？"
+    },
+    "items": [
+      {
+        "title": {
+          "en": "Convenient Mobile Service",
+          "zh": "方便的流動服務"
+        },
+        "text": {
+          "en": "We come to your home, your office or any location you choose.",
+          "zh": "我們可以上門到您的住所、辦公室或任何您指定的地點。"
+        }
+      },
+      {
+        "title": {
+          "en": "Fast & Reliable",
+          "zh": "快捷可靠"
+        },
+        "text": {
+          "en": "Same-day appointments are often available for urgent requests.",
+          "zh": "緊急情況多數可安排即日預約。"
+        }
+      },
+      {
+        "title": {
+          "en": "Confidential & Secure",
+          "zh": "保密安全"
+        },
+        "text": {
+          "en": "Your documents are handled with complete privacy and care.",
+          "zh": "您的文件會在完全保密的情況下細心處理。"
+        }
+      },
+      {
+        "title": {
+          "en": "Transparent Pricing",
+          "zh": "收費透明"
+        },
+        "text": {
+          "en": "Clear fees with no hidden costs.",
+          "zh": "收費清楚，沒有隱藏費用。"
+        }
+      }
+    ]
+  },
+  "ctaBand": {
+    "title": {
+      "en": "Reserve your appointment today",
+      "zh": "立即預約"
+    },
+    "text": {
+      "en": "Book online or get in touch to arrange a time that suits you.",
+      "zh": "網上預約或直接聯絡我們，安排最合適您的時間。"
+    }
+  },
+  "about": {
+    "title": {
+      "en": "About Sample Mobile Notary",
+      "zh": "關於 Sample Mobile Notary"
+    },
+    "intro": [
+      {
+        "en": "At Sample Mobile Notary, we provide a wide range of reliable and professional mobile notary services across Sample Province.",
+        "zh": "Sample Mobile Notary 在範例省各地提供多元化、可靠而專業的流動公證服務。"
+      },
+      {
+        "en": "Our mission is to offer convenient and fairly priced notary services to individuals and businesses, making sure your documents are properly notarized with the highest level of care and attention to detail.",
+        "zh": "我們的使命是為個人及企業提供便捷而價格合理的公證服務，以最高水準的專業和細心，確保您的文件妥善完成公證。"
+      }
+    ],
+    "area": {
+      "title": {
+        "en": "Service Area",
+        "zh": "服務地區"
+      },
+      "text": {
+        "en": "We proudly serve the Sample City, Sample Town, Sample Heights and Sample Hills areas.",
+        "zh": "我們服務範例市、範例鎮、範例高地及範例山等地區。"
+      }
+    },
+    "proBono": {
+      "title": {
+        "en": "Pro Bono Services",
+        "zh": "免費服務"
+      },
+      "paragraphs": [
+        {
+          "en": "We know that some people face real financial hardship, particularly newcomers who have recently arrived in the country after leaving difficult circumstances behind.",
+          "zh": "我們明白有些人正面對實際的經濟困難，特別是剛從艱難處境移居本國的新來者。"
+        },
+        {
+          "en": "To support them, we offer our notary services completely free of charge to anyone experiencing financial difficulty.",
+          "zh": "為了支持他們，凡有經濟困難的人士，我們的公證服務一律完全免費。"
+        }
+      ]
+    },
+    "person": {
+      "title": {
+        "en": "About Your Notary",
+        "zh": "關於公證人"
+      },
+      "paragraphs": [
+        {
+          "en": "Jordan Sample has practical experience in finance, business, management and law, backed by a broad academic grounding across several fields.",
+          "zh": "Jordan Sample 在金融、商業、管理及法律方面具備實務經驗，並在多個學術領域有廣泛的基礎。"
+        },
+        {
+          "en": "Away from work, Jordan enjoys hiking, music, food, painting and modern literature. As a notary public, however, Jordan is unable to provide legal or immigration advice.",
+          "zh": "工作以外，Jordan 喜歡遠足、音樂、美食、繪畫及現代文學。不過，作為公證人，Jordan 無法提供法律或移民方面的意見。"
+        }
+      ]
+    },
+    "credentials": {
+      "title": {
+        "en": "Academic Achievements",
+        "zh": "學歷"
+      },
+      "items": [
+        {
+          "en": "Sample University – Finance & Financial Management",
+          "zh": "範例大學 – 金融及財務管理"
+        },
+        {
+          "en": "Sample University – Laws",
+          "zh": "範例大學 – 法律"
+        },
+        {
+          "en": "Sample College – Paralegal",
+          "zh": "範例學院 – 律師助理"
+        },
+        {
+          "en": "Sample College – Immigration Consultant",
+          "zh": "範例學院 – 移民顧問"
+        }
+      ]
+    }
+  },
+  "pricing": {
+    "title": {
+      "en": "In-person Mobile Notary Prices",
+      "zh": "流動面對面公證價格"
+    },
+    "payment": {
+      "en": "Cash or e-transfer only",
+      "zh": "只接受現金或電子轉賬"
+    },
+    "plans": [
+      {
+        "name": {
+          "en": "Starter",
+          "zh": "起步"
+        },
+        "price": "$40",
+        "desc": {
+          "en": "First notary signature and seal",
+          "zh": "第一個公證簽名和印章"
+        }
+      },
+      {
+        "name": {
+          "en": "Additional",
+          "zh": "額外"
+        },
+        "price": "$25",
+        "unit": {
+          "en": "each",
+          "zh": "每個"
+        },
+        "desc": {
+          "en": "Additional notary signature and seal, up to the 10th signature",
+          "zh": "每個額外公證簽名和印章，最多到第十個簽名"
+        },
+        "featured": true
+      },
+      {
+        "name": {
+          "en": "Bulk",
+          "zh": "大量"
+        },
+        "price": "$12",
+        "unit": {
+          "en": "each",
+          "zh": "每個"
+        },
+        "desc": {
+          "en": "11th signature and up",
+          "zh": "第十一個簽名及以上"
+        }
+      }
+    ],
+    "examplesTitle": {
+      "en": "Documents we notarize",
+      "zh": "我們公證的文件"
+    }
+  },
+  "contact": {
+    "title": {
+      "en": "Contact",
+      "zh": "聯絡"
+    },
+    "hoursTitle": {
+      "en": "Business Hours",
+      "zh": "營業時間"
+    },
+    "hoursNote": {
+      "en": "By online appointment only (please cancel at least 24 hours in advance)",
+      "zh": "只接受網上預約（取消請最少提前24小時通知）"
+    },
+    "days": {
+      "en": "Monday – Sunday",
+      "zh": "星期一至星期日"
+    },
+    "appointmentsOnly": {
+      "en": "Appointments only",
+      "zh": "只接受預約"
+    },
+    "stepsTitle": {
+      "en": "How It Works",
+      "zh": "辦理流程"
+    },
+    "steps": [
+      {
+        "title": {
+          "en": "Schedule an Appointment",
+          "zh": "預約時間"
+        },
+        "text": {
+          "en": "Book online or contact us directly to arrange a convenient time.",
+          "zh": "網上預約或直接聯絡我們，安排合適的時間。"
+        }
+      },
+      {
+        "title": {
+          "en": "Meet Your Notary",
+          "zh": "與公證人會面"
+        },
+        "text": {
+          "en": "We meet you in person to check your identification and review your documents.",
+          "zh": "我們會當面核對您的身份證明並檢視文件。"
+        }
+      },
+      {
+        "title": {
+          "en": "Document Notarization",
+          "zh": "完成公證"
+        },
+        "text": {
+          "en": "Your documents are notarized promptly, securely and with the utmost professionalism.",
+          "zh": "您的文件會迅速、安全而專業地完成公證。"
+        }
+      }
+    ],
+    "form": {
+      "title": {
+        "en": "Send us a message",
+        "zh": "給我們留言"
+      },
+      "intro": {
+        "en": "Tell us what you need notarized and when. We usually reply within one business day.",
+        "zh": "請告訴我們需要公證的文件及時間，我們通常會在一個工作天內回覆。"
+      },
+      "first": {
+        "en": "First name",
+        "zh": "名"
+      },
+      "last": {
+        "en": "Last name",
+        "zh": "姓"
+      },
+      "email": {
+        "en": "Email",
+        "zh": "電郵"
+      },
+      "phone": {
+        "en": "Phone",
+        "zh": "電話"
+      },
+      "subject": {
+        "en": "Subject",
+        "zh": "主旨"
+      },
+      "message": {
+        "en": "Message",
+        "zh": "訊息"
+      },
+      "consent": {
+        "en": "By checking this box and submitting your information, you give us permission to email you. You may unsubscribe at any time.",
+        "zh": "勾選此框並提交資料，即表示您同意我們以電郵聯絡您。您可隨時取消訂閱。"
+      },
+      "submit": {
+        "en": "Send Message",
+        "zh": "發送訊息"
+      },
+      "success": {
+        "en": "Thank you. Your email app should open with the message ready to send.",
+        "zh": "多謝。您的電郵程式應會開啟，訊息已準備好發送。"
+      }
+    },
+    "directTitle": {
+      "en": "Contact us",
+      "zh": "聯絡我們"
+    }
+  },
+  "privacy": {
+    "title": {
+      "en": "Privacy Policy",
+      "zh": "私隱政策"
+    },
+    "intro": {
+      "en": "At Sample Mobile Notary, your privacy matters to us. This Privacy Policy explains which personal information we collect and how it is used. By using this website, you agree to the terms described in this policy.",
+      "zh": "在 Sample Mobile Notary，我們重視您的私隱。本私隱政策說明我們收集哪些個人資料，以及這些資料如何被使用。使用本網站，即表示您同意本政策所述條款。"
+    },
+    "sections": [
+      {
+        "title": {
+          "en": "Routine Information Collection",
+          "zh": "日常資料收集"
+        },
+        "text": {
+          "en": "Like most websites, our servers automatically record basic information about visitors. This includes, but is not limited to, IP addresses, browser type, timestamps and referring pages. This data does not identify individual visitors. It is collected for routine administration and to help us understand how the site is used, so that we can keep it working well and make its content more useful.",
+          "zh": "與大多數網站一樣，我們的伺服器會自動記錄訪客的基本資料，包括但不限於 IP 位址、瀏覽器類型、時間戳記及來源頁面。這些資料不會識別個別訪客，只用於日常行政，並協助我們了解網站的使用情況，讓網站保持良好運作，內容更切合需要。"
+        }
+      },
+      {
+        "title": {
+          "en": "Cookies and Web Beacons",
+          "zh": "Cookies 與網頁信標"
+        },
+        "text": {
+          "en": "Where needed, this website may use cookies to remember your preferences, such as the language you chose, so that your next visit is smoother and more relevant. Any third-party tools added to the site, such as analytics, maps or booking widgets, may also use cookies, web beacons or similar technologies to collect information about how visitors use the site. Those providers operate under their own privacy policies, and we encourage you to read them for further details.",
+          "zh": "在有需要時，本網站可能使用 cookies 記住您的偏好，例如您選擇的語言，讓您下次瀏覽更順暢、更切合所需。日後加入網站的任何第三方工具，例如分析、地圖或預約元件，亦可能使用 cookies、網頁信標或類似技術，收集訪客如何使用網站的資料。這些供應商按其自身的私隱政策運作，建議您自行閱讀詳情。"
+        }
+      },
+      {
+        "title": {
+          "en": "Controlling Your Privacy",
+          "zh": "管理您的私隱"
+        },
+        "text": {
+          "en": "You can manage cookies through your browser settings. If you are concerned about privacy you can turn cookies off entirely, although some features of some websites may then stop working. We suggest blocking cookies for individual sites rather than for every site you visit. Your browser’s help pages explain how to block cookies and other tracking tools, and how to clear the information that has already been stored on your device.",
+          "zh": "您可以透過瀏覽器設定管理 cookies。如果您關注私隱，可以完全停用 cookies，但部分網站的某些功能可能因此無法使用。我們建議只針對個別網站封鎖 cookies，而非所有您瀏覽的網站。瀏覽器的說明頁面會介紹如何封鎖 cookies 及其他追蹤工具，以及如何清除已儲存在您裝置上的資料。"
+        }
+      },
+      {
+        "title": {
+          "en": "A Note on Advertising and Analytics",
+          "zh": "有關廣告及分析的說明"
+        },
+        "text": {
+          "en": "This demonstration website does not show advertising, and it does not use advertising cookies. If analytics or advertising services are added to a live site, they would be named in this section, together with a description of the information they collect and clear instructions for opting out. You would also find a link to each provider’s own privacy policy here.",
+          "zh": "本示範網站不顯示廣告，也不使用廣告 cookies。如日後在正式網站加入分析或廣告服務，我們會在本節列明服務名稱、所收集的資料，以及如何選擇退出的清晰說明，並附上各供應商自身私隱政策的連結。"
+        }
+      },
+      {
+        "title": {
+          "en": "Your Documents and Personal Details",
+          "zh": "您的文件及個人資料"
+        },
+        "text": {
+          "en": "Documents you bring to an appointment are handled in confidence. We do not keep copies unless the service requires it, and we will tell you if that is the case. Details you send through the contact form are used only to reply to you and to arrange your appointment. We do not sell personal information, and we share it only when the law requires us to or when you ask us to.",
+          "zh": "您帶到預約會面的文件會被保密處理。除非服務需要，否則我們不會保留副本，如有需要亦會事先告知。您透過聯絡表格提交的資料，只用於回覆您及安排預約。我們不會出售個人資料，只會在法律要求或您提出要求時才予以分享。"
+        }
+      },
+      {
+        "title": {
+          "en": "Changes to This Privacy Policy",
+          "zh": "本私隱政策的更改"
+        },
+        "text": {
+          "en": "We may update this Privacy Policy from time to time to reflect changes in our practices or in the law. Any changes will appear on this page, and we encourage you to check back occasionally to stay informed about how we protect your personal information.",
+          "zh": "我們可能不時更新本私隱政策，以反映服務方式或法律上的變動。任何更改都會在本頁顯示，建議您偶爾回來查閱，了解我們如何保護您的個人資料。"
+        }
+      }
+    ],
+    "outro": {
+      "en": "If you have any questions about this Privacy Policy, please contact us.",
+      "zh": "如對本私隱政策有任何疑問，請與我們聯絡。"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+---
+import View from '../../views/Home.astro';
+import { langOf } from '../../lib/site';
+
+// English at the site root, Chinese under /zh/.
+export function getStaticPaths() {
+  return [{ params: { lang: undefined } }, { params: { lang: 'zh' } }];
+}
+const lang = langOf(Astro.params.lang);
+---
+<View lang={lang} />

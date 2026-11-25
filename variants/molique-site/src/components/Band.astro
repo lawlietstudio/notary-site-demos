@@ -1,14 +1,14 @@
 ---
-// Dark photographic header band used at the top of inner pages. `title` and `lead` are {en, zh} pairs.
-import Bi from './Bi.astro';
+// Dark photographic header at the top of inner pages.
 import Photo from './Photo.astro';
 
-const { title, lead, img, alt = '' } = Astro.props;
+const { title, lead, img, alt = '', eyebrow } = Astro.props;
 ---
 <header class="band">
-  <Photo class="band-bg" src={img} alt={alt} widths={[800, 1200, 1600, 1920]} eager />
-  <div class="container">
-    <h1 class="animate fade-in-up"><Bi t={title} /></h1>
-    {lead && <p class="hero-lead animate fade-in-up" style="margin:0"><Bi t={lead} /></p>}
+  <Photo class="band-img" src={img} alt={alt} widths={[800, 1200, 1600, 1920]} eager />
+  <div class="container band-copy">
+    {eyebrow && <p class="eyebrow center">{eyebrow}</p>}
+    <h1>{title}</h1>
+    {lead && <p class="band-lead">{lead}</p>}
   </div>
 </header>

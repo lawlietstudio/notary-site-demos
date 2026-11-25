@@ -18,9 +18,9 @@ if (!existsSync(pkg)) {
   process.exit(1);
 }
 
-// Content of the existing Notary Public Mall website, in English and Chinese (content/notarymall.json)
+// Sample content in English and Traditional Chinese (content/molique-sample.json)
 mkdirSync(join(site, 'src', 'data'), { recursive: true });
-cpSync(join(root, 'content', 'notarymall.json'), join(site, 'src', 'data', 'site.json'));
+cpSync(join(root, 'content', 'molique-sample.json'), join(site, 'src', 'data', 'site.json'));
 
 // Framework runtime files, kept in their original folder layout (the CSS finds fonts at ../fonts)
 const out = join(site, 'public', 'vendor', 'molique');
