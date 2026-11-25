@@ -6,10 +6,14 @@ const root = document.documentElement;
 const calm = root.classList.contains('calm');
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-/** Seconds the opening curtain takes (0 when it is skipped), read from the CSS custom property. */
+/** Seconds the opening curtain takes (0 when it is skipped), read from the CSS custom property.
+ *  The production CSS minifier rewrites `0.05s` as `50ms`, so both units must be understood
+ *  (reading "50ms" as 50 seconds once made the count-up wait 50 seconds on every page after the first). */
 const introDelay = (): number => {
   const v = getComputedStyle(root).getPropertyValue('--d0').trim();
-  return v.endsWith('s') ? parseFloat(v) : 0;
+  const n = parseFloat(v);
+  if (Number.isNaN(n)) return 0;
+  return v.endsWith('ms') ? n / 1000 : v.endsWith('s') ? n : 0;
 };
 
 // ---------- reduced-motion switch (this is a demo of the animations, so the visitor can opt in) ----------
@@ -72,12 +76,18 @@ function countUp(el: HTMLElement, delay = 0) {
   const decimals = (raw.split('.')[1] ?? '').length;
   const duration = 1700;
   const start = performance.now() + delay * 1000;
-  const tick = (now: number) => {
-    const p = Math.min(1, Math.max(0, (now - start) / duration));
+  let done = false;
+  const step = () => {
+    if (done) return;
+    const p = Math.min(1, Math.max(0, (performance.now() - start) / duration));
     el.textContent = prefix + (target * easeOut(p)).toFixed(decimals) + suffix;
-    if (p < 1) requestAnimationFrame(tick);
+    if (p >= 1) { done = true; clearInterval(timer); }
   };
-  requestAnimationFrame(tick);
+  // Animation frames give the smooth count; the timer is a safety net, because frames are held back in
+  // unfocused, embedded or background views and the number would otherwise stay at 0.
+  const timer = window.setInterval(step, 100);
+  const frame = () => { step(); if (!done) requestAnimationFrame(frame); };
+  requestAnimationFrame(frame);
 }
 
 if (!calm) {
@@ -88,19 +98,39 @@ if (!calm) {
     el.textContent = (el.dataset.prefix ?? '') + (0).toFixed((el.dataset.count!.split('.')[1] ?? '').length) + (el.dataset.suffix ?? '');
   });
 
+  const targets = [...splits, ...counters];
+  const started = new WeakSet<HTMLElement>();
+  const begin = (el: HTMLElement) => {
+    if (started.has(el)) return;
+    started.add(el);
+    if (el.hasAttribute('data-split')) el.classList.add('is-in');
+    if (el.hasAttribute('data-count')) countUp(el, el.closest('.hero') ? introDelay() + 0.6 : 0);
+    io.unobserve(el);
+  };
   const io = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        const el = entry.target as HTMLElement;
-        if (el.hasAttribute('data-split')) el.classList.add('is-in');
-        if (el.hasAttribute('data-count')) countUp(el, el.closest('.hero') ? introDelay() + 0.6 : 0);
-        io.unobserve(el);
-      }
-    },
+    (entries) => { for (const entry of entries) if (entry.isIntersecting) begin(entry.target as HTMLElement); },
     { threshold: 0.25 },
   );
-  [...splits, ...counters].forEach((el) => io.observe(el));
+  targets.forEach((el) => io.observe(el));
+
+  // Safety net: observer callbacks are also held back in unfocused, embedded or background views (the numbers then
+  // stayed at 0 until the page got focus), so check the geometry as well: on a timer, on scroll, and when the page
+  // gets focus or becomes visible again. The same applies to the scroll-reveal items.
+  const inView = (el: Element, share: number) => {
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    if (r.bottom <= 0 || r.top >= vh || (!r.width && !r.height)) return false;
+    return Math.min(r.bottom, vh) - Math.max(r.top, 0) >= Math.min(r.height, vh) * share;
+  };
+  const reveals = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+  const sweep = () => {
+    for (const el of targets) if (!started.has(el) && inView(el, 0.25)) begin(el);
+    for (const el of reveals) if (!el.classList.contains('is-in') && inView(el, 0.1)) el.classList.add('is-in');
+  };
+  (['scroll', 'resize', 'focus', 'pageshow'] as const).forEach((ev) => window.addEventListener(ev, sweep, { passive: true }));
+  document.addEventListener('visibilitychange', sweep);
+  let sweeps = 0;
+  const sweeper = window.setInterval(() => { sweep(); if (++sweeps > 40) clearInterval(sweeper); }, 500);
 }
 
 // ---------- header: hides while scrolling down, returns on the way up ----------

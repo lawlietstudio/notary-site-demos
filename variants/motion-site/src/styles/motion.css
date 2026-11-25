@@ -26,8 +26,14 @@ html.no-intro .intro, html:not(.js) .intro { display: none; }
 .site-header { view-transition-name: site-header; transition: transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1), background-color 0.4s, color 0.4s, box-shadow 0.4s; }
 .site-header.is-hidden { transform: translateY(-100%); }
 .site-header .progress { position: absolute; left: 0; bottom: 0; width: 100%; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; pointer-events: none; }
+/* NOTE on scroll-driven animations: the production CSS minifier merges `animation` and `animation-timeline`
+   written in one rule into a single shorthand (`animation: linear both name scroll(root)`), which Chrome does
+   not accept, so the whole declaration is dropped and the effect silently breaks in the deployed build while
+   it works in dev. Every timeline below therefore sits in its own, more specific rule (`html ...`), which the
+   minifier cannot merge. Keep it that way when editing. */
 @supports (animation-timeline: scroll()) {
-  .site-header .progress { animation: grow linear both; animation-timeline: scroll(root); }
+  .site-header .progress { animation: grow linear both; }
+  html .site-header .progress { animation-timeline: scroll(root); }
 }
 
 /* ---------- cursor ring (mouse and trackpad only) ---------- */
@@ -65,7 +71,8 @@ html.no-intro .intro, html:not(.js) .intro { display: none; }
 @media (max-width: 960px) { .cue { display: none; } }
 @supports (animation-timeline: scroll()) {
   .hero-img { animation: kb 3s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--d0) * 0.7) both, hero-par linear both; animation-timeline: auto, scroll(root); animation-range: normal, 0px 100vh; }
-  .hero-copy { animation: hero-out linear both; animation-timeline: scroll(root); animation-range: 0px 70vh; }
+  .hero-copy { animation: hero-out linear both; }
+  html .hero-copy { animation-timeline: scroll(root); animation-range: 0px 70vh; }
   @keyframes hero-par { to { translate: 0 14%; } }
   @keyframes hero-out { to { opacity: 0; translate: 0 -44px; } }
 }
@@ -100,10 +107,12 @@ html.no-intro .intro, html:not(.js) .intro { display: none; }
     html:not(.calm) .svc-pin { view-timeline: --svc block; height: calc(100vh + 90vw + 10rem); }
     html:not(.calm) .svc-sticky { position: sticky; top: 0; display: flex; flex-direction: column; justify-content: center; height: 100vh; padding-top: var(--header-h); padding-bottom: 3.6rem; overflow: hidden; }
     html:not(.calm) .svc-sticky .sec-head { margin-bottom: 2.5rem; }
-    html:not(.calm) .svc-track { display: flex; width: max-content; max-width: none; margin: 0; padding-inline: 5vw; gap: 2rem; animation: svc-slide linear both; animation-timeline: --svc; animation-range: contain 0% contain 100%; }
+    html:not(.calm) .svc-track { display: flex; width: max-content; max-width: none; margin: 0; padding-inline: 5vw; gap: 2rem; animation: svc-slide linear both; }
+    html:not(.calm) .svc-sticky .svc-track { animation-timeline: --svc; animation-range: contain 0% contain 100%; }
     html:not(.calm) .svc-track .svc { flex: 0 0 30vw; }
     html:not(.calm) .svc-progress { position: absolute; left: 5vw; right: 5vw; bottom: 2.2rem; display: block; height: 1px; background: var(--line); }
-    html:not(.calm) .svc-progress i { display: block; height: 100%; background: var(--gold); transform: scaleX(0); transform-origin: left; animation: grow linear both; animation-timeline: --svc; animation-range: contain 0% contain 100%; }
+    html:not(.calm) .svc-progress i { display: block; height: 100%; background: var(--gold); transform: scaleX(0); transform-origin: left; animation: grow linear both; }
+    html:not(.calm) .svc-sticky .svc-progress i { animation-timeline: --svc; animation-range: contain 0% contain 100%; }
     @keyframes svc-slide { to { transform: translateX(calc(-90vw - 10rem)); } }
   }
 }
@@ -113,9 +122,9 @@ html.no-intro .intro, html:not(.js) .intro { display: none; }
 .marquee-track { display: flex; width: max-content; animation: marquee 48s linear infinite; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 .marquee ul { display: flex; flex: none; margin: 0; padding: 0; list-style: none; }
-.marquee li { display: flex; align-items: center; font: 400 clamp(2.6rem, 6vw, 5.2rem)/1 var(--serif); letter-spacing: 0.02em; color: transparent; -webkit-text-stroke: 1px rgb(42 39 35 / 0.4); white-space: nowrap; }
+.marquee li { display: flex; align-items: center; gap: clamp(0.9rem, 2vw, 1.5rem); font: 400 clamp(2.4rem, 5.4vw, 4.8rem)/1 var(--serif); letter-spacing: 0.01em; color: var(--ink); white-space: nowrap; }
+.marquee li .ico { width: clamp(2.6rem, 5vw, 4.2rem); height: clamp(2.6rem, 5vw, 4.2rem); }
 .marquee li::after { content: ''; flex: none; width: 0.55rem; height: 0.55rem; margin: 0 clamp(1.6rem, 3vw, 3rem); border: 1px solid var(--gold); transform: rotate(45deg); }
-:lang(zh-Hant) .marquee li { -webkit-text-stroke-width: 0.6px; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
 /* ---------- icons: a slow glint across the gold ---------- */
@@ -132,7 +141,8 @@ html.no-intro .intro, html:not(.js) .intro { display: none; }
 .step::before { content: ''; position: absolute; top: -5px; left: 50%; width: 9px; height: 9px; margin-left: -4.5px; background: var(--ink); border: 1px solid var(--gold-lt); transform: rotate(45deg); transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) 0.3s; }
 .js .step:not(.is-in)::before { transform: rotate(45deg) scale(0); }
 @supports (animation-timeline: view()) {
-  .step-grid::before { transform: scaleX(0); animation: grow linear both; animation-timeline: view(); animation-range: entry 15% entry 95%; }
+  .step-grid::before { transform: scaleX(0); animation: grow linear both; }
+  html .step-grid::before { animation-timeline: view(); animation-range: entry 15% entry 95%; }
 }
 @media (max-width: 960px) { .step-grid::before { display: none; } .step::before { display: none; } .step { padding-top: 0; } }
 
@@ -149,7 +159,8 @@ html.no-intro .intro, html:not(.js) .intro { display: none; }
 .js .cta-frame .cta-mark { opacity: 0; scale: 0.7; transition: opacity 1s 0.4s, scale 1.2s 0.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
 .js .cta-frame.is-in .cta-mark { opacity: 1; scale: 1; }
 @supports (animation-timeline: view()) {
-  .cta-img { inset: -12% 0; height: 124%; animation: par linear both; animation-timeline: view(); animation-range: cover; }
+  .cta-img { inset: -12% 0; height: 124%; animation: par linear both; }
+  html .cta-img { animation-timeline: view(); animation-range: cover; }
   @keyframes par { from { translate: 0 -9%; } to { translate: 0 9%; } }
 }
 

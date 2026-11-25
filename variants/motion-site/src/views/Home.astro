@@ -28,6 +28,8 @@ const cards = [
   { img: travel, alt: { en: 'A child travel consent letter beside a passport, boarding pass and teddy bear', zh: '兒童旅行同意書，旁邊有護照、登機證和小熊' } },
 ];
 const whyIcons = ['house', 'hourglass', 'shield', 'scales'];
+// One engraved-gold icon in front of each service name in the marquee (same order as the services).
+const marqueeIcons = ['scales', 'certificate', 'mail', 'pen', 'shield', 'pin'];
 const stepIcons = ['calendar', 'pen', 'certificate'];
 const heroAlt = lang === 'zh' ? '公證人在深色胡桃木桌上簽署並蓋章' : 'A notary at a walnut desk signing and stamping a document';
 const streetAlt = lang === 'zh' ? '穿深色大衣、提着公事包的專業人士在黃昏走向大門' : 'A professional in a dark overcoat carrying a briefcase walks to a front door at blue hour';
@@ -87,7 +89,7 @@ const nameWords: string[] = String(site.hero.titleAccent).split(' ');
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
       {[0, 1].map(() => (
-        <ul>{site.services.items.map((s: any) => <li>{L(s.name)}</li>)}</ul>
+        <ul>{site.services.items.map((s: any, i: number) => <li><Icon name={marqueeIcons[i % marqueeIcons.length]} size={64} /><span>{L(s.name)}</span></li>)}</ul>
       ))}
     </div>
   </div>
